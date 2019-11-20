@@ -59,7 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
-        timer?.invalidate()
+        stopTimer()
         ao?.invalidate()
         nc.removeObserver(self)
     }
@@ -68,6 +68,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         userDefaults.register(defaults: ["username" : "",
                                          "cycle" : 5,
                                          "style" : "mono"])
+        userDefaults.set(5, forKey: "cycle")
+        userDefaults.synchronize()
     }
     
     func setNotifications() {
@@ -78,8 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func receiveSleepNote() {
-        timer?.invalidate()
-        timer = nil
+        stopTimer()
     }
     
     @objc func receiveWakeNote() {
@@ -94,6 +95,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ao = button!.observe(\.effectiveAppearance) { [weak self] (_, _) in
             self?.updateGrass()
         }
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
     }
     
     func startTimer() {

@@ -25,7 +25,9 @@ class SettingsVC: NSViewController {
     }
     
     @IBAction func cycleChange(_ sender: NSPopUpButton) {
-        AppDelegate.shared.cycle = sender.tag
+        AppDelegate.shared.cycle = sender.selectedTag()
+        AppDelegate.shared.stopTimer()
+        AppDelegate.shared.startTimer()
     }
     
     @IBAction func styleChange(_ sender: NSPopUpButton) {
