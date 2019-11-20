@@ -123,7 +123,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func openAbout() {
         NSApp.activate(ignoringOtherApps: true)
-        NSApp.orderFrontStandardAboutPanel(nil)
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        let mutableAttrStr = NSMutableAttributedString()
+        var attr: [NSAttributedString.Key : Any] = [.foregroundColor : NSColor.textColor, .paragraphStyle : paragraph]
+        mutableAttrStr.append(NSAttributedString(string: "GitGrass is an open-source software.\n", attributes: attr))
+        let url = "https://github.com/Kyome22/GitGrass"
+        attr = [.foregroundColor : NSColor.url, .link : url, .paragraphStyle : paragraph]
+        mutableAttrStr.append(NSAttributedString(string: url, attributes: attr))
+        let key = NSApplication.AboutPanelOptionKey.credits
+        NSApp.orderFrontStandardAboutPanel(options: [key: mutableAttrStr])
     }
     
     func updateGrass() {
