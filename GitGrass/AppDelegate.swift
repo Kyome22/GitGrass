@@ -28,6 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         set(newname) {
             userDefaults.set(newname, forKey: "username")
+            userDefaults.synchronize()
         }
     }
     var cycle: Int {
@@ -36,6 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         set(newcycle) {
             userDefaults.set(newcycle, forKey: "cycle")
+            userDefaults.synchronize()
         }
     }
     var style: String {
@@ -44,6 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         set(newstyle) {
             userDefaults.set(newstyle, forKey: "style")
+            userDefaults.synchronize()
         }
     }
     
@@ -68,8 +71,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         userDefaults.register(defaults: ["username" : "",
                                          "cycle" : 5,
                                          "style" : "mono"])
-        userDefaults.set(5, forKey: "cycle")
-        userDefaults.synchronize()
     }
     
     func setNotifications() {
