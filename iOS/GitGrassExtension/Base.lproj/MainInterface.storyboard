@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Today View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="GitGrassExtension" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="obq-aa-Pg6" customClass="GrassView" customModule="GitGrassExtension" customModuleProvider="target">
+                                <rect key="frame" x="10" y="31" width="300" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="obq-aa-Pg6" secondAttribute="height" multiplier="125:17" id="8BA-la-gPl"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Contributions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YQ9-Nc-jNk">
+                                <rect key="frame" x="10" y="0.0" width="143" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="AKL-ZH-PQC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="YQ9-Nc-jNk" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="10" id="BQq-X3-230"/>
+                            <constraint firstItem="YQ9-Nc-jNk" firstAttribute="top" secondItem="S3S-Oj-5AN" secondAttribute="top" id="I83-Ar-Age"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YQ9-Nc-jNk" secondAttribute="trailing" constant="20" symbolic="YES" id="Iu1-jA-WyW"/>
+                            <constraint firstItem="obq-aa-Pg6" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="10" id="MaS-Cs-1Fj"/>
+                            <constraint firstItem="ssy-KU-ocm" firstAttribute="trailing" secondItem="obq-aa-Pg6" secondAttribute="trailing" constant="10" id="fo2-fs-SJu"/>
+                            <constraint firstItem="obq-aa-Pg6" firstAttribute="top" secondItem="YQ9-Nc-jNk" secondAttribute="bottom" constant="10" id="gy8-7r-XfZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="87"/>
+                    <connections>
+                        <outlet property="grassView" destination="obq-aa-Pg6" id="DIr-LW-11y"/>
+                        <outlet property="label" destination="YQ9-Nc-jNk" id="zxj-cp-EqA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-381" y="73"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="GitGrass" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iep-Pu-eFa">
+                                <rect key="frame" x="206" y="209" width="149" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GitHub Account Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zle-hq-AgP">
+                                <rect key="frame" x="20" y="215.66666666666666" width="176" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="RD2-py-Jib">
+                                <rect key="frame" x="137.66666666666666" y="69" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Ljt-VJ-6HS"/>
+                                    <constraint firstAttribute="width" secondItem="RD2-py-Jib" secondAttribute="height" multiplier="1:1" id="sit-v4-8qZ"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKX-f4-kMy" customClass="GrassView" customModule="GitGrass" customModuleProvider="target">
+                                <rect key="frame" x="25" y="304" width="325" height="44.333333333333314"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="VKX-f4-kMy" secondAttribute="height" multiplier="125:17" id="m4O-kg-IN3"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Your Contributions:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUd-jZ-gQH">
+                                <rect key="frame" x="20" y="268" width="210" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siD-pb-ZdB">
+                                <rect key="frame" x="326" y="358.33333333333331" width="24" height="22"/>
+                                <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="arrow.2.circlepath" catalog="system"/>
+                                <connections>
+                                    <action selector="reload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1YT-E1-F4o"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="grass50"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="siD-pb-ZdB" firstAttribute="top" secondItem="VKX-f4-kMy" secondAttribute="bottom" constant="10" id="1Vv-9Z-idY"/>
+                            <constraint firstItem="zle-hq-AgP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="3MV-mQ-AMU"/>
+                            <constraint firstItem="Iep-Pu-eFa" firstAttribute="centerY" secondItem="zle-hq-AgP" secondAttribute="centerY" id="73t-dx-fQ5"/>
+                            <constraint firstItem="VKX-f4-kMy" firstAttribute="top" secondItem="vUd-jZ-gQH" secondAttribute="bottom" constant="15" id="7jX-Ik-JcX"/>
+                            <constraint firstItem="vUd-jZ-gQH" firstAttribute="top" secondItem="Iep-Pu-eFa" secondAttribute="bottom" constant="25" id="G0U-Sv-8MV"/>
+                            <constraint firstItem="RD2-py-Jib" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Hko-BW-WBz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VKX-f4-kMy" secondAttribute="trailing" constant="25" id="KFW-bu-r1v"/>
+                            <constraint firstItem="Iep-Pu-eFa" firstAttribute="top" secondItem="RD2-py-Jib" secondAttribute="bottom" constant="40" id="Kdm-cG-HaE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vUd-jZ-gQH" secondAttribute="trailing" id="VtG-IS-25I"/>
+                            <constraint firstItem="RD2-py-Jib" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="W2y-Bi-4l3"/>
+                            <constraint firstItem="Iep-Pu-eFa" firstAttribute="leading" secondItem="zle-hq-AgP" secondAttribute="trailing" constant="10" id="Z31-JR-VB3"/>
+                            <constraint firstItem="VKX-f4-kMy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="ab5-Uq-o5w"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="siD-pb-ZdB" secondAttribute="trailing" constant="25" id="b7Y-36-O3A"/>
+                            <constraint firstItem="vUd-jZ-gQH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="pvZ-j0-W3e"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Iep-Pu-eFa" secondAttribute="trailing" constant="20" id="yq6-SG-qP7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="pui-tZ-zF7" appends="YES" id="HFu-WB-vvb"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="grassView" destination="VKX-f4-kMy" id="cOt-Mg-5pU"/>
+                        <outlet property="textField" destination="Iep-Pu-eFa" id="Uem-5V-sjg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="pui-tZ-zF7">
+                    <connections>
+                        <action selector="tapView:" destination="BYZ-38-t0r" id="QpT-s2-abQ"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="132" y="139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Icon" width="85.333335876464844" height="85.333335876464844"/>
+        <image name="arrow.2.circlepath" catalog="system" width="64" height="50"/>
+        <namedColor name="grass50">
+            <color red="0.47900000214576721" green="0.78899997472763062" blue="0.43599998950958252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
