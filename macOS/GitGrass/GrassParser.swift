@@ -13,6 +13,7 @@ struct DayData {
     var description: String {
         return "level: \(level) count: \(count) date: \(date)"
     }
+    static let `default` = [[DayData]](repeating: [DayData](repeating: DayData(level: 0, count: 0, date: "dummy"), count: 50), count: 7)
 }
 
 class GrassParser {

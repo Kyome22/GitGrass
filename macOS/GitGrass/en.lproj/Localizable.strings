@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  GitGrass
+
+  Created by Takuto Nakamura on 2020/03/02.
+  Copyright © 2020 Takuto Nakamura. All rights reserved.
+*/
+
+"oss" = "GitGrass is an open-source software.\n";
+"notFound" = "The GitHub account your input does not exist.";

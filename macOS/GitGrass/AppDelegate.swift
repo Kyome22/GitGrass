@@ -13,49 +13,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var menu: NSMenu!
     
-    private let userDefaults = UserDefaults.standard
+    private let dm = DataManager.shared
     private let nc = NSWorkspace.shared.notificationCenter
-    private var ao: NSKeyValueObservation?
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private var button: NSStatusBarButton?
+    private let grassView = GrassView()
     private var timer: Timer?
-    private var settingsWC: NSWindowController?
-    private var dayData = [[DayData]](repeating: [], count: 7)
-    
-    var username: String {
-        get {
-            return userDefaults.string(forKey: "username")!
-        }
-        set(newname) {
-            userDefaults.set(newname, forKey: "username")
-            userDefaults.synchronize()
-        }
-    }
-    var cycle: Int {
-        get {
-            return userDefaults.integer(forKey: "cycle")
-        }
-        set(newcycle) {
-            userDefaults.set(newcycle, forKey: "cycle")
-            userDefaults.synchronize()
-        }
-    }
-    var style: String {
-        get {
-            return userDefaults.string(forKey: "style")!
-        }
-        set(newstyle) {
-            userDefaults.set(newstyle, forKey: "style")
-            userDefaults.synchronize()
-        }
-    }
+    private var preferencesWC: NSWindowController?
     
     class var shared: AppDelegate {
         return NSApplication.shared.delegate as! AppDelegate
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        setUserDefaults()
         setNotifications()
         setUserInterface()
         startTimer()
@@ -63,15 +33,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationWillTerminate(_ aNotification: Notification) {
         stopTimer()
-        ao?.invalidate()
         nc.removeObserver(self)
     }
-    
-    func setUserDefaults() {
-        userDefaults.register(defaults: ["username" : "",
-                                         "cycle" : 5,
-                                         "style" : "mono"])
-    }
+
     
     func setNotifications() {
         nc.addObserver(self, selector: #selector(receiveSleepNote),
@@ -91,11 +55,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func setUserInterface() {
         statusItem.menu = menu
         button = statusItem.button
-        menu.item(at: 0)?.setAction(target: self, selector: #selector(openSettings))
-        menu.item(at: 1)?.setAction(target: self, selector: #selector(openAbout))
-        ao = button!.observe(\.effectiveAppearance) { [weak self] (_, _) in
-            self?.updateGrass()
-        }
+        button?.addSubview(grassView)
+        menu.item(withTag: 0)?.setAction(target: self, selector: #selector(openPreferences))
+        menu.item(withTag: 1)?.setAction(target: self, selector: #selector(openAbout))
     }
     
     func stopTimer() {
@@ -104,22 +66,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: Double(cycle * 60), repeats: true, block: { (_) in
+        timer = Timer.scheduledTimer(withTimeInterval: Double(dm.cycle * 60), repeats: true, block: { (_) in
             self.fetchGrass()
         })
         RunLoop.main.add(timer!, forMode: RunLoop.Mode.common)
         timer?.fire()
     }
-    
-    
-    @objc func openSettings() {
-        if settingsWC == nil {
-            let sb = NSStoryboard(name: "Settings", bundle: nil)
-            settingsWC = (sb.instantiateInitialController() as! NSWindowController)
-            settingsWC!.window?.delegate = self
+        
+    @objc func openPreferences() {
+        if preferencesWC == nil {
+            let sb = NSStoryboard(name: "Preferences", bundle: nil)
+            preferencesWC = (sb.instantiateInitialController() as! NSWindowController)
+            preferencesWC!.window?.delegate = self
         }
         NSApp.activate(ignoringOtherApps: true)
-        settingsWC!.showWindow(nil)
+        preferencesWC!.showWindow(nil)
     }
     
     @objc func openAbout() {
@@ -128,7 +89,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         paragraph.alignment = .center
         let mutableAttrStr = NSMutableAttributedString()
         var attr: [NSAttributedString.Key : Any] = [.foregroundColor : NSColor.textColor, .paragraphStyle : paragraph]
-        mutableAttrStr.append(NSAttributedString(string: "GitGrass is an open-source software.\n", attributes: attr))
+        mutableAttrStr.append(NSAttributedString(string: "oss".localized, attributes: attr))
         let url = "https://github.com/Kyome22/GitGrass"
         attr = [.foregroundColor : NSColor.url, .link : url, .paragraphStyle : paragraph]
         mutableAttrStr.append(NSAttributedString(string: url, attributes: attr))
@@ -136,22 +97,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.orderFrontStandardAboutPanel(options: [key: mutableAttrStr])
     }
     
-    func updateGrass() {
-        DispatchQueue.main.async {
-            let name = self.button!.effectiveAppearance.bestMatch(from: [.aqua, .darkAqua, .vibrantDark])!
-            let isDark = name.rawValue.lowercased().contains("dark")
-            self.button?.image = GrassImage.create(from: self.dayData, style: self.style, dark: isDark)
-        }
-    }
-    
     func fetchGrass() {
-        GitAccess.getGrass(username: username) { [weak self] (html) in
+        GitAccess.getGrass(username: dm.username) { [unowned self] (html, error) in
+            let dayData: [[DayData]]
             if let html = html {
-                self?.dayData = GrassParser.parse(html: html)
+                dayData = GrassParser.parse(html: html)
             } else {
-                self?.dayData = [[DayData]](repeating: [DayData(level: 0, count: 0, date: "dummy")], count: 7)
+                dayData = DayData.default
+                if let error = error {
+                    DispatchQueue.main.async {
+                        let alert = NSAlert(error: error)
+                        alert.runModal()
+                    }
+                }
             }
-            self?.updateGrass()
+            self.statusItem.length = 0.5 * CGFloat(5 * dayData[0].count - 1)
+            DispatchQueue.main.async {
+                self.grassView.update(dayData: dayData, style: self.dm.style)
+            }
         }
     }
     
@@ -160,11 +123,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 extension AppDelegate: NSWindowDelegate {
     
     func windowWillClose(_ notification: Notification) {
-        guard let window = notification.object as? NSWindow else {
-            return
-        }
-        if window == settingsWC?.window {
-            settingsWC = nil
+        guard let window = notification.object as? NSWindow else { return }
+        if window == preferencesWC?.window {
+            preferencesWC = nil
         }
     }
     

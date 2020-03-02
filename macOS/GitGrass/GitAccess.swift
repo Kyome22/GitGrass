@@ -10,7 +10,7 @@ import Foundation
 
 class GitAccess {
     
-    static func getGrass(username: String, callback: @escaping (_ response: String?) -> ()) {
+    static func getGrass(username: String, callback: @escaping (_ response: String?, _ error: Error?) -> ()) {
         guard let url = URL(string: "https://github.com/users/\(username)/contributions") else {
             return
         }
@@ -18,15 +18,24 @@ class GitAccess {
         let task = session.dataTask(with: url) { (data, response, error) in
             switch (data, response, error) {
             case (_, _, .some):
-                Swift.print(error!.localizedDescription)
+                callback(nil, error)
             case (.some, .some, _):
-                let status = (response as! HTTPURLResponse).statusCode
-                if status == 200 {
+                let httpResponse = response as! HTTPURLResponse
+                let statusCode = httpResponse.statusCode
+                if statusCode == 200 {
                     let text = String(data: data!, encoding: String.Encoding.utf8)!
-                    callback(text)
+                    callback(text, nil)
                 } else {
-                    Swift.print("status code: \(status)")
-                    callback(nil)
+                    if var status = httpResponse.allHeaderFields["Status"] as? String {
+                        if statusCode == 404 {
+                            status = "notFound".localized
+                        }
+                        let info: [String : Any] = [NSLocalizedDescriptionKey : status]
+                        let error = NSError(domain: "GitGrass", code: statusCode, userInfo: info)
+                        callback(nil, error)
+                    } else {
+                        callback(nil, nil)
+                    }
                 }
             default: break
             }

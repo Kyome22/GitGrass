@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jMQ-ZC-V3Y">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Window Controller-->
+        <scene sceneID="2qC-dJ-3re">
+            <objects>
+                <windowController showSeguePresentationStyle="single" id="jMQ-ZC-V3Y" sceneMemberID="viewController">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" id="gP3-5h-glF" customClass="PreferencesWindow" customModule="GitGrass" customModuleProvider="target">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+                        <rect key="contentRect" x="425" y="313" width="340" height="143"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1057"/>
+                        <connections>
+                            <outlet property="delegate" destination="jMQ-ZC-V3Y" id="Sxl-T0-63G"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="eYM-Sn-NE8" kind="relationship" relationship="window.shadowedContentViewController" id="NvN-uk-CBJ"/>
+                    </connections>
+                </windowController>
+                <customObject id="KrZ-6Y-CBa" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-142" y="-86"/>
+        </scene>
+        <!--PreferencesVC-->
+        <scene sceneID="PCE-fg-dg1">
+            <objects>
+                <viewController showSeguePresentationStyle="single" id="eYM-Sn-NE8" customClass="PreferencesVC" customModule="GitGrass" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="N6Z-GC-zH9">
+                        <rect key="frame" x="0.0" y="0.0" width="340" height="128"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qGM-YD-JXa">
+                                <rect key="frame" x="18" y="92" width="144" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="GitHub Account Name:" id="dnT-IU-buK">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dxd-A5-R4T">
+                                <rect key="frame" x="170" y="89" width="150" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="LaD-ce-R6p"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="D0r-YD-Zk6">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lun-CL-qn9">
+                                <rect key="frame" x="72" y="56" width="90" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Update Cycle:" id="ih6-fp-dII">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XBf-NF-NfJ">
+                                <rect key="frame" x="168" y="50" width="120" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115" id="DqL-Ei-sMS"/>
+                                </constraints>
+                                <popUpButtonCell key="cell" type="push" title="5 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="5" imageScaling="proportionallyDown" inset="2" selectedItem="WY6-jW-50D" id="h86-xe-ale">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="PuX-hx-6iX">
+                                        <items>
+                                            <menuItem title="5 minutes" state="on" tag="5" id="WY6-jW-50D"/>
+                                            <menuItem title="10 minutes" tag="10" id="8RN-3u-9Af"/>
+                                            <menuItem title="15 minutes" tag="15" id="Ake-Yy-jrI"/>
+                                            <menuItem title="30 minutes" tag="30" id="J08-mt-qOD">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="1 hour" tag="60" id="MaJ-YC-m3P">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="cycleChange:" target="eYM-Sn-NE8" id="uHe-OZ-bef"/>
+                                </connections>
+                            </popUpButton>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3yB-41-brq">
+                                <rect key="frame" x="168" y="14" width="120" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115" id="5Ei-80-7M2"/>
+                                </constraints>
+                                <popUpButtonCell key="cell" type="push" title="Monochrome" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="M0S-Mg-UHC" id="iYb-Bt-qWi">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="s6h-np-WwE">
+                                        <items>
+                                            <menuItem title="Monochrome" state="on" id="M0S-Mg-UHC"/>
+                                            <menuItem title="Green Grass" id="3vN-Jf-PdF"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="styleChange:" target="eYM-Sn-NE8" id="Bzg-jn-JMM"/>
+                                </connections>
+                            </popUpButton>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="M29-uI-6X8">
+                                <rect key="frame" x="123" y="20" width="39" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Style:" id="I46-LX-lmf">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="XBf-NF-NfJ" firstAttribute="leading" secondItem="lun-CL-qn9" secondAttribute="trailing" constant="10" id="8so-Za-laH"/>
+                            <constraint firstItem="lun-CL-qn9" firstAttribute="firstBaseline" secondItem="XBf-NF-NfJ" secondAttribute="firstBaseline" id="CHU-lz-plZ"/>
+                            <constraint firstItem="Dxd-A5-R4T" firstAttribute="leading" secondItem="XBf-NF-NfJ" secondAttribute="leading" id="DgA-Sm-bxh"/>
+                            <constraint firstItem="XBf-NF-NfJ" firstAttribute="leading" secondItem="3yB-41-brq" secondAttribute="leading" id="E9d-Hs-H7r"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XBf-NF-NfJ" secondAttribute="trailing" constant="20" symbolic="YES" id="Ex2-1C-Ahl"/>
+                            <constraint firstItem="3yB-41-brq" firstAttribute="leading" secondItem="M29-uI-6X8" secondAttribute="trailing" constant="10" id="GTV-GO-Dds"/>
+                            <constraint firstAttribute="bottom" secondItem="M29-uI-6X8" secondAttribute="bottom" constant="20" id="Ide-TI-IJf"/>
+                            <constraint firstItem="qGM-YD-JXa" firstAttribute="firstBaseline" secondItem="Dxd-A5-R4T" secondAttribute="firstBaseline" id="K8b-rl-jPE"/>
+                            <constraint firstItem="lun-CL-qn9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="N6Z-GC-zH9" secondAttribute="leading" constant="20" symbolic="YES" id="LMF-ag-zpu"/>
+                            <constraint firstItem="M29-uI-6X8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="N6Z-GC-zH9" secondAttribute="leading" constant="20" symbolic="YES" id="N1N-Ht-aHQ"/>
+                            <constraint firstItem="Dxd-A5-R4T" firstAttribute="leading" secondItem="qGM-YD-JXa" secondAttribute="trailing" constant="10" id="S5I-UN-BsL"/>
+                            <constraint firstItem="M29-uI-6X8" firstAttribute="firstBaseline" secondItem="3yB-41-brq" secondAttribute="firstBaseline" id="Z8D-qt-hCC"/>
+                            <constraint firstItem="lun-CL-qn9" firstAttribute="top" secondItem="qGM-YD-JXa" secondAttribute="bottom" constant="20" id="eGa-Pw-N5L"/>
+                            <constraint firstItem="qGM-YD-JXa" firstAttribute="leading" secondItem="N6Z-GC-zH9" secondAttribute="leading" constant="20" id="en8-xD-e9V"/>
+                            <constraint firstItem="M29-uI-6X8" firstAttribute="top" secondItem="lun-CL-qn9" secondAttribute="bottom" constant="20" id="h3s-E2-UFg"/>
+                            <constraint firstItem="qGM-YD-JXa" firstAttribute="top" secondItem="N6Z-GC-zH9" secondAttribute="top" constant="20" id="jbc-wy-Tel"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3yB-41-brq" secondAttribute="trailing" constant="20" symbolic="YES" id="jf3-JU-B4O"/>
+                            <constraint firstAttribute="trailing" secondItem="Dxd-A5-R4T" secondAttribute="trailing" constant="20" id="oRQ-in-HLH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cyclePopUp" destination="XBf-NF-NfJ" id="mQe-zJ-q5u"/>
+                        <outlet property="stylePopUp" destination="3yB-41-brq" id="Svg-HL-SX4"/>
+                        <outlet property="textField" destination="Dxd-A5-R4T" id="xXF-p4-6Ry"/>
+                    </connections>
+                </viewController>
+                <customObject id="euA-Ne-zsZ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-142" y="223"/>
+        </scene>
+    </scenes>
+</document>

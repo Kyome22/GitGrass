@@ -1,5 +1,5 @@
 //
-//  SettingsVC.swift
+//  PreferencesVC.swift
 //  GitGrass
 //
 //  Created by Takuto Nakamura on 2019/11/19.
@@ -8,40 +8,48 @@
 
 import Cocoa
 
-class SettingsVC: NSViewController {
+class PreferencesVC: NSViewController {
     
     @IBOutlet weak var textField: NSTextField!
     @IBOutlet weak var cyclePopUp: NSPopUpButton!
     @IBOutlet weak var stylePopUp: NSPopUpButton!
     
+    private let dm = DataManager.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textField.delegate = self
-        textField.stringValue = AppDelegate.shared.username
-        let cycle = AppDelegate.shared.cycle
-        cyclePopUp.selectItem(withTag: cycle)
-        let style = AppDelegate.shared.style
-        stylePopUp.selectItem(at: style == "mono" ? 0 : 1)
+        textField.stringValue = dm.username
+        cyclePopUp.selectItem(withTag: dm.cycle)
+        stylePopUp.selectItem(at: dm.style == .mono ? 0 : 1)
     }
     
     @IBAction func cycleChange(_ sender: NSPopUpButton) {
-        AppDelegate.shared.cycle = sender.selectedTag()
+        dm.cycle = sender.selectedTag()
         AppDelegate.shared.stopTimer()
         AppDelegate.shared.startTimer()
     }
     
     @IBAction func styleChange(_ sender: NSPopUpButton) {
-        AppDelegate.shared.style = (sender.indexOfSelectedItem == 0) ? "mono" : "grass"
+        dm.style = Style(rawValue: sender.indexOfSelectedItem)!
         AppDelegate.shared.fetchGrass()
     }
     
 }
 
-extension SettingsVC: NSTextFieldDelegate {
+extension PreferencesVC: NSTextFieldDelegate {
     
     func controlTextDidEndEditing(_ obj: Notification) {
-        AppDelegate.shared.username = textField.stringValue
+        dm.username = textField.stringValue
         AppDelegate.shared.fetchGrass()
+    }
+    
+}
+
+class PreferencesWindow: NSWindow {
+    
+    override func cancelOperation(_ sender: Any?) {
+        self.close()
     }
     
 }

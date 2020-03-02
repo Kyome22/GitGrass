@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jMQ-ZC-V3Y">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jMQ-ZC-V3Y">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -10,8 +10,8 @@
         <scene sceneID="2qC-dJ-3re">
             <objects>
                 <windowController showSeguePresentationStyle="single" id="jMQ-ZC-V3Y" sceneMemberID="viewController">
-                    <window key="window" title="Settings" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="gP3-5h-glF">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+                    <window key="window" title="環境設定" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" id="gP3-5h-glF" customClass="PreferencesWindow" customModule="GitGrass" customModuleProvider="target">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <rect key="contentRect" x="425" y="313" width="340" height="143"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1057"/>
                         <connections>
@@ -26,27 +26,24 @@
             </objects>
             <point key="canvasLocation" x="-142" y="-86"/>
         </scene>
-        <!--SettingsVC-->
+        <!--PreferencesVC-->
         <scene sceneID="PCE-fg-dg1">
             <objects>
-                <viewController showSeguePresentationStyle="single" id="eYM-Sn-NE8" customClass="SettingsVC" customModule="GitGrass" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController showSeguePresentationStyle="single" id="eYM-Sn-NE8" customClass="PreferencesVC" customModule="GitGrass" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="N6Z-GC-zH9">
-                        <rect key="frame" x="0.0" y="0.0" width="340" height="143"/>
+                        <rect key="frame" x="0.0" y="0.0" width="340" height="128"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qGM-YD-JXa">
-                                <rect key="frame" x="18" y="105" width="144" height="16"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="FE9-94-PTj"/>
-                                </constraints>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="GitHub Account Name:" id="dnT-IU-buK">
-                                    <font key="font" usesAppearanceFont="YES"/>
+                                <rect key="frame" x="18" y="92" width="144" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="GitHubアカウント名:" id="dnT-IU-buK">
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dxd-A5-R4T">
-                                <rect key="frame" x="170" y="102" width="150" height="21"/>
+                                <rect key="frame" x="170" y="89" width="150" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="LaD-ce-R6p"/>
                                 </constraints>
@@ -57,30 +54,36 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lun-CL-qn9">
-                                <rect key="frame" x="72" y="64" width="90" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Update Cycle:" id="ih6-fp-dII">
+                                <rect key="frame" x="58" y="56" width="104" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="アップデート周期:" id="ih6-fp-dII">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XBf-NF-NfJ">
-                                <rect key="frame" x="168" y="58" width="120" height="25"/>
+                                <rect key="frame" x="168" y="50" width="120" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="115" id="DqL-Ei-sMS"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115" id="DqL-Ei-sMS"/>
                                 </constraints>
-                                <popUpButtonCell key="cell" type="push" title="5 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="5" imageScaling="proportionallyDown" inset="2" selectedItem="WY6-jW-50D" id="h86-xe-ale">
+                                <popUpButtonCell key="cell" type="push" title="5分" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="5" imageScaling="proportionallyDown" inset="2" selectedItem="WY6-jW-50D" id="h86-xe-ale">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="PuX-hx-6iX">
                                         <items>
-                                            <menuItem title="5 minutes" state="on" tag="5" id="WY6-jW-50D"/>
-                                            <menuItem title="10 minutes" tag="10" id="8RN-3u-9Af"/>
-                                            <menuItem title="15 minutes" tag="15" id="Ake-Yy-jrI"/>
-                                            <menuItem title="30 minutes" tag="30" id="J08-mt-qOD">
+                                            <menuItem title="5分" state="on" tag="5" id="WY6-jW-50D">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
-                                            <menuItem title="1 hour" tag="60" id="MaJ-YC-m3P">
+                                            <menuItem title="10分" tag="10" id="8RN-3u-9Af">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="15分" tag="15" id="Ake-Yy-jrI">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="30分" tag="30" id="J08-mt-qOD">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="1時間" tag="60" id="MaJ-YC-m3P">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
                                         </items>
@@ -91,17 +94,21 @@
                                 </connections>
                             </popUpButton>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3yB-41-brq">
-                                <rect key="frame" x="168" y="17" width="120" height="25"/>
+                                <rect key="frame" x="168" y="14" width="120" height="25"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="115" id="5Ei-80-7M2"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115" id="5Ei-80-7M2"/>
                                 </constraints>
-                                <popUpButtonCell key="cell" type="push" title="Monochrome" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="M0S-Mg-UHC" id="iYb-Bt-qWi">
+                                <popUpButtonCell key="cell" type="push" title="モノクロ" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="M0S-Mg-UHC" id="iYb-Bt-qWi">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="s6h-np-WwE">
                                         <items>
-                                            <menuItem title="Monochrome" state="on" id="M0S-Mg-UHC"/>
-                                            <menuItem title="Green Grass" id="3vN-Jf-PdF"/>
+                                            <menuItem title="モノクロ" state="on" id="M0S-Mg-UHC">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="緑の芝" id="3vN-Jf-PdF">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
@@ -110,8 +117,8 @@
                                 </connections>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="M29-uI-6X8">
-                                <rect key="frame" x="123" y="23" width="39" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Style:" id="I46-LX-lmf">
+                                <rect key="frame" x="106" y="20" width="56" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="スタイル:" id="I46-LX-lmf">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -119,20 +126,24 @@
                             </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="lun-CL-qn9" firstAttribute="centerY" secondItem="XBf-NF-NfJ" secondAttribute="centerY" id="8jk-L2-QLn"/>
                             <constraint firstItem="XBf-NF-NfJ" firstAttribute="leading" secondItem="lun-CL-qn9" secondAttribute="trailing" constant="10" id="8so-Za-laH"/>
+                            <constraint firstItem="qGM-YD-JXa" firstAttribute="firstBaseline" secondItem="Dxd-A5-R4T" secondAttribute="firstBaseline" id="A1d-sa-EdI"/>
+                            <constraint firstItem="M29-uI-6X8" firstAttribute="top" secondItem="lun-CL-qn9" secondAttribute="bottom" constant="20" id="C5g-T3-Vdf"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3yB-41-brq" secondAttribute="trailing" constant="20" symbolic="YES" id="D8m-5l-9Mm"/>
                             <constraint firstItem="Dxd-A5-R4T" firstAttribute="leading" secondItem="XBf-NF-NfJ" secondAttribute="leading" id="DgA-Sm-bxh"/>
                             <constraint firstItem="XBf-NF-NfJ" firstAttribute="leading" secondItem="3yB-41-brq" secondAttribute="leading" id="E9d-Hs-H7r"/>
                             <constraint firstItem="3yB-41-brq" firstAttribute="leading" secondItem="M29-uI-6X8" secondAttribute="trailing" constant="10" id="GTV-GO-Dds"/>
-                            <constraint firstItem="3yB-41-brq" firstAttribute="top" secondItem="XBf-NF-NfJ" secondAttribute="bottom" constant="20" id="InO-B3-KYj"/>
+                            <constraint firstItem="lun-CL-qn9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="N6Z-GC-zH9" secondAttribute="leading" constant="20" symbolic="YES" id="Kke-ym-y3w"/>
+                            <constraint firstAttribute="bottom" secondItem="M29-uI-6X8" secondAttribute="bottom" constant="20" id="M9O-xX-oW7"/>
+                            <constraint firstItem="M29-uI-6X8" firstAttribute="firstBaseline" secondItem="3yB-41-brq" secondAttribute="firstBaseline" id="OMY-D0-hKg"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XBf-NF-NfJ" secondAttribute="trailing" constant="20" symbolic="YES" id="Paa-qm-wdS"/>
+                            <constraint firstItem="lun-CL-qn9" firstAttribute="top" secondItem="qGM-YD-JXa" secondAttribute="bottom" constant="20" id="RfA-DN-9JY"/>
                             <constraint firstItem="Dxd-A5-R4T" firstAttribute="leading" secondItem="qGM-YD-JXa" secondAttribute="trailing" constant="10" id="S5I-UN-BsL"/>
+                            <constraint firstItem="qGM-YD-JXa" firstAttribute="top" secondItem="N6Z-GC-zH9" secondAttribute="top" constant="20" id="d8A-Aj-ePb"/>
                             <constraint firstItem="qGM-YD-JXa" firstAttribute="leading" secondItem="N6Z-GC-zH9" secondAttribute="leading" constant="20" id="en8-xD-e9V"/>
-                            <constraint firstItem="Dxd-A5-R4T" firstAttribute="top" secondItem="N6Z-GC-zH9" secondAttribute="top" constant="20" id="fYP-RG-grW"/>
-                            <constraint firstAttribute="bottom" secondItem="3yB-41-brq" secondAttribute="bottom" constant="20" id="h2d-2F-gRy"/>
+                            <constraint firstItem="M29-uI-6X8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="N6Z-GC-zH9" secondAttribute="leading" constant="20" symbolic="YES" id="nKd-nz-KGR"/>
+                            <constraint firstItem="lun-CL-qn9" firstAttribute="firstBaseline" secondItem="XBf-NF-NfJ" secondAttribute="firstBaseline" id="oQh-aO-kke"/>
                             <constraint firstAttribute="trailing" secondItem="Dxd-A5-R4T" secondAttribute="trailing" constant="20" id="oRQ-in-HLH"/>
-                            <constraint firstItem="M29-uI-6X8" firstAttribute="centerY" secondItem="3yB-41-brq" secondAttribute="centerY" id="t4a-qx-Mf9"/>
-                            <constraint firstItem="XBf-NF-NfJ" firstAttribute="top" secondItem="Dxd-A5-R4T" secondAttribute="bottom" constant="20" id="th0-Jr-AGb"/>
-                            <constraint firstItem="qGM-YD-JXa" firstAttribute="centerY" secondItem="Dxd-A5-R4T" secondAttribute="centerY" id="uzy-4c-9vq"/>
                         </constraints>
                     </view>
                     <connections>

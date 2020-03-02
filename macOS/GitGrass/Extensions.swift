@@ -9,8 +9,7 @@
 import Cocoa
 
 extension NSMenuItem {
-    public func setAction(target: AnyObject, isShow: Bool = false, selector: Selector) {
-        self.state = isShow ? NSControl.StateValue.on : NSControl.StateValue.off
+    public func setAction(target: AnyObject, selector: Selector) {
         self.target = target
         self.action = selector
     }
@@ -18,11 +17,6 @@ extension NSMenuItem {
 
 extension NSColor {
     static let url = NSColor(named: NSColor.Name("urlColor"))!
-    static let mono0 = NSColor(white: 0.0, alpha: 0.2)
-    static let mono25 = NSColor(white: 0.0, alpha: 0.4)
-    static let mono50 = NSColor(white: 0.0, alpha: 0.6)
-    static let mono75 = NSColor(white: 0.0, alpha: 0.8)
-    static let mono100 = NSColor(white: 0.0, alpha: 1.0)
     static let grass0 = NSColor(named: NSColor.Name("grass0"))!
     static let grass25 = NSColor(named: NSColor.Name("grass25"))!
     static let grass50 = NSColor(named: NSColor.Name("grass50"))!
@@ -34,14 +28,15 @@ extension NSColor {
     static let grassDark75 = NSColor(named: NSColor.Name("grassDark75"))!
     static let grassDark100 = NSColor(named: NSColor.Name("grassDark100"))!
     
-    static func fillColor(_ level: Int, _ style: String, _ dark: Bool) -> NSColor {
-        if style == "mono" {
+    static func fillColor(_ level: Int, _ style: Style, _ dark: Bool) -> NSColor {
+        if style == .mono {
+            let white: CGFloat = dark ? 1.0 : 0.0
             switch level {
-            case 1: return NSColor.mono25
-            case 2: return NSColor.mono50
-            case 3: return NSColor.mono75
-            case 4: return NSColor.mono100
-            default: return NSColor.mono0
+            case 1: return NSColor(white: white, alpha: 0.4)
+            case 2: return NSColor(white: white, alpha: 0.6)
+            case 3: return NSColor(white: white, alpha: 0.8)
+            case 4: return NSColor(white: white, alpha: 1.0)
+            default: return NSColor(white: white, alpha: 0.2)
             }
         } else {
             switch level {
@@ -59,5 +54,16 @@ extension String {
     func trim(_ before: String, _ after: String) -> String {
         let new = self.replacingOccurrences(of: before, with: "")
         return new.replacingOccurrences(of: after, with: "")
+    }
+    var localized: String {
+        return NSLocalizedString(self, comment: self)
+    }
+}
+
+extension NSAppearance {
+    var isDark: Bool {
+        if self.name == .vibrantDark { return true }
+        guard #available(macOS 10.14, *) else { return false }
+        return self.bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
     }
 }
