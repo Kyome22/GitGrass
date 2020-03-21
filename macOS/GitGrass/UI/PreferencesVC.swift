@@ -47,6 +47,12 @@ class PreferencesVC: NSViewController {
         AppDelegate.shared.fetchGrass()
     }
     
+    func showAlert(error: Error) {
+        guard let window = self.view.window else { return }
+        let alert = NSAlert(error: error)
+        alert.beginSheetModal(for: window, completionHandler: nil)
+    }
+    
 }
 
 extension PreferencesVC: NSTextFieldDelegate {

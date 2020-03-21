@@ -57,4 +57,15 @@ class GitAccess {
         task.resume()
     }
     
+    static func getDummyGrass(username: String, callback: @escaping (_ response: String?, _ error: Error?) -> ()) {
+        guard
+            let url = Bundle.main.url(forResource: "contributions", withExtension: "html"),
+            let text = try? String(contentsOf: url, encoding: String.Encoding.utf8)
+            else {
+                callback(nil, nil)
+                return
+        }
+        callback(text, nil)
+    }
+    
 }

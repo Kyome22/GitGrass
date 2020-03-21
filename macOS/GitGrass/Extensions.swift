@@ -28,17 +28,17 @@ extension NSMenuItem {
 }
 
 extension NSColor {
-    static let url = NSColor(named: NSColor.Name("urlColor"))!
-    static let grass0 = NSColor(named: NSColor.Name("grass0"))!
-    static let grass25 = NSColor(named: NSColor.Name("grass25"))!
-    static let grass50 = NSColor(named: NSColor.Name("grass50"))!
-    static let grass75 = NSColor(named: NSColor.Name("grass75"))!
-    static let grass100 = NSColor(named: NSColor.Name("grass100"))!
-    static let grassDark0 = NSColor(named: NSColor.Name("grassDark0"))!
-    static let grassDark25 = NSColor(named: NSColor.Name("grassDark25"))!
-    static let grassDark50 = NSColor(named: NSColor.Name("grassDark50"))!
-    static let grassDark75 = NSColor(named: NSColor.Name("grassDark75"))!
-    static let grassDark100 = NSColor(named: NSColor.Name("grassDark100"))!
+    static let url = NSColor(named: "urlColor")!
+    static let grass0 = NSColor(named: "grass0")!
+    static let grass25 = NSColor(named: "grass25")!
+    static let grass50 = NSColor(named: "grass50")!
+    static let grass75 = NSColor(named: "grass75")!
+    static let grass100 = NSColor(named: "grass100")!
+    static let grassDark0 = NSColor(named: "grassDark0")!
+    static let grassDark25 = NSColor(named: "grassDark25")!
+    static let grassDark50 = NSColor(named: "grassDark50")!
+    static let grassDark75 = NSColor(named: "grassDark75")!
+    static let grassDark100 = NSColor(named: "grassDark100")!
     
     static func fillColor(_ level: Int, _ style: Style, _ dark: Bool) -> NSColor {
         if style == .mono {
@@ -63,6 +63,14 @@ extension NSColor {
 }
 
 extension String {
+    func match(_ pattern: String) -> String? {
+        guard
+            let regex = try? NSRegularExpression(pattern: pattern),
+            let matched = regex.firstMatch(in: self, range: NSRange(location: 0, length: self.count))
+            else { return nil }
+        return NSString(string: self).substring(with: matched.range(at: 0))
+    }
+    
     func trim(_ before: String, _ after: String) -> String {
         let new = self.replacingOccurrences(of: before, with: "")
         return new.replacingOccurrences(of: after, with: "")

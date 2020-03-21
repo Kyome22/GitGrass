@@ -28,11 +28,11 @@ enum Style: Int {
 class GrassView: NSView {
     
     private var ao: NSKeyValueObservation?
-    var dayData = [[DayData]]()
+    var dayData: [[DayData]] = DayData.default
     var style: Style = .mono
     
     init() {
-        super.init(frame: NSRect(x: 0, y: 2, width: 10, height: 18))
+        super.init(frame: NSRect(x: 3.0, y: 2.0, width: 124.5, height: 18.0))
         ao = self.observe(\.effectiveAppearance, changeHandler: { [weak self] (_, _) in
             self?.needsDisplay = true
         })

@@ -41,6 +41,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setNotifications()
         setUserInterface()
         startTimer()
+        if dm.username.isEmpty {
+            openPreferences()
+        }
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -66,6 +69,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func setUserInterface() {
         statusItem.menu = menu
+        statusItem.length = 124.5
         button = statusItem.button
         button?.addSubview(grassView)
         menu.item(withTag: 0)?.setAction(target: self, selector: #selector(openPreferences))
@@ -100,7 +104,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
         let mutableAttrStr = NSMutableAttributedString()
-        var attr: [NSAttributedString.Key : Any] = [.foregroundColor : NSColor.textColor, .paragraphStyle : paragraph]
+        var attr: [NSAttributedString.Key : Any] = [
+            .foregroundColor : NSColor.textColor,
+            .paragraphStyle : paragraph
+        ]
         mutableAttrStr.append(NSAttributedString(string: "oss".localized, attributes: attr))
         let url = "https://github.com/Kyome22/GitGrass"
         attr = [.foregroundColor : NSColor.url, .link : url, .paragraphStyle : paragraph]
@@ -110,20 +117,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func fetchGrass() {
+        if dm.username.isEmpty { return }
         GitAccess.getGrass(username: dm.username) { [unowned self] (html, error) in
             let dayData: [[DayData]]
             if let html = html {
                 dayData = GrassParser.parse(html: html)
             } else {
                 dayData = DayData.default
-                if let error = error {
+                if let error = error, let wc = self.preferencesWC {
                     DispatchQueue.main.async {
-                        let alert = NSAlert(error: error)
-                        alert.runModal()
+                        (wc.contentViewController as! PreferencesVC).showAlert(error: error)
                     }
                 }
             }
-            self.statusItem.length = 0.5 * CGFloat(5 * dayData[0].count - 1)
+            self.statusItem.length = 0.5 * CGFloat(5 * dayData[0].count - 1) + 6.0
             DispatchQueue.main.async {
                 self.grassView.update(dayData: dayData, style: self.dm.style)
             }
