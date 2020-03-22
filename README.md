@@ -4,9 +4,9 @@
 
 ![grass_light](materials/grass_light.png)
 
-⬇️Download [GitGrass.dmg](http://kyome.io/resources/GitGrass_ver1.dmg)
+⬇️Download [App Store](https://apps.apple.com/us/app/gitgrass/id1501139279)
 
-## GitGrass for iOS β
+## GitGrass for iOS
 ### Today Extension Version of GitGrass.
 
 ![gitgrass_ios](materials/gitgrass_ios.png)
