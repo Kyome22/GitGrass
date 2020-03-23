@@ -18,26 +18,6 @@
 //  limitations under the License.
 //
 
-struct DayData {
-    
-    let level: Int
-    let count: Int
-    let date: String
-
-    var description: String {
-        return "level: \(level) count: \(count) date: \(date)"
-    }
-
-    static let `default` = [[DayData]](repeating: [DayData](repeating: DayData(0, 0, "dummy"), count: 53), count: 7)
-
-    init(_ level: Int, _ count: Int, _ date: String) {
-        self.level = level
-        self.count = count
-        self.date = date
-    }
-
-}
-
 class GrassParser {
     
     static func parse(html: String) -> [[DayData]] {
@@ -71,8 +51,7 @@ class GrassParser {
             default: level = 0
             }
             let count = Int(dict["data-count"] ?? "0") ?? 0
-            let date = dict["data-date"] ?? ""
-            dayData[i % 7].append(DayData(level, count, date))
+            dayData[i % 7].append(DayData(level, count))
         }
         return dayData
     }

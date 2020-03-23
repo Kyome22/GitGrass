@@ -15,29 +15,43 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var grassView: GrassView!
     
     let dm = DataManager.shared
+    
+    var labelText: String {
+        if dm.username.isEmpty {
+            return "NoAccount".localized
+        }
+        return "Contributions".localized.replacingOccurrences(of: "USERNAME", with: dm.username)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NSKeyedArchiver.setClassName("DayData", for: DayData.self)
+        NSKeyedUnarchiver.setClass(DayData.self, forClassName: "DayData")
+        updateUI()
+    }
         
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         if dm.username.isEmpty {
-            DispatchQueue.main.async {
-                self.label.text = "NoAccount".localized
-                self.grassView.update(with: DayData.default)
-            }
+            self.updateUI()
             completionHandler(NCUpdateResult.failed)
             return
         }
         GitAccess.getGrass(username: dm.username) { [weak self] (username, html) in
-            let dayData: [[DayData]]
             if let html = html {
-                dayData = GrassParser.parse(html: html)
+                self?.dm.dayData = GrassParser.parse(html: html)
                 completionHandler(NCUpdateResult.newData)
             } else {
-                dayData = DayData.default
+                self?.dm.dayData = DayData.default
                 completionHandler(NCUpdateResult.failed)
             }
-            DispatchQueue.main.async {
-                self?.label.text = "Contributions".localized.replacingOccurrences(of: "USERNAME", with: username)
-                self?.grassView.update(with: dayData)
-            }
+            self?.updateUI()
+        }
+    }
+    
+    func updateUI() {
+        DispatchQueue.main.async {
+            self.label.text = self.labelText
+            self.grassView.update(self.dm.dayData, self.dm.color, self.dm.style)
         }
     }
     

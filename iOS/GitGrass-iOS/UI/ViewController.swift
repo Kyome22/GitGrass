@@ -25,6 +25,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var reloadButton: UIButton!
     @IBOutlet weak var grassView: GrassView!
+    @IBOutlet weak var colorSegmented: UISegmentedControl!
+    @IBOutlet weak var styleSegmented: UISegmentedControl!
     @IBOutlet weak var versionLabel: UILabel!
     
     private let dm = DataManager.shared
@@ -34,7 +36,13 @@ class ViewController: UIViewController {
         textField.delegate = self
         textField.text = dm.username
         reloadButton.isEnabled = false
+        colorSegmented.selectedSegmentIndex = dm.color.rawValue
+        styleSegmented.selectedSegmentIndex = dm.style.rawValue
         versionLabel.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetch(username: dm.username)
     }
     
@@ -44,13 +52,23 @@ class ViewController: UIViewController {
         }
         return .all
     }
-
+    
     @IBAction func tap(_ sender: Any) {
         self.view.endEditing(true)
     }
     
     @IBAction func reload(_ sender: Any) {
         fetch(username: dm.username)
+    }
+    
+    @IBAction func changedColor(_ sender: UISegmentedControl) {
+        dm.color = Color(rawValue: sender.selectedSegmentIndex)!
+        updateUI()
+    }
+    
+    @IBAction func changedStyle(_ sender: UISegmentedControl) {
+        dm.style = Style(rawValue: sender.selectedSegmentIndex)!
+        updateUI()
     }
     
     @IBAction func jumpSource(_ sender: Any) {
@@ -63,25 +81,31 @@ class ViewController: UIViewController {
     
     func fetch(username: String) {
         if username.isEmpty {
-            reloadButton.isEnabled = false
-            grassView.update(with: DayData.default)
+            dm.username = ""
+            dm.dayData = DayData.default
+            updateUI(false)
             return
         }
         GitAccess.getGrass(username: username) { [weak self] (username, html) in
-            let dayData: [[DayData]]
             if let html = html {
-                dayData = GrassParser.parse(html: html)
                 self?.dm.username = username
+                self?.dm.dayData = GrassParser.parse(html: html)
             } else {
-                dayData = DayData.default
                 self?.dm.username = ""
+                self?.dm.dayData = DayData.default
                 self?.showAlert(username)
             }
-            DispatchQueue.main.async {
-                self?.textField.text = self?.dm.username
-                self?.reloadButton.isEnabled = (html != nil)
-                self?.grassView.update(with: dayData)
+            self?.updateUI(html != nil)
+        }
+    }
+    
+    func updateUI(_ isEnabled: Bool? = nil) {
+        DispatchQueue.main.async {
+            self.textField.text = self.dm.username
+            if let isEnabled = isEnabled {
+                self.reloadButton.isEnabled = isEnabled
             }
+            self.grassView.update(self.dm.dayData, self.dm.color, self.dm.style)
         }
     }
     

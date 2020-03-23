@@ -43,14 +43,35 @@ extension String {
 
 extension UIColor {
     
-    static func grassColor(_ level: Int) -> UIColor {
-        switch level {
-        case 1: return UIColor(named: "grass25")!
-        case 2: return UIColor(named: "grass50")!
-        case 3: return UIColor(named: "grass75")!
-        case 4: return UIColor(named: "grass100")!
-        default: return UIColor(named: "grass0")!
+    static func grassColor(_ level: Int, _ color: Color, _ dark: Bool) -> UIColor {
+        if color == .greenGrass {
+            switch level {
+            case 0: return UIColor(named: dark ? "grassDark0" : "grass0")!
+            case 1: return UIColor(named: dark ? "grassDark1" : "grass1")!
+            case 2: return UIColor(named: dark ? "grassDark2" : "grass2")!
+            case 3: return UIColor(named: dark ? "grassDark3" : "grass3")!
+            case 4: return UIColor(named: dark ? "grassDark4" : "grass4")!
+            default: fatalError("impossible")
+            }
+        } else { // .monochrome
+            let white: CGFloat = dark ? 1.0 : 0.0
+            switch level {
+            case 0: return UIColor(white: white, alpha: 0.2)
+            case 1: return UIColor(white: white, alpha: 0.4)
+            case 2: return UIColor(white: white, alpha: 0.6)
+            case 3: return UIColor(white: white, alpha: 0.8)
+            case 4: return UIColor(white: white, alpha: 1.0)
+            default: fatalError("impossible")
+            }
         }
     }
     
+}
+
+extension UITraitCollection {
+    
+    var isDark: Bool {
+        return userInterfaceStyle == .dark
+    }
+
 }

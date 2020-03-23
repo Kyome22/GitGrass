@@ -36,6 +36,45 @@ class DataManager {
         }
     }
     
+    var dayData: [[DayData]] {
+        get {
+            guard
+                let data = userDefaults.data(forKey: "dayData"),
+                let unarchived = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data),
+                let dayData = unarchived as? [[DayData]]
+                else {
+                return DayData.default
+            }
+            return dayData
+        }
+        set(newDayData) {
+            let data = try? NSKeyedArchiver.archivedData(withRootObject: newDayData,
+                                                         requiringSecureCoding: true)
+            userDefaults.set(data, forKey: "dayData")
+            userDefaults.synchronize()
+        }
+    }
+    
+    var color: Color {
+        get {
+            return Color(rawValue: userDefaults.integer(forKey: "color"))!
+        }
+        set(newColor) {
+            userDefaults.set(newColor.rawValue, forKey: "color")
+            userDefaults.synchronize()
+        }
+    }
+    
+    var style: Style {
+        get {
+            return Style(rawValue: userDefaults.integer(forKey: "style"))!
+        }
+        set(newStyle) {
+            userDefaults.set(newStyle.rawValue, forKey: "style")
+            userDefaults.synchronize()
+        }
+    }
+    
     private init() {
         // userDefaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier)!
         userDefaults.register(defaults: ["username" : ""])
