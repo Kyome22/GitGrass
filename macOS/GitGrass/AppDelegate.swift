@@ -69,7 +69,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func setUserInterface() {
         statusItem.menu = menu
-        statusItem.length = 124.5
+        statusItem.length = 130.5
         button = statusItem.button
         button?.addSubview(grassView)
         menu.item(withTag: 0)?.setAction(target: self, selector: #selector(openPreferences))
@@ -117,7 +117,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func fetchGrass() {
-        if dm.username.isEmpty { return }
+        if dm.username.isEmpty {
+            statusItem.length = 130.5
+            grassView.update(DayData.default, dm.color, dm.style)
+            return
+        }
         GitAccess.getGrass(username: dm.username) { [unowned self] (html, error) in
             let dayData: [[DayData]]
             if let html = html {
@@ -130,11 +134,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     }
                 }
             }
-            self.statusItem.length = 0.5 * CGFloat(5 * dayData[0].count - 1) + 6.0
             DispatchQueue.main.async {
-                self.grassView.update(dayData: dayData, style: self.dm.style)
+                self.statusItem.length = 0.5 * CGFloat(5 * dayData[0].count - 1) + 6.0
+                self.grassView.update(dayData, self.dm.color, self.dm.style)
             }
         }
+    }
+    
+    func updateGrass() {
+        grassView.update(dm.color, dm.style)
     }
     
 }
@@ -149,3 +157,4 @@ extension AppDelegate: NSWindowDelegate {
     }
     
 }
+

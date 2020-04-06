@@ -27,13 +27,8 @@ class DataManager {
     private let userDefaults = UserDefaults(suiteName: "group.com.kyome.GitGrass-iOS")!
     
     var username: String {
-        get {
-            return userDefaults.string(forKey: "username")!
-        }
-        set(newName) {
-            userDefaults.set(newName, forKey: "username")
-            userDefaults.synchronize()
-        }
+        get { return userDefaults.string(forKey: "username")! }
+        set { userDefaults.set(newValue, forKey: "username") }
     }
     
     var dayData: [[DayData]] {
@@ -47,32 +42,21 @@ class DataManager {
             }
             return dayData
         }
-        set(newDayData) {
-            let data = try? NSKeyedArchiver.archivedData(withRootObject: newDayData,
+        set {
+            let data = try? NSKeyedArchiver.archivedData(withRootObject: newValue,
                                                          requiringSecureCoding: true)
             userDefaults.set(data, forKey: "dayData")
-            userDefaults.synchronize()
         }
     }
     
     var color: Color {
-        get {
-            return Color(rawValue: userDefaults.integer(forKey: "color"))!
-        }
-        set(newColor) {
-            userDefaults.set(newColor.rawValue, forKey: "color")
-            userDefaults.synchronize()
-        }
+        get { return Color(rawValue: userDefaults.integer(forKey: "color"))! }
+        set { userDefaults.set(newValue.rawValue, forKey: "color") }
     }
     
     var style: Style {
-        get {
-            return Style(rawValue: userDefaults.integer(forKey: "style"))!
-        }
-        set(newStyle) {
-            userDefaults.set(newStyle.rawValue, forKey: "style")
-            userDefaults.synchronize()
-        }
+        get { return Style(rawValue: userDefaults.integer(forKey: "style"))! }
+        set { userDefaults.set(newValue.rawValue, forKey: "style") }
     }
     
     private init() {

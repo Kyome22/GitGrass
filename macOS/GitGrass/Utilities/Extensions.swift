@@ -20,6 +20,12 @@
 
 import Cocoa
 
+func logput(_ item: Any..., file: String = #file, line: Int = #line, function: String = #function) {
+    #if DEBUG
+    Swift.print("Log: \(file):Line\(line):\(function)", item)
+    #endif
+}
+
 extension NSMenuItem {
     public func setAction(target: AnyObject, selector: Selector) {
         self.target = target
@@ -40,8 +46,8 @@ extension NSColor {
     static let grassDark75 = NSColor(named: "grassDark75")!
     static let grassDark100 = NSColor(named: "grassDark100")!
     
-    static func fillColor(_ level: Int, _ style: Style, _ dark: Bool) -> NSColor {
-        if style == .mono {
+    static func fillColor(_ level: Int, _ color: Color, _ dark: Bool) -> NSColor {
+        if color == .monochrome {
             let white: CGFloat = dark ? 1.0 : 0.0
             switch level {
             case 1: return NSColor(white: white, alpha: 0.4)

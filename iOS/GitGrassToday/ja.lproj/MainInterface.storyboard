@@ -18,8 +18,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NTK-vr-DPp">
                                 <rect key="frame" x="0.0" y="7.5" width="340" height="75"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="コントリビューション:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="GcN-lo-r42">
-                                        <rect key="frame" x="10" y="0.0" width="178" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="コントリビューション:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="GcN-lo-r42">
+                                        <rect key="frame" x="10" y="0.0" width="320" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="1fX-Pd-6er"/>
                                         </constraints>
@@ -35,13 +35,13 @@
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="GcN-lo-r42" secondAttribute="trailing" constant="10" id="8XL-bL-vPC"/>
                                     <constraint firstAttribute="trailing" secondItem="R8t-fP-T9E" secondAttribute="trailing" constant="10" id="IPc-c1-zMj"/>
                                     <constraint firstItem="GcN-lo-r42" firstAttribute="leading" secondItem="NTK-vr-DPp" secondAttribute="leading" constant="10" id="QqB-IQ-5c4"/>
                                     <constraint firstItem="GcN-lo-r42" firstAttribute="top" secondItem="NTK-vr-DPp" secondAttribute="top" id="Tgy-WN-gDj"/>
                                     <constraint firstAttribute="bottom" secondItem="R8t-fP-T9E" secondAttribute="bottom" id="lQm-z8-0FX"/>
                                     <constraint firstItem="R8t-fP-T9E" firstAttribute="top" secondItem="GcN-lo-r42" secondAttribute="bottom" constant="10" id="p5d-Qe-TWx"/>
                                     <constraint firstItem="R8t-fP-T9E" firstAttribute="leading" secondItem="NTK-vr-DPp" secondAttribute="leading" constant="10" id="v4Y-S4-IIc"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GcN-lo-r42" secondAttribute="trailing" constant="20" symbolic="YES" id="xHz-hi-sW5"/>
                                 </constraints>
                             </view>
                         </subviews>

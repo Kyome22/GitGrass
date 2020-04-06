@@ -27,38 +27,31 @@ class DataManager {
     private let userDefaults = UserDefaults.standard
     
     var username: String {
-        get {
-            return userDefaults.string(forKey: "username")!
-        }
-        set(newName) {
-            userDefaults.set(newName, forKey: "username")
-            userDefaults.synchronize()
-        }
+        get { return userDefaults.string(forKey: "username")! }
+        set { userDefaults.set(newValue, forKey: "username") }
     }
+    
     var cycle: Int {
-        get {
-            return userDefaults.integer(forKey: "cycle")
-        }
-        set(newCycle) {
-            userDefaults.set(newCycle, forKey: "cycle")
-            userDefaults.synchronize()
-        }
+        get { return userDefaults.integer(forKey: "cycle") }
+        set { userDefaults.set(newValue, forKey: "cycle") }
     }
+    
+    var color: Color {
+        get { return Color(rawValue: userDefaults.integer(forKey: "color"))! }
+        set { userDefaults.set(newValue.rawValue, forKey: "color") }
+    }
+    
     var style: Style {
-        get {
-            return Style(rawValue: userDefaults.integer(forKey: "style"))!
-        }
-        set(newStyle) {
-            userDefaults.set(newStyle.rawValue, forKey: "style")
-            userDefaults.synchronize()
-        }
+        get { return Style(rawValue: userDefaults.integer(forKey: "style"))! }
+        set { userDefaults.set(newValue.rawValue, forKey: "style") }
     }
     
     private init() {
         // userDefaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         userDefaults.register(defaults: ["username" : "",
                                          "cycle" : 5,
-                                         "style" : Style.mono.rawValue])
+                                         "color" : Color.monochrome.rawValue,
+                                         "style" : Style.block.rawValue])
     }
     
 }

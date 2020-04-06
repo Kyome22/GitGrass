@@ -24,6 +24,7 @@ class PreferencesVC: NSViewController {
     
     @IBOutlet weak var textField: NSTextField!
     @IBOutlet weak var cyclePopUp: NSPopUpButton!
+    @IBOutlet weak var colorPopUp: NSPopUpButton!
     @IBOutlet weak var stylePopUp: NSPopUpButton!
     
     private let dm = DataManager.shared
@@ -33,7 +34,8 @@ class PreferencesVC: NSViewController {
         textField.delegate = self
         textField.stringValue = dm.username
         cyclePopUp.selectItem(withTag: dm.cycle)
-        stylePopUp.selectItem(at: dm.style == .mono ? 0 : 1)
+        colorPopUp.selectItem(at: dm.color.rawValue)
+        stylePopUp.selectItem(at: dm.style.rawValue)
     }
     
     @IBAction func cycleChange(_ sender: NSPopUpButton) {
@@ -42,9 +44,14 @@ class PreferencesVC: NSViewController {
         AppDelegate.shared.startTimer()
     }
     
+    @IBAction func colorChange(_ sender: NSPopUpButton) {
+        dm.color = Color(rawValue: sender.indexOfSelectedItem)!
+        AppDelegate.shared.updateGrass()
+    }
+    
     @IBAction func styleChange(_ sender: NSPopUpButton) {
         dm.style = Style(rawValue: sender.indexOfSelectedItem)!
-        AppDelegate.shared.fetchGrass()
+        AppDelegate.shared.updateGrass()
     }
     
     func showAlert(error: Error) {

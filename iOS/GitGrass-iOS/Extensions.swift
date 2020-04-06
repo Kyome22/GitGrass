@@ -20,6 +20,12 @@
 
 import UIKit
 
+func logput(_ item: Any, file: String = #file, line: Int = #line, function: String = #function) {
+    #if DEBUG
+    Swift.print("Log: \(file):Line\(line):\(function)", item)
+    #endif
+}
+
 extension String {
     
     func match(_ pattern: String) -> String? {

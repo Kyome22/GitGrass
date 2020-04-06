@@ -70,11 +70,8 @@
 		1C116577238408C90013093C /* GitGrass */ = {
 			isa = PBXGroup;
 			children = (
-				1C11658823840BEB0013093C /* Extensions.swift */,
 				1C116578238408C90013093C /* AppDelegate.swift */,
-				1C5DB12D240CCD4A00D7FB69 /* DataManager.swift */,
-				1C11658E2384291B0013093C /* GitAccess.swift */,
-				1C116590238438110013093C /* GrassParser.swift */,
+				1CDD1CA8243ACD040086EB61 /* Utilities */,
 				1C5DB135240CE4A600D7FB69 /* UI */,
 				1C11657C238408CC0013093C /* Assets.xcassets */,
 				1C116581238408CC0013093C /* Info.plist */,
@@ -93,6 +90,17 @@
 				1C11658C23841AA50013093C /* PreferencesVC.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		1CDD1CA8243ACD040086EB61 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1C11658823840BEB0013093C /* Extensions.swift */,
+				1C5DB12D240CCD4A00D7FB69 /* DataManager.swift */,
+				1C11658E2384291B0013093C /* GitAccess.swift */,
+				1C116590238438110013093C /* GrassParser.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,7 +342,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.1.0;
+				CURRENT_PROJECT_VERSION = 1.2.0;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = GitGrass/Info.plist;
@@ -342,7 +350,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyome.GitGrass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -357,7 +365,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1.1.0;
+				CURRENT_PROJECT_VERSION = 1.2.0;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = GitGrass/Info.plist;
@@ -365,7 +373,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyome.GitGrass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

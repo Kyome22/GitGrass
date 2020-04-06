@@ -20,16 +20,22 @@
 
 import Cocoa
 
+enum Color: Int {
+    case monochrome = 0
+    case greenGrass = 1
+}
+
 enum Style: Int {
-    case mono = 0
-    case grass = 1
+    case block = 0
+    case dot = 1
 }
 
 class GrassView: NSView {
     
     private var ao: NSKeyValueObservation?
     var dayData: [[DayData]] = DayData.default
-    var style: Style = .mono
+    var color: Color = .monochrome
+    var style: Style = .block
     
     init() {
         super.init(frame: NSRect(x: 3.0, y: 2.0, width: 124.5, height: 18.0))
@@ -52,21 +58,31 @@ class GrassView: NSView {
         let dark = self.effectiveAppearance.isDark
         for i in (0 ..< 7) {
             for j in (0 ..< dayData[i].count) {
-                NSColor.fillColor(dayData[i][j].level, style, dark).setFill()
+                NSColor.fillColor(dayData[i][j].level, color, dark).setFill()
                 let rect = NSRect(x: 2.5 * CGFloat(j),
                                   y: 15.5 - 2.5 * CGFloat(i),
                                   width: 2.0, height: 2.0)
-                let path = NSBezierPath(rect: rect)
-                path.fill()
+                if style == .block {
+                    NSBezierPath(rect: rect).fill()
+                } else if style == .dot {
+                    NSBezierPath(ovalIn: rect).fill()
+                }
             }
         }
     }
     
-    func update(dayData: [[DayData]], style: Style) {
+    func update(_ dayData: [[DayData]], _ color: Color, _ style: Style) {
         self.dayData = dayData
+        self.color = color
         self.style = style
         let width = 0.5 * CGFloat(5 * dayData[0].count - 1)
         self.frame.size = CGSize(width: width, height: 18.0)
+        self.needsDisplay = true
+    }
+    
+    func update(_ color: Color, _ style: Style) {
+        self.color = color
+        self.style = style
         self.needsDisplay = true
     }
     
