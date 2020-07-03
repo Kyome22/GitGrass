@@ -76,11 +76,7 @@ extension String {
             else { return nil }
         return NSString(string: self).substring(with: matched.range(at: 0))
     }
-    
-    func trim(_ before: String, _ after: String) -> String {
-        let new = self.replacingOccurrences(of: before, with: "")
-        return new.replacingOccurrences(of: after, with: "")
-    }
+
     var localized: String {
         return NSLocalizedString(self, comment: self)
     }
