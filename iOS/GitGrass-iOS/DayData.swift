@@ -25,8 +25,9 @@ class DayData: NSObject, NSCoding, NSSecureCoding {
     static var supportsSecureCoding: Bool {
         return true
     }
-    
-    static let `default` = [[DayData]](repeating: [DayData](repeating: DayData(0, 0), count: 53), count: 7)
+
+    private static let line = [DayData](repeating: DayData(0, 0), count: 53)
+    static let `default` = [[DayData]](repeating: DayData.line, count: 7)
     
     let level: Int
     let count: Int

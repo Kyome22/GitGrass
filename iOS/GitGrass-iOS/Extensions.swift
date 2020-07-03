@@ -36,10 +36,10 @@ extension String {
         return NSString(string: self).substring(with: matched.range(at: 0))
     }
     
-    func trim(_ before: String, _ after: String) -> String {
-        let new = self.replacingOccurrences(of: before, with: "")
-        return new.replacingOccurrences(of: after, with: "")
-    }
+//    func trim(_ before: String, _ after: String) -> String {
+//        let new = self.replacingOccurrences(of: before, with: "")
+//        return new.replacingOccurrences(of: after, with: "")
+//    }
     
     var localized: String {
         return NSLocalizedString(self, comment: self)
@@ -75,9 +75,7 @@ extension UIColor {
 }
 
 extension UITraitCollection {
-    
     var isDark: Bool {
         return userInterfaceStyle == .dark
     }
-
 }

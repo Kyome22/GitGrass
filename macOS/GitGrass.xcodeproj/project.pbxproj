@@ -18,6 +18,7 @@
 		1C5DB12E240CCD4A00D7FB69 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5DB12D240CCD4A00D7FB69 /* DataManager.swift */; };
 		1C5DB131240CE36700D7FB69 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C5DB133240CE36700D7FB69 /* Localizable.strings */; };
 		1C5DB139240CE50D00D7FB69 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C5DB13B240CE50D00D7FB69 /* Preferences.storyboard */; };
+		1CF2E54724AFABE30058F051 /* DayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF2E54624AFABE30058F051 /* DayData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		1C5DB138240CE4DD00D7FB69 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1C5DB13A240CE50D00D7FB69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Preferences.storyboard; sourceTree = "<group>"; };
 		1C5DB13E240CE51400D7FB69 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Preferences.storyboard; sourceTree = "<group>"; };
+		1CF2E54624AFABE30058F051 /* DayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 			children = (
 				1C11658823840BEB0013093C /* Extensions.swift */,
 				1C5DB12D240CCD4A00D7FB69 /* DataManager.swift */,
+				1CF2E54624AFABE30058F051 /* DayData.swift */,
 				1C11658E2384291B0013093C /* GitAccess.swift */,
 				1C116590238438110013093C /* GrassParser.swift */,
 			);
@@ -176,6 +179,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CF2E54724AFABE30058F051 /* DayData.swift in Sources */,
 				1C5DB12C240CCBD300D7FB69 /* GrassView.swift in Sources */,
 				1C5DB12E240CCD4A00D7FB69 /* DataManager.swift in Sources */,
 				1C116591238438110013093C /* GrassParser.swift in Sources */,

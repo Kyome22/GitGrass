@@ -18,27 +18,6 @@
 //  limitations under the License.
 //
 
-struct DayData {
-    
-    let level: Int
-    let count: Int
-    let date: String
-
-    var description: String {
-        return "level: \(level) count: \(count) date: \(date)"
-    }
-
-    private static let line = [DayData](repeating: DayData(0, 0, "dummy"), count: 50)
-    static let `default` = [[DayData]](repeating: DayData.line, count: 7)
-
-    init(_ level: Int, _ count: Int, _ date: String) {
-        self.level = level
-        self.count = count
-        self.date = date
-    }
-
-}
-
 class GrassParser {
     
     static func parse(html: String) -> [[DayData]] {
