@@ -27,7 +27,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private let dm = DataManager.shared
     private let nc = NSWorkspace.shared.notificationCenter
-    private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    private let statusItem = NSStatusBar.system
+        .statusItem(withLength: NSStatusItem.variableLength)
     private var button: NSStatusBarButton?
     private let grassView = GrassView()
     private var timer: Timer?
@@ -42,7 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         setUserInterface()
         startTimer()
         if dm.username.isEmpty {
-            openPreferences()
+            openPreferences(nil)
         }
     }
     
@@ -72,8 +73,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.length = 130.5
         button = statusItem.button
         button?.addSubview(grassView)
-        menu.item(withTag: 0)?.setAction(target: self, selector: #selector(openPreferences))
-        menu.item(withTag: 1)?.setAction(target: self, selector: #selector(openAbout))
     }
     
     func stopTimer() {
@@ -89,7 +88,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         timer?.fire()
     }
         
-    @objc func openPreferences() {
+    @IBAction func openPreferences(_ sender: Any?) {
         if preferencesWC == nil {
             let sb = NSStoryboard(name: "Preferences", bundle: nil)
             preferencesWC = (sb.instantiateInitialController() as! NSWindowController)
@@ -99,18 +98,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         preferencesWC!.showWindow(nil)
     }
     
-    @objc func openAbout() {
+    @IBAction func openAbout(_ sender: Any?) {
         NSApp.activate(ignoringOtherApps: true)
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.alignment = .center
         let mutableAttrStr = NSMutableAttributedString()
-        var attr: [NSAttributedString.Key : Any] = [
-            .foregroundColor : NSColor.textColor,
-            .paragraphStyle : paragraph
-        ]
+        var attr: [NSAttributedString.Key : Any] = [.foregroundColor : NSColor.textColor]
         mutableAttrStr.append(NSAttributedString(string: "oss".localized, attributes: attr))
         let url = "https://github.com/Kyome22/GitGrass"
-        attr = [.foregroundColor : NSColor.url, .link : url, .paragraphStyle : paragraph]
+        attr = [.foregroundColor : NSColor.url, .link : url]
         mutableAttrStr.append(NSAttributedString(string: url, attributes: attr))
         let key = NSApplication.AboutPanelOptionKey.credits
         NSApp.orderFrontStandardAboutPanel(options: [key: mutableAttrStr])

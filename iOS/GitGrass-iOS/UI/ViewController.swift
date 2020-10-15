@@ -19,6 +19,7 @@
 //
 
 import UIKit
+import WidgetKit
 
 class ViewController: UIViewController {
 
@@ -62,20 +63,19 @@ class ViewController: UIViewController {
     }
     
     @IBAction func changedColor(_ sender: UISegmentedControl) {
-        dm.color = Color(rawValue: sender.selectedSegmentIndex)!
+        dm.color = GGColor(rawValue: sender.selectedSegmentIndex)!
         updateUI()
     }
     
     @IBAction func changedStyle(_ sender: UISegmentedControl) {
-        dm.style = Style(rawValue: sender.selectedSegmentIndex)!
+        dm.style = GGStyle(rawValue: sender.selectedSegmentIndex)!
         updateUI()
     }
     
     @IBAction func jumpSource(_ sender: Any) {
-        guard
-            let url = URL(string: "https://github.com/Kyome22/GitGrass"),
-            UIApplication.shared.canOpenURL(url)
-            else { return }
+        guard let url = URL(string: "https://github.com/Kyome22/GitGrass"),
+              UIApplication.shared.canOpenURL(url)
+        else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
@@ -106,6 +106,9 @@ class ViewController: UIViewController {
                 self.reloadButton.isEnabled = isEnabled
             }
             self.grassView.update(self.dm.dayData, self.dm.color, self.dm.style)
+        }
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
     

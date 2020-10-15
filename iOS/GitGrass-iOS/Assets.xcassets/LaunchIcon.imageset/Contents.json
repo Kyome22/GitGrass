@@ -1,33 +1,33 @@
 {
   "images" : [
     {
+      "filename" : "c96.png",
       "idiom" : "iphone",
-      "filename" : "LaunchIcon@1x.png",
       "scale" : "1x"
     },
     {
+      "filename" : "c192.png",
       "idiom" : "iphone",
-      "filename" : "LaunchIcon@2x.png",
       "scale" : "2x"
     },
     {
+      "filename" : "c288.png",
       "idiom" : "iphone",
-      "filename" : "LaunchIcon@3x.png",
       "scale" : "3x"
     },
     {
+      "filename" : "c96-1.png",
       "idiom" : "ipad",
-      "filename" : "LaunchIcon@1x-1.png",
       "scale" : "1x"
     },
     {
+      "filename" : "c192-1.png",
       "idiom" : "ipad",
-      "filename" : "LaunchIcon@2x-1.png",
       "scale" : "2x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

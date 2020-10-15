@@ -3,22 +3,32 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C275BCC252A148300B55D0B /* Color&Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C275BBC252A0D6B00B55D0B /* Color&Style.swift */; };
+		1C4D972F2538AD1500F3D479 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C275B63252A036E00B55D0B /* WidgetKit.framework */; };
+		1C4D97302538AD1500F3D479 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C275B65252A036E00B55D0B /* SwiftUI.framework */; };
+		1C4D97332538AD1500F3D479 /* GitGrassWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D97322538AD1500F3D479 /* GitGrassWidget.swift */; };
+		1C4D97352538AD1500F3D479 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C4D97342538AD1500F3D479 /* Assets.xcassets */; };
+		1C4D97392538AD1500F3D479 /* GitGrassWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1C4D972E2538AD1500F3D479 /* GitGrassWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1C4D978A2538B01300F3D479 /* GrassShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D97882538B01300F3D479 /* GrassShapes.swift */; };
+		1C4D978B2538B01300F3D479 /* GrassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D97892538B01300F3D479 /* GrassView.swift */; };
+		1C4D978E2538B06C00F3D479 /* DayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1A3A22428CB0C008C7394 /* DayData.swift */; };
+		1C4D97912538B07100F3D479 /* GitAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFAD24274C5F002AB224 /* GitAccess.swift */; };
+		1C4D97942538B07900F3D479 /* GrassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFAF24274C6D002AB224 /* GrassParser.swift */; };
+		1C4D97972538B08700F3D479 /* Color&Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C275BBC252A0D6B00B55D0B /* Color&Style.swift */; };
+		1C4D979A2538B09000F3D479 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFA924274C37002AB224 /* DataManager.swift */; };
+		1C4D97A62538B0F600F3D479 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFAB24274C4F002AB224 /* Extensions.swift */; };
+		1C4D97AB2538BE5C00F3D479 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0EFC62427B384002AB224 /* Localizable.strings */; };
 		1CB1A3A32428CB0C008C7394 /* DayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1A3A22428CB0C008C7394 /* DayData.swift */; };
-		1CB1A3A42428CE5A008C7394 /* DayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1A3A22428CB0C008C7394 /* DayData.swift */; };
 		1CF0EF7E24273004002AB224 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EF7D24273004002AB224 /* AppDelegate.swift */; };
 		1CF0EF8024273004002AB224 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EF7F24273004002AB224 /* SceneDelegate.swift */; };
 		1CF0EF8224273004002AB224 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EF8124273004002AB224 /* ViewController.swift */; };
 		1CF0EF8524273004002AB224 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0EF8324273004002AB224 /* Main.storyboard */; };
 		1CF0EF8724273004002AB224 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0EF8624273004002AB224 /* Assets.xcassets */; };
 		1CF0EF8A24273004002AB224 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0EF8824273004002AB224 /* LaunchScreen.storyboard */; };
-		1CF0EF9824274A2F002AB224 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF0EF9724274A2F002AB224 /* NotificationCenter.framework */; };
-		1CF0EF9B24274A2F002AB224 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EF9A24274A2F002AB224 /* TodayViewController.swift */; };
-		1CF0EF9E24274A2F002AB224 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0EF9C24274A2F002AB224 /* MainInterface.storyboard */; };
-		1CF0EFA224274A2F002AB224 /* GitGrassToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1CF0EF9524274A2F002AB224 /* GitGrassToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1CF0EFAA24274C37002AB224 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFA924274C37002AB224 /* DataManager.swift */; };
 		1CF0EFAC24274C4F002AB224 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFAB24274C4F002AB224 /* Extensions.swift */; };
 		1CF0EFAE24274C5F002AB224 /* GitAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFAD24274C5F002AB224 /* GitAccess.swift */; };
@@ -26,23 +36,16 @@
 		1CF0EFB324275448002AB224 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFB224275448002AB224 /* FormView.swift */; };
 		1CF0EFB524275461002AB224 /* GrassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFB424275461002AB224 /* GrassView.swift */; };
 		1CF0EFB7242756F1002AB224 /* ShadowIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFB6242756F1002AB224 /* ShadowIconView.swift */; };
-		1CF0EFB8242765C5002AB224 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFAB24274C4F002AB224 /* Extensions.swift */; };
-		1CF0EFB9242765CA002AB224 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFA924274C37002AB224 /* DataManager.swift */; };
-		1CF0EFBA242765CD002AB224 /* GitAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFAD24274C5F002AB224 /* GitAccess.swift */; };
-		1CF0EFBB242765CF002AB224 /* GrassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFAF24274C6D002AB224 /* GrassParser.swift */; };
-		1CF0EFBC242765D7002AB224 /* GrassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFB424275461002AB224 /* GrassView.swift */; };
-		1CF0EFBD24278812002AB224 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0EF8624273004002AB224 /* Assets.xcassets */; };
 		1CF0EFC32427B384002AB224 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0EFC62427B384002AB224 /* Localizable.strings */; };
-		1CF0EFC42427B384002AB224 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0EFC62427B384002AB224 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1CF0EFA024274A2F002AB224 /* PBXContainerItemProxy */ = {
+		1C4D97372538AD1500F3D479 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1CF0EF7224273004002AB224 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 1CF0EF9424274A2F002AB224;
-			remoteInfo = GitGrassToday;
+			remoteGlobalIDString = 1C4D972D2538AD1500F3D479;
+			remoteInfo = GitGrassWidgetExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -53,7 +56,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				1CF0EFA224274A2F002AB224 /* GitGrassToday.appex in Embed App Extensions */,
+				1C4D97392538AD1500F3D479 /* GitGrassWidget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,7 +64,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1CB1A3A12427CA7B008C7394 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		1C275B63252A036E00B55D0B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		1C275B65252A036E00B55D0B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		1C275BBC252A0D6B00B55D0B /* Color&Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color&Style.swift"; sourceTree = "<group>"; };
+		1C4D972E2538AD1500F3D479 /* GitGrassWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GitGrassWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C4D97322538AD1500F3D479 /* GitGrassWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitGrassWidget.swift; sourceTree = "<group>"; };
+		1C4D97342538AD1500F3D479 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1C4D97362538AD1500F3D479 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C4D976F2538AE4600F3D479 /* GitGrassWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitGrassWidget.entitlements; sourceTree = "<group>"; };
+		1C4D97882538B01300F3D479 /* GrassShapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrassShapes.swift; sourceTree = "<group>"; };
+		1C4D97892538B01300F3D479 /* GrassView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrassView.swift; sourceTree = "<group>"; };
 		1CB1A3A22428CB0C008C7394 /* DayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayData.swift; sourceTree = "<group>"; };
 		1CB1A3A924293405008C7394 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1CF0EF7A24273004002AB224 /* GitGrass-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitGrass-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,13 +84,7 @@
 		1CF0EF8624273004002AB224 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1CF0EF8924273004002AB224 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1CF0EF8B24273004002AB224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1CF0EF9524274A2F002AB224 /* GitGrassToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GitGrassToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		1CF0EF9724274A2F002AB224 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		1CF0EF9A24274A2F002AB224 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
-		1CF0EF9D24274A2F002AB224 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		1CF0EF9F24274A2F002AB224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1CF0EFA724274A98002AB224 /* GitGrass-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GitGrass-iOS.entitlements"; sourceTree = "<group>"; };
-		1CF0EFA824274B08002AB224 /* GitGrassToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitGrassToday.entitlements; sourceTree = "<group>"; };
 		1CF0EFA924274C37002AB224 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		1CF0EFAB24274C4F002AB224 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1CF0EFAD24274C5F002AB224 /* GitAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitAccess.swift; sourceTree = "<group>"; };
@@ -91,6 +97,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1C4D972B2538AD1500F3D479 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C4D97302538AD1500F3D479 /* SwiftUI.framework in Frameworks */,
+				1C4D972F2538AD1500F3D479 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1CF0EF7724273004002AB224 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -98,22 +113,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1CF0EF9224274A2F002AB224 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1CF0EF9824274A2F002AB224 /* NotificationCenter.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C4D97312538AD1500F3D479 /* GitGrassWidget */ = {
+			isa = PBXGroup;
+			children = (
+				1C4D97322538AD1500F3D479 /* GitGrassWidget.swift */,
+				1C4D97882538B01300F3D479 /* GrassShapes.swift */,
+				1C4D97892538B01300F3D479 /* GrassView.swift */,
+				1C4D97342538AD1500F3D479 /* Assets.xcassets */,
+				1C4D97362538AD1500F3D479 /* Info.plist */,
+				1C4D976F2538AE4600F3D479 /* GitGrassWidget.entitlements */,
+			);
+			path = GitGrassWidget;
+			sourceTree = "<group>";
+		};
 		1CF0EF7124273004002AB224 = {
 			isa = PBXGroup;
 			children = (
 				1CF0EF7C24273004002AB224 /* GitGrass-iOS */,
-				1CF0EF9924274A2F002AB224 /* GitGrassToday */,
+				1C4D97312538AD1500F3D479 /* GitGrassWidget */,
 				1CF0EF9624274A2F002AB224 /* Frameworks */,
 				1CF0EF7B24273004002AB224 /* Products */,
 			);
@@ -123,7 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				1CF0EF7A24273004002AB224 /* GitGrass-iOS.app */,
-				1CF0EF9524274A2F002AB224 /* GitGrassToday.appex */,
+				1C4D972E2538AD1500F3D479 /* GitGrassWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,6 +158,7 @@
 				1CB1A3A22428CB0C008C7394 /* DayData.swift */,
 				1CF0EFAD24274C5F002AB224 /* GitAccess.swift */,
 				1CF0EFAF24274C6D002AB224 /* GrassParser.swift */,
+				1C275BBC252A0D6B00B55D0B /* Color&Style.swift */,
 				1CF0EFB124274C84002AB224 /* UI */,
 				1CF0EF8624273004002AB224 /* Assets.xcassets */,
 				1CF0EFC62427B384002AB224 /* Localizable.strings */,
@@ -150,20 +171,10 @@
 		1CF0EF9624274A2F002AB224 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1CF0EF9724274A2F002AB224 /* NotificationCenter.framework */,
+				1C275B63252A036E00B55D0B /* WidgetKit.framework */,
+				1C275B65252A036E00B55D0B /* SwiftUI.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1CF0EF9924274A2F002AB224 /* GitGrassToday */ = {
-			isa = PBXGroup;
-			children = (
-				1CF0EF9A24274A2F002AB224 /* TodayViewController.swift */,
-				1CF0EF9C24274A2F002AB224 /* MainInterface.storyboard */,
-				1CF0EF9F24274A2F002AB224 /* Info.plist */,
-				1CF0EFA824274B08002AB224 /* GitGrassToday.entitlements */,
-			);
-			path = GitGrassToday;
 			sourceTree = "<group>";
 		};
 		1CF0EFB124274C84002AB224 /* UI */ = {
@@ -182,6 +193,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1C4D972D2538AD1500F3D479 /* GitGrassWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C4D973A2538AD1500F3D479 /* Build configuration list for PBXNativeTarget "GitGrassWidget" */;
+			buildPhases = (
+				1C4D972A2538AD1500F3D479 /* Sources */,
+				1C4D972B2538AD1500F3D479 /* Frameworks */,
+				1C4D972C2538AD1500F3D479 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GitGrassWidget;
+			productName = GitGrassWidgetExtension;
+			productReference = 1C4D972E2538AD1500F3D479 /* GitGrassWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		1CF0EF7924273004002AB224 /* GitGrass-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1CF0EF8E24273004002AB224 /* Build configuration list for PBXNativeTarget "GitGrass-iOS" */;
@@ -194,29 +222,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				1CF0EFA124274A2F002AB224 /* PBXTargetDependency */,
+				1C4D97382538AD1500F3D479 /* PBXTargetDependency */,
 			);
 			name = "GitGrass-iOS";
 			productName = "GitGrass-iOS";
 			productReference = 1CF0EF7A24273004002AB224 /* GitGrass-iOS.app */;
 			productType = "com.apple.product-type.application";
-		};
-		1CF0EF9424274A2F002AB224 /* GitGrassToday */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1CF0EFA324274A2F002AB224 /* Build configuration list for PBXNativeTarget "GitGrassToday" */;
-			buildPhases = (
-				1CF0EF9124274A2F002AB224 /* Sources */,
-				1CF0EF9224274A2F002AB224 /* Frameworks */,
-				1CF0EF9324274A2F002AB224 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = GitGrassToday;
-			productName = GitGrassToday;
-			productReference = 1CF0EF9524274A2F002AB224 /* GitGrassToday.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -224,20 +235,20 @@
 		1CF0EF7224273004002AB224 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Takuto Nakamura";
 				TargetAttributes = {
-					1CF0EF7924273004002AB224 = {
-						CreatedOnToolsVersion = 11.3.1;
+					1C4D972D2538AD1500F3D479 = {
+						CreatedOnToolsVersion = 12.0.1;
 					};
-					1CF0EF9424274A2F002AB224 = {
+					1CF0EF7924273004002AB224 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
 			};
 			buildConfigurationList = 1CF0EF7524273004002AB224 /* Build configuration list for PBXProject "GitGrass-iOS" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -251,12 +262,21 @@
 			projectRoot = "";
 			targets = (
 				1CF0EF7924273004002AB224 /* GitGrass-iOS */,
-				1CF0EF9424274A2F002AB224 /* GitGrassToday */,
+				1C4D972D2538AD1500F3D479 /* GitGrassWidget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1C4D972C2538AD1500F3D479 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C4D97352538AD1500F3D479 /* Assets.xcassets in Resources */,
+				1C4D97AB2538BE5C00F3D479 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1CF0EF7824273004002AB224 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -268,25 +288,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1CF0EF9324274A2F002AB224 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1CF0EFBD24278812002AB224 /* Assets.xcassets in Resources */,
-				1CF0EFC42427B384002AB224 /* Localizable.strings in Resources */,
-				1CF0EF9E24274A2F002AB224 /* MainInterface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1C4D972A2538AD1500F3D479 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C4D978E2538B06C00F3D479 /* DayData.swift in Sources */,
+				1C4D97A62538B0F600F3D479 /* Extensions.swift in Sources */,
+				1C4D979A2538B09000F3D479 /* DataManager.swift in Sources */,
+				1C4D97912538B07100F3D479 /* GitAccess.swift in Sources */,
+				1C4D978A2538B01300F3D479 /* GrassShapes.swift in Sources */,
+				1C4D97942538B07900F3D479 /* GrassParser.swift in Sources */,
+				1C4D97972538B08700F3D479 /* Color&Style.swift in Sources */,
+				1C4D97332538AD1500F3D479 /* GitGrassWidget.swift in Sources */,
+				1C4D978B2538B01300F3D479 /* GrassView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1CF0EF7624273004002AB224 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1CF0EFB324275448002AB224 /* FormView.swift in Sources */,
 				1CF0EFAE24274C5F002AB224 /* GitAccess.swift in Sources */,
+				1C275BCC252A148300B55D0B /* Color&Style.swift in Sources */,
 				1CF0EFAC24274C4F002AB224 /* Extensions.swift in Sources */,
 				1CF0EF8224273004002AB224 /* ViewController.swift in Sources */,
 				1CF0EFAA24274C37002AB224 /* DataManager.swift in Sources */,
@@ -299,27 +326,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1CF0EF9124274A2F002AB224 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1CF0EFBB242765CF002AB224 /* GrassParser.swift in Sources */,
-				1CB1A3A42428CE5A008C7394 /* DayData.swift in Sources */,
-				1CF0EFBA242765CD002AB224 /* GitAccess.swift in Sources */,
-				1CF0EF9B24274A2F002AB224 /* TodayViewController.swift in Sources */,
-				1CF0EFB9242765CA002AB224 /* DataManager.swift in Sources */,
-				1CF0EFB8242765C5002AB224 /* Extensions.swift in Sources */,
-				1CF0EFBC242765D7002AB224 /* GrassView.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1CF0EFA124274A2F002AB224 /* PBXTargetDependency */ = {
+		1C4D97382538AD1500F3D479 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1CF0EF9424274A2F002AB224 /* GitGrassToday */;
-			targetProxy = 1CF0EFA024274A2F002AB224 /* PBXContainerItemProxy */;
+			target = 1C4D972D2538AD1500F3D479 /* GitGrassWidget */;
+			targetProxy = 1C4D97372538AD1500F3D479 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -341,15 +354,6 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		1CF0EF9C24274A2F002AB224 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1CF0EF9D24274A2F002AB224 /* Base */,
-				1CB1A3A12427CA7B008C7394 /* ja */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 		1CF0EFC62427B384002AB224 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -362,6 +366,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1C4D973B2538AD1500F3D479 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = GitGrassWidget/GitGrassWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.4.0;
+				DEVELOPMENT_TEAM = VJ5N2X84K8;
+				INFOPLIST_FILE = GitGrassWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.4;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS.GitGrassWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1C4D973C2538AD1500F3D479 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = GitGrassWidget/GitGrassWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.4.0;
+				DEVELOPMENT_TEAM = VJ5N2X84K8;
+				INFOPLIST_FILE = GitGrassWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.4;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS.GitGrassWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		1CF0EF8C24273004002AB224 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -389,6 +441,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -413,10 +466,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -450,6 +504,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -468,9 +523,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-D RELEASE";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -485,14 +541,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "GitGrass-iOS/GitGrass-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2.1;
+				CURRENT_PROJECT_VERSION = 1.4.0;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				INFOPLIST_FILE = "GitGrass-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -507,62 +563,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "GitGrass-iOS/GitGrass-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2.1;
+				CURRENT_PROJECT_VERSION = 1.4.0;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				INFOPLIST_FILE = "GitGrass-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		1CF0EFA424274A2F002AB224 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = GitGrassToday/GitGrassToday.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2.1;
-				DEVELOPMENT_TEAM = VJ5N2X84K8;
-				INFOPLIST_FILE = GitGrassToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS.GitGrassToday";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		1CF0EFA524274A2F002AB224 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = GitGrassToday/GitGrassToday.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2.1;
-				DEVELOPMENT_TEAM = VJ5N2X84K8;
-				INFOPLIST_FILE = GitGrassToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS.GitGrassToday";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -571,6 +581,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1C4D973A2538AD1500F3D479 /* Build configuration list for PBXNativeTarget "GitGrassWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C4D973B2538AD1500F3D479 /* Debug */,
+				1C4D973C2538AD1500F3D479 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1CF0EF7524273004002AB224 /* Build configuration list for PBXProject "GitGrass-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -585,15 +604,6 @@
 			buildConfigurations = (
 				1CF0EF8F24273004002AB224 /* Debug */,
 				1CF0EF9024273004002AB224 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1CF0EFA324274A2F002AB224 /* Build configuration list for PBXNativeTarget "GitGrassToday" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1CF0EFA424274A2F002AB224 /* Debug */,
-				1CF0EFA524274A2F002AB224 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

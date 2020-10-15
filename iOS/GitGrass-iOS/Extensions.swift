@@ -20,26 +20,28 @@
 
 import UIKit
 
-func logput(_ item: Any, file: String = #file, line: Int = #line, function: String = #function) {
+func logput(_ items: Any...,
+            file: String = #file,
+            line: Int = #line,
+            function: String = #function) {
     #if DEBUG
-    Swift.print("Log: \(file):Line\(line):\(function)", item)
+    let fileName = URL(fileURLWithPath: file).lastPathComponent
+    Swift.print("💫Log: \(fileName), Line:\(line), \(function), [")
+    items.forEach { (item) in
+        Swift.print(item)
+    }
+    Swift.print("]")
     #endif
 }
 
 extension String {
     
     func match(_ pattern: String) -> String? {
-        guard
-            let regex = try? NSRegularExpression(pattern: pattern),
-            let matched = regex.firstMatch(in: self, range: NSRange(location: 0, length: self.count))
-            else { return nil }
+        guard let regex = try? NSRegularExpression(pattern: pattern),
+              let matched = regex.firstMatch(in: self, range: NSRange(location: 0, length: self.count))
+        else { return nil }
         return NSString(string: self).substring(with: matched.range(at: 0))
     }
-    
-//    func trim(_ before: String, _ after: String) -> String {
-//        let new = self.replacingOccurrences(of: before, with: "")
-//        return new.replacingOccurrences(of: after, with: "")
-//    }
     
     var localized: String {
         return NSLocalizedString(self, comment: self)
@@ -49,24 +51,24 @@ extension String {
 
 extension UIColor {
     
-    static func grassColor(_ level: Int, _ color: Color, _ dark: Bool) -> UIColor {
+    static func grassColor(_ level: Int, _ color: GGColor, _ dark: Bool) -> UIColor {
         if color == .greenGrass {
             switch level {
-            case 0: return UIColor(named: dark ? "grassDark0" : "grass0")!
-            case 1: return UIColor(named: dark ? "grassDark1" : "grass1")!
-            case 2: return UIColor(named: dark ? "grassDark2" : "grass2")!
-            case 3: return UIColor(named: dark ? "grassDark3" : "grass3")!
-            case 4: return UIColor(named: dark ? "grassDark4" : "grass4")!
+            case 0: return UIColor(named: dark ? "grass5" : "grass0")!
+            case 1: return UIColor(named: dark ? "grass4" : "grass1")!
+            case 2: return UIColor(named: dark ? "grass3" : "grass2")!
+            case 3: return UIColor(named: dark ? "grass2" : "grass3")!
+            case 4: return UIColor(named: dark ? "grass1" : "grass4")!
             default: fatalError("impossible")
             }
         } else { // .monochrome
-            let white: CGFloat = dark ? 1.0 : 0.0
+            let gray: CGFloat = dark ? 1.0 : 0.0
             switch level {
-            case 0: return UIColor(white: white, alpha: 0.2)
-            case 1: return UIColor(white: white, alpha: 0.4)
-            case 2: return UIColor(white: white, alpha: 0.6)
-            case 3: return UIColor(white: white, alpha: 0.8)
-            case 4: return UIColor(white: white, alpha: 1.0)
+            case 0: return UIColor(white: gray, alpha: 0.2)
+            case 1: return UIColor(white: gray, alpha: 0.4)
+            case 2: return UIColor(white: gray, alpha: 0.6)
+            case 3: return UIColor(white: gray, alpha: 0.8)
+            case 4: return UIColor(white: gray, alpha: 1.0)
             default: fatalError("impossible")
             }
         }

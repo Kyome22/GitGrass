@@ -22,10 +22,8 @@ import Foundation
 
 class GitAccess {
     
-    static func getGrass(username: String, callback: @escaping (_ username: String, _ response: String?) -> ()) {
-        guard let url = URL(string: "https://github.com/users/\(username)/contributions") else {
-            return
-        }
+    static func getGrass(username: String, callback: @escaping (_ username: String, _ response: String?) -> Void) {
+        guard let url = URL(string: "https://github.com/users/\(username)/contributions") else { return }
         let session = URLSession(configuration: URLSessionConfiguration.default)
         let task = session.dataTask(with: url) { (data, response, error) in
             switch (data, response, error) {

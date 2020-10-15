@@ -20,22 +20,11 @@
 
 import UIKit
 
-enum Color: Int {
-    case greenGrass = 0
-    case monochrome = 1
-}
-
-enum Style: Int {
-    case block = 0
-    case dot = 1
-    case grass = 2
-}
-
 class GrassView: UIView {
     
     var dayData: [[DayData]] = DayData.default
-    var color = Color.greenGrass
-    var style = Style.block
+    var color = GGColor.greenGrass
+    var style = GGStyle.block
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -93,7 +82,7 @@ class GrassView: UIView {
         }
     }
     
-    func update(_ dayData: [[DayData]], _ color: Color, _ style: Style) {
+    func update(_ dayData: [[DayData]], _ color: GGColor, _ style: GGStyle) {
         self.dayData = dayData
         self.color = color
         self.style = style

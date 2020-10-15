@@ -33,13 +33,10 @@ class DataManager {
     
     var dayData: [[DayData]] {
         get {
-            guard
-                let data = userDefaults.data(forKey: "dayData"),
-                let unarchived = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data),
-                let dayData = unarchived as? [[DayData]]
-                else {
-                return DayData.default
-            }
+            guard let data = userDefaults.data(forKey: "dayData"),
+                  let unarchived = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data),
+                  let dayData = unarchived as? [[DayData]]
+            else { return DayData.default }
             return dayData
         }
         set {
@@ -49,17 +46,27 @@ class DataManager {
         }
     }
     
-    var color: Color {
-        get { return Color(rawValue: userDefaults.integer(forKey: "color"))! }
+    var color: GGColor {
+        get { return GGColor(rawValue: userDefaults.integer(forKey: "color"))! }
         set { userDefaults.set(newValue.rawValue, forKey: "color") }
     }
     
-    var style: Style {
-        get { return Style(rawValue: userDefaults.integer(forKey: "style"))! }
+    var style: GGStyle {
+        get { return GGStyle(rawValue: userDefaults.integer(forKey: "style"))! }
         set { userDefaults.set(newValue.rawValue, forKey: "style") }
     }
     
+    var labelText: String {
+        if username.isEmpty {
+            return "NoAccount".localized
+        }
+        return "Contributions".localized
+            .replacingOccurrences(of: "USERNAME", with: username)
+    }
+    
     private init() {
+        NSKeyedArchiver.setClassName("DayData", for: DayData.self)
+        NSKeyedUnarchiver.setClass(DayData.self, forClassName: "DayData")
         // userDefaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier)!
         userDefaults.register(defaults: ["username" : ""])
     }

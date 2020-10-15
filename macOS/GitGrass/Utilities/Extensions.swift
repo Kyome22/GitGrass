@@ -26,43 +26,28 @@ func logput(_ item: Any..., file: String = #file, line: Int = #line, function: S
     #endif
 }
 
-extension NSMenuItem {
-    public func setAction(target: AnyObject, selector: Selector) {
-        self.target = target
-        self.action = selector
-    }
-}
-
 extension NSColor {
     static let url = NSColor(named: "urlColor")!
-    static let grass0 = NSColor(named: "grass0")!
-    static let grass25 = NSColor(named: "grass25")!
-    static let grass50 = NSColor(named: "grass50")!
-    static let grass75 = NSColor(named: "grass75")!
-    static let grass100 = NSColor(named: "grass100")!
-    static let grassDark0 = NSColor(named: "grassDark0")!
-    static let grassDark25 = NSColor(named: "grassDark25")!
-    static let grassDark50 = NSColor(named: "grassDark50")!
-    static let grassDark75 = NSColor(named: "grassDark75")!
-    static let grassDark100 = NSColor(named: "grassDark100")!
     
     static func fillColor(_ level: Int, _ color: Color, _ dark: Bool) -> NSColor {
         if color == .monochrome {
-            let white: CGFloat = dark ? 1.0 : 0.0
+            let gray: CGFloat = dark ? 1.0 : 0.0
             switch level {
-            case 1: return NSColor(white: white, alpha: 0.4)
-            case 2: return NSColor(white: white, alpha: 0.6)
-            case 3: return NSColor(white: white, alpha: 0.8)
-            case 4: return NSColor(white: white, alpha: 1.0)
-            default: return NSColor(white: white, alpha: 0.2)
+            case 0: return NSColor(white: gray, alpha: 0.2)
+            case 1: return NSColor(white: gray, alpha: 0.4)
+            case 2: return NSColor(white: gray, alpha: 0.6)
+            case 3: return NSColor(white: gray, alpha: 0.8)
+            case 4: return NSColor(white: gray, alpha: 1.0)
+            default: fatalError("impossible")
             }
         } else {
             switch level {
-            case 1:  return dark ? NSColor.grassDark25 : NSColor.grass25
-            case 2:  return dark ? NSColor.grassDark50 : NSColor.grass50
-            case 3:  return dark ? NSColor.grassDark75 : NSColor.grass75
-            case 4:  return dark ? NSColor.grassDark100 : NSColor.grass100
-            default: return dark ? NSColor.grassDark0 : NSColor.grass0
+            case 0: return NSColor(named: dark ? "grass5" : "grass0")!
+            case 1: return NSColor(named: dark ? "grass4" : "grass1")!
+            case 2: return NSColor(named: dark ? "grass3" : "grass2")!
+            case 3: return NSColor(named: dark ? "grass2" : "grass3")!
+            case 4: return NSColor(named: dark ? "grass1" : "grass4")!
+            default: fatalError("impossible")
             }
         }
     }
