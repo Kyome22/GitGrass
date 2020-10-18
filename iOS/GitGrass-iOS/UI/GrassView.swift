@@ -33,11 +33,10 @@ class GrassView: UIView {
 
     override func draw(_ rect: CGRect) {
         if dayData.isEmpty { return }
-        let isDark = self.traitCollection.isDark
         let ratio: CGFloat = bounds.height / 51.0 // 5 * 7  + 2 * 8 = 51
         for i in (0 ..< 7) {
             for j in (0 ..< dayData[i].count) {
-                UIColor.grassColor(dayData[i][j].level, color, isDark).set()
+                UIColor.grassColor(dayData[i][j].level, color).set()
                 let rect = CGRect(x: ratio * CGFloat(2 + 7 * j),
                                   y: ratio * CGFloat(2 + 7 * i),
                                   width: 5.0 * ratio, height: 5.0 * ratio)

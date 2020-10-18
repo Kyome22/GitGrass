@@ -25,20 +25,20 @@ extension Color {
     static func grassColor(level: Int, color: GGColor) -> Color {
         if color == .greenGrass {
             switch level {
-            case 0: return Color("grass1")
-            case 1: return Color("grass2")
-            case 2: return Color("grass3")
-            case 3: return Color("grass4")
-            case 4: return Color("grass5")
+            case 0: return Color("grass0")
+            case 1: return Color("grass1")
+            case 2: return Color("grass2")
+            case 3: return Color("grass3")
+            case 4: return Color("grass4")
             default: fatalError("impossible")
             }
         } else { // .monochrome
             switch level {
-            case 0: return Color(white: 0.0, opacity: 0.2)
-            case 1: return Color(white: 0.0, opacity: 0.4)
-            case 2: return Color(white: 0.0, opacity: 0.6)
-            case 3: return Color(white: 0.0, opacity: 0.8)
-            case 4: return Color(white: 0.0, opacity: 1.0)
+            case 0: return Color("mono0")
+            case 1: return Color("mono1")
+            case 2: return Color("mono2")
+            case 3: return Color("mono3")
+            case 4: return Color("mono4")
             default: fatalError("impossible")
             }
         }

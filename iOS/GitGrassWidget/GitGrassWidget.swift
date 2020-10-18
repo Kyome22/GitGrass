@@ -78,7 +78,7 @@ struct GitGrassWidgetEntryView : View {
         return VStack(alignment: .leading, spacing: 8) {
             Text(entry.username)
                 .font(.headline)
-                .foregroundColor(.black)
+                .foregroundColor(Color.primary)
             GrassView(dayData: entry.dayData,
                       color: entry.color,
                       style: entry.style)

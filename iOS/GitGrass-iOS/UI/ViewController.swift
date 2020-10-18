@@ -107,9 +107,7 @@ class ViewController: UIViewController {
             }
             self.grassView.update(self.dm.dayData, self.dm.color, self.dm.style)
         }
-        if #available(iOS 14.0, *) {
-            WidgetCenter.shared.reloadAllTimelines()
-        }
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     func showAlert(_ username: String) {
