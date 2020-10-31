@@ -26,8 +26,8 @@ class GrassParser {
         // capture the color of levels
         let levels = tags.compactMap({ (str) -> String? in
             return str.trimmingCharacters(in: .whitespaces)
-                .match(#"<li style="background-color.+"#)?
-                .match(#"#[0-9abcdefABCDEF]{6}"#)
+                .match(#"<li style="background-color: var\([^)]+\)"#)?
+                .match(#"var\([^)]+\)"#)
         })
 
         // extruct the day line

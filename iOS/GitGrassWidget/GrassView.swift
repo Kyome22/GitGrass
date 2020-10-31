@@ -48,8 +48,13 @@ extension Color {
 
 struct GrassView: View {
     let dayData: [[DayData]]
+    let size: CGSize
     let color: GGColor
     let style: GGStyle
+    var range: Range<Int> {
+        let all: Int = dayData[0].count
+        return (all - 22 ..< all)
+    }
 
     var body: some View {
         return VStack(alignment: .leading, spacing: 2) {
@@ -60,20 +65,16 @@ struct GrassView: View {
     }
 
     private func makeRow(i: Int) -> some View {
-        let range = Int(floor(0.5 * CGFloat(dayData[0].count))) ..< dayData[i].count
-        return GeometryReader { geometry in
-            HStack(alignment: .top, spacing: 3) {
-                ForEach(range) { j in
-                    self.makeShape(level: dayData[i][j].level, geometry: geometry)
-                }
+        return HStack(alignment: .top, spacing: 3) {
+            ForEach(self.range) { j in
+                self.makeShape(level: dayData[i][j].level)
             }
         }
     }
 
-    private func makeShape(level: Int, geometry: GeometryProxy) -> some View {
-        let r = (geometry.size.width + 3.0) / ceil(0.5 * CGFloat(dayData[0].count)) - 3.0
+    private func makeShape(level: Int) -> some View {
+        let r = floor((size.width + 3.0) / 22.0 - 3.0)
         let fillColor = Color.grassColor(level: level, color: color)
-
         return Group {
             if style == .block {
                 BlockShape().fill(fillColor)
@@ -84,13 +85,5 @@ struct GrassView: View {
             }
         }
         .frame(width: r, height: r)
-    }
-}
-
-struct GrassView_Previews: PreviewProvider {
-    static var previews: some View {
-        GrassView(dayData: DayData.default,
-                  color: GGColor.greenGrass,
-                  style: GGStyle.block)
     }
 }

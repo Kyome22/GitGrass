@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1C275BCC252A148300B55D0B /* Color&Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C275BBC252A0D6B00B55D0B /* Color&Style.swift */; };
+		1C2B4E63254D935B00379AD1 /* GrassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D97892538B01300F3D479 /* GrassView.swift */; };
 		1C4D972F2538AD1500F3D479 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C275B63252A036E00B55D0B /* WidgetKit.framework */; };
 		1C4D97302538AD1500F3D479 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C275B65252A036E00B55D0B /* SwiftUI.framework */; };
 		1C4D97332538AD1500F3D479 /* GitGrassWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D97322538AD1500F3D479 /* GitGrassWidget.swift */; };
 		1C4D97352538AD1500F3D479 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C4D97342538AD1500F3D479 /* Assets.xcassets */; };
 		1C4D97392538AD1500F3D479 /* GitGrassWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1C4D972E2538AD1500F3D479 /* GitGrassWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1C4D978A2538B01300F3D479 /* GrassShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D97882538B01300F3D479 /* GrassShapes.swift */; };
-		1C4D978B2538B01300F3D479 /* GrassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4D97892538B01300F3D479 /* GrassView.swift */; };
 		1C4D978E2538B06C00F3D479 /* DayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1A3A22428CB0C008C7394 /* DayData.swift */; };
 		1C4D97912538B07100F3D479 /* GitAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFAD24274C5F002AB224 /* GitAccess.swift */; };
 		1C4D97942538B07900F3D479 /* GrassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0EFAF24274C6D002AB224 /* GrassParser.swift */; };
@@ -300,10 +300,10 @@
 				1C4D979A2538B09000F3D479 /* DataManager.swift in Sources */,
 				1C4D97912538B07100F3D479 /* GitAccess.swift in Sources */,
 				1C4D978A2538B01300F3D479 /* GrassShapes.swift in Sources */,
+				1C2B4E63254D935B00379AD1 /* GrassView.swift in Sources */,
 				1C4D97942538B07900F3D479 /* GrassParser.swift in Sources */,
 				1C4D97972538B08700F3D479 /* Color&Style.swift in Sources */,
 				1C4D97332538AD1500F3D479 /* GitGrassWidget.swift in Sources */,
-				1C4D978B2538B01300F3D479 /* GrassView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,7 +373,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GitGrassWidget/GitGrassWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.4.0;
+				CURRENT_PROJECT_VERSION = 1.5.0;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				INFOPLIST_FILE = GitGrassWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -381,7 +381,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS.GitGrassWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -397,7 +397,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GitGrassWidget/GitGrassWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.4.0;
+				CURRENT_PROJECT_VERSION = 1.5.0;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				INFOPLIST_FILE = GitGrassWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -405,7 +405,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS.GitGrassWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -541,14 +541,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "GitGrass-iOS/GitGrass-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.4.0;
+				CURRENT_PROJECT_VERSION = 1.5.0;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				INFOPLIST_FILE = "GitGrass-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -563,14 +563,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "GitGrass-iOS/GitGrass-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.4.0;
+				CURRENT_PROJECT_VERSION = 1.5.0;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				INFOPLIST_FILE = "GitGrass-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

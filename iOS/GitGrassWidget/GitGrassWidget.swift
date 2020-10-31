@@ -42,7 +42,6 @@ struct Provider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-
         let date = Date()
         let afterDate = Calendar.current.date(byAdding: .minute, value: 30, to: date)!
         if context.isPreview {
@@ -74,17 +73,19 @@ struct GitGrassWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        let aspect = ceil(0.5 * CGFloat(entry.dayData[0].count)) / 7.0
-        return VStack(alignment: .leading, spacing: 8) {
-            Text(entry.username)
-                .font(.headline)
-                .foregroundColor(Color.primary)
-            GrassView(dayData: entry.dayData,
-                      color: entry.color,
-                      style: entry.style)
-                .aspectRatio(aspect, contentMode: .fit)
+        return GeometryReader { geometry in
+            VStack(alignment: .leading, spacing: 8) {
+                Text(entry.username)
+                    .font(.headline)
+                    .minimumScaleFactor(0.01)
+                    .foregroundColor(Color.primary)
+                GrassView(dayData: entry.dayData,
+                          size: geometry.size,
+                          color: entry.color,
+                          style: entry.style)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         .padding(16)
         .background(Color("WidgetBackground"))
     }
@@ -110,7 +111,7 @@ struct GitGrassWidget_Previews: PreviewProvider {
                                 username: "UserName",
                                 dayData: DayData.default,
                                 color: GGColor.greenGrass,
-                                style: GGStyle.block)
+                                style: GGStyle.grass)
         return GitGrassWidgetEntryView(entry: entry)
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
