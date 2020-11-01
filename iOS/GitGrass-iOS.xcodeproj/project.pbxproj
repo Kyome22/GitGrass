@@ -373,7 +373,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GitGrassWidget/GitGrassWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5.0;
+				CURRENT_PROJECT_VERSION = 1.5.1;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				INFOPLIST_FILE = GitGrassWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -381,7 +381,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS.GitGrassWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -397,7 +397,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GitGrassWidget/GitGrassWidget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5.0;
+				CURRENT_PROJECT_VERSION = 1.5.1;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				INFOPLIST_FILE = GitGrassWidget/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -405,7 +405,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS.GitGrassWidget";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -541,14 +541,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "GitGrass-iOS/GitGrass-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5.0;
+				CURRENT_PROJECT_VERSION = 1.5.1;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				INFOPLIST_FILE = "GitGrass-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -563,14 +563,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "GitGrass-iOS/GitGrass-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.5.0;
+				CURRENT_PROJECT_VERSION = 1.5.1;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				INFOPLIST_FILE = "GitGrass-iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kyome.GitGrass-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

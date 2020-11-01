@@ -51,10 +51,6 @@ struct GrassView: View {
     let size: CGSize
     let color: GGColor
     let style: GGStyle
-    var range: Range<Int> {
-        let all: Int = dayData[0].count
-        return (all - 22 ..< all)
-    }
 
     var body: some View {
         return VStack(alignment: .leading, spacing: 2) {
@@ -65,8 +61,9 @@ struct GrassView: View {
     }
 
     private func makeRow(i: Int) -> some View {
+        let range: Range<Int> = (dayData[0].count - 22 ..< dayData[i].count)
         return HStack(alignment: .top, spacing: 3) {
-            ForEach(self.range) { j in
+            ForEach(range) { j in
                 self.makeShape(level: dayData[i][j].level)
             }
         }
