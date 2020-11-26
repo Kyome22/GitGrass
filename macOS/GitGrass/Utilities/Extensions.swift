@@ -41,25 +41,20 @@ extension NSColor {
             default: fatalError("impossible")
             }
         } else {
-            switch level {
-            case 0: return NSColor(named: dark ? "grass5" : "grass0")!
-            case 1: return NSColor(named: dark ? "grass4" : "grass1")!
-            case 2: return NSColor(named: dark ? "grass3" : "grass2")!
-            case 3: return NSColor(named: dark ? "grass2" : "grass3")!
-            case 4: return NSColor(named: dark ? "grass1" : "grass4")!
-            default: fatalError("impossible")
-            }
+            let name = "\(dark ? "dark" : "light")-grass-\(level)"
+            return NSColor(named: name)!
         }
     }
 }
 
 extension String {
-    func match(_ pattern: String) -> String? {
-        guard
-            let regex = try? NSRegularExpression(pattern: pattern),
-            let matched = regex.firstMatch(in: self, range: NSRange(location: 0, length: self.count))
-            else { return nil }
-        return NSString(string: self).substring(with: matched.range(at: 0))
+    func match(_ pattern: String) -> [String] {
+        guard let regex = try? NSRegularExpression(pattern: pattern),
+              let matched = regex.firstMatch(in: self, range: NSRange(location: 0, length: self.count))
+        else { return [] }
+        return (0 ..< matched.numberOfRanges).map {
+            NSString(string: self).substring(with: matched.range(at: $0))
+        }
     }
 
     var localized: String {

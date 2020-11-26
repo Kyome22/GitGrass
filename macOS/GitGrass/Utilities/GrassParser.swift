@@ -25,15 +25,16 @@ class GrassParser {
 
         // capture the color of levels
         let levels = tags.compactMap({ (str) -> String? in
-            return str.trimmingCharacters(in: .whitespaces)
-                .match(#"<li style="background-color: var\([^)]+\)"#)?
-                .match(#"var\([^)]+\)"#)
+            let res = str.trimmingCharacters(in: .whitespaces)
+                .match(#"<li style="background-color: ([^"]+)"#)
+            return (2 <= res.count) ? res[1] : nil
         })
 
         // extruct the day line
         let rects = tags.compactMap({ (str) -> String? in
             let res = str.trimmingCharacters(in: .whitespaces)
-            return res.match(#"<rect class="day".+"#)
+                .match(#"<rect class="day".+"#)
+            return res.isEmpty ? nil : res[0]
         }).map({ (str) -> String in
             let range = str.range(of: str)
             return str.replacingOccurrences(of: #"<rect|"|/>|></rect>"#,

@@ -36,11 +36,13 @@ func logput(_ items: Any...,
 
 extension String {
     
-    func match(_ pattern: String) -> String? {
+    func match(_ pattern: String) -> [String] {
         guard let regex = try? NSRegularExpression(pattern: pattern),
               let matched = regex.firstMatch(in: self, range: NSRange(location: 0, length: self.count))
-        else { return nil }
-        return NSString(string: self).substring(with: matched.range(at: 0))
+        else { return [] }
+        return (0 ..< matched.numberOfRanges).map {
+            NSString(string: self).substring(with: matched.range(at: $0))
+        }
     }
     
     var localized: String {
@@ -50,26 +52,12 @@ extension String {
 }
 
 extension UIColor {
-    
+    // dark mode 対応してないので要らない
     static func grassColor(_ level: Int, _ color: GGColor) -> UIColor {
-        if color == .greenGrass {
-            switch level {
-            case 0: return UIColor(named: "grass0")!
-            case 1: return UIColor(named: "grass1")!
-            case 2: return UIColor(named: "grass2")!
-            case 3: return UIColor(named: "grass3")!
-            case 4: return UIColor(named: "grass4")!
-            default: fatalError("impossible")
-            }
-        } else { // .monochrome
-            switch level {
-            case 0: return UIColor(white: 0.0, alpha: 0.2)
-            case 1: return UIColor(white: 0.0, alpha: 0.4)
-            case 2: return UIColor(white: 0.0, alpha: 0.6)
-            case 3: return UIColor(white: 0.0, alpha: 0.8)
-            case 4: return UIColor(white: 0.0, alpha: 1.0)
-            default: fatalError("impossible")
-            }
+        if color == .monochrome {
+            return UIColor(white: 0.0, alpha: 0.2 * CGFloat(level + 1))
+        } else {
+            return UIColor(named: "grass-\(level)")!
         }
     }
     
