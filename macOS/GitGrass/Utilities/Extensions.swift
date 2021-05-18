@@ -31,18 +31,14 @@ extension NSColor {
     
     static func fillColor(_ level: Int, _ color: Color, _ dark: Bool) -> NSColor {
         if color == .monochrome {
-            let gray: CGFloat = dark ? 1.0 : 0.0
-            switch level {
-            case 0: return NSColor(white: gray, alpha: 0.2)
-            case 1: return NSColor(white: gray, alpha: 0.4)
-            case 2: return NSColor(white: gray, alpha: 0.6)
-            case 3: return NSColor(white: gray, alpha: 0.8)
-            case 4: return NSColor(white: gray, alpha: 1.0)
-            default: fatalError("impossible")
-            }
+            let grayColor: NSColor = dark ? .white : .black
+            return grayColor.withAlphaComponent(0.2 * CGFloat(level + 1))
+        } else if color == .greenGrass {
+            let grassColor = NSColor(named: "\(dark ? "dark" : "light")-grass")!
+            return grassColor.withAlphaComponent(0.2 * CGFloat(level + 1))
         } else {
-            let name = "\(dark ? "dark" : "light")-grass-\(level)"
-            return NSColor(named: name)!
+            let accentColor = NSColor.controlAccentColor.usingColorSpace(NSColorSpace.deviceRGB)!
+            return accentColor.withAlphaComponent(0.2 * CGFloat(level + 1))
         }
     }
 }

@@ -46,12 +46,12 @@ class PreferencesVC: NSViewController {
     
     @IBAction func colorChange(_ sender: NSPopUpButton) {
         dm.color = Color(rawValue: sender.indexOfSelectedItem)!
-        AppDelegate.shared.updateGrass()
+        AppDelegate.shared.updateGrassImage()
     }
     
     @IBAction func styleChange(_ sender: NSPopUpButton) {
         dm.style = Style(rawValue: sender.indexOfSelectedItem)!
-        AppDelegate.shared.updateGrass()
+        AppDelegate.shared.updateGrassImage()
     }
     
     func showAlert(error: Error) {

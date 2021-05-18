@@ -23,21 +23,13 @@ class GrassParser {
     static func parse(html: String) -> [[DayData]] {
         let tags = html.components(separatedBy: .newlines)
 
-        // capture the color of levels
-        let levels = tags.compactMap({ (str) -> String? in
-            let res = str.trimmingCharacters(in: .whitespaces)
-                .match(#"<li style="background-color: ([^"]+)"#)
-            return (2 <= res.count) ? res[1] : nil
-        })
-
-        // extruct the day line
         let rects = tags.compactMap({ (str) -> String? in
             let res = str.trimmingCharacters(in: .whitespaces)
-                .match(#"<rect class="day".+"#)
+                .match(#"<rect .+data-date="\d\d\d\d-\d\d-\d\d" data-level="\d"(>|/>|></rect>)"#)
             return res.isEmpty ? nil : res[0]
         }).map({ (str) -> String in
             let range = str.range(of: str)
-            return str.replacingOccurrences(of: #"<rect|"|/>|></rect>"#,
+            return str.replacingOccurrences(of: #"<rect|"|>|/>|(></rect>)"#,
                                             with: "",
                                             options: .regularExpression,
                                             range: range)
@@ -57,7 +49,7 @@ class GrassParser {
             params.forEach { (param) in
                 dict[param.key] = param.value
             }
-            let level = levels.firstIndex(of: dict["fill"] ?? "") ?? 0
+            let level = Int(dict["data-level"] ?? "0") ?? 0
             let count = Int(dict["data-count"] ?? "0") ?? 0
             let date = dict["data-date"] ?? ""
             dayData[i % 7].append(DayData(level, count, date))

@@ -20,27 +20,28 @@
 
 import Cocoa
 
-@NSApplicationMain
+@main
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var menu: NSMenu!
     
     private let dm = DataManager.shared
     private let nc = NSWorkspace.shared.notificationCenter
-    private let statusItem = NSStatusBar.system
-        .statusItem(withLength: NSStatusItem.variableLength)
-    private var button: NSStatusBarButton?
-    private let grassView = GrassView()
+    private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    private var ao: NSKeyValueObservation?
     private var timer: Timer?
     private var preferencesWC: NSWindowController?
+    private var dayData: [[DayData]] = DayData.default
     
     class var shared: AppDelegate {
         return NSApplication.shared.delegate as! AppDelegate
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        statusItem.menu = menu
         setNotifications()
-        setUserInterface()
+        setAppearanceObserver()
+        updateGrassImage()
         startTimer()
         if dm.username.isEmpty {
             openPreferences(nil)
@@ -50,6 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         stopTimer()
         nc.removeObserver(self)
+        ao?.invalidate()
     }
 
     
@@ -59,6 +61,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         nc.addObserver(self, selector: #selector(receiveWakeNote),
                        name: NSWorkspace.didWakeNotification, object: nil)
     }
+
+    func setAppearanceObserver() {
+        guard let superview = statusItem.button?.superview else { return }
+        ao = superview.observe(\.effectiveAppearance, changeHandler: { [weak self] (_, _) in
+            self?.updateGrassImage()
+        })
+    }
     
     @objc func receiveSleepNote() {
         stopTimer()
@@ -67,12 +76,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func receiveWakeNote() {
         startTimer()
     }
-    
-    func setUserInterface() {
-        statusItem.menu = menu
-        statusItem.length = 130.5
-        button = statusItem.button
-        button?.addSubview(grassView)
+
+    func updateGrassImage() {
+        if let button = statusItem.button,
+           let isDark = button.superview?.effectiveAppearance.isDark {
+            button.image = NSImage(dayData: dayData,
+                                   color: dm.color,
+                                   style: dm.style,
+                                   isDark: isDark)
+        }
     }
     
     func stopTimer() {
@@ -112,16 +124,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func fetchGrass() {
         if dm.username.isEmpty {
-            statusItem.length = 130.5
-            grassView.update(DayData.default, dm.color, dm.style)
+            dayData = DayData.default
+            updateGrassImage()
             return
         }
         GitAccess.getGrass(username: dm.username) { [unowned self] (html, error) in
-            let dayData: [[DayData]]
             if let html = html {
-                dayData = GrassParser.parse(html: html)
+                self.dayData = GrassParser.parse(html: html)
             } else {
-                dayData = DayData.default
+                self.dayData = DayData.default
                 if let error = error, let wc = self.preferencesWC {
                     DispatchQueue.main.async {
                         (wc.contentViewController as! PreferencesVC).showAlert(error: error)
@@ -129,14 +140,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
             DispatchQueue.main.async {
-                self.statusItem.length = 0.5 * CGFloat(5 * dayData[0].count - 1) + 6.0
-                self.grassView.update(dayData, self.dm.color, self.dm.style)
+                self.updateGrassImage()
             }
         }
-    }
-    
-    func updateGrass() {
-        grassView.update(dm.color, dm.style)
     }
     
 }

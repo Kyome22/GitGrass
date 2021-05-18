@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jMQ-ZC-V3Y">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jMQ-ZC-V3Y">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -62,13 +62,13 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XBf-NF-NfJ">
-                                <rect key="frame" x="168" y="86" width="120" height="25"/>
+                                <rect key="frame" x="167" y="85" width="122" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115" id="DqL-Ei-sMS"/>
                                 </constraints>
                                 <popUpButtonCell key="cell" type="push" title="5分" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="5" imageScaling="proportionallyDown" inset="2" selectedItem="WY6-jW-50D" id="h86-xe-ale">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="PuX-hx-6iX">
                                         <items>
                                             <menuItem title="5分" state="on" tag="5" id="WY6-jW-50D">
@@ -94,19 +94,22 @@
                                 </connections>
                             </popUpButton>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3yB-41-brq">
-                                <rect key="frame" x="168" y="50" width="120" height="25"/>
+                                <rect key="frame" x="167" y="49" width="136" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115" id="5Ei-80-7M2"/>
                                 </constraints>
                                 <popUpButtonCell key="cell" type="push" title="モノクロ" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="M0S-Mg-UHC" id="iYb-Bt-qWi">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="s6h-np-WwE">
                                         <items>
                                             <menuItem title="モノクロ" state="on" id="M0S-Mg-UHC">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
                                             <menuItem title="緑の芝" id="3vN-Jf-PdF">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="アクセントカラー" id="AIJ-Xq-yiL">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
                                         </items>
@@ -119,19 +122,19 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="M29-uI-6X8">
                                 <rect key="frame" x="118" y="56" width="44" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="カラー:" id="I46-LX-lmf">
-                                    <font key="font" size="13" name=".HiraKakuInterface-W3"/>
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aBr-C6-zx6">
-                                <rect key="frame" x="168" y="14" width="120" height="25"/>
+                                <rect key="frame" x="167" y="13" width="122" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115" id="e3B-bd-4Fz"/>
                                 </constraints>
                                 <popUpButtonCell key="cell" type="push" title="四角" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="8rg-UI-p6L" id="zpF-qP-J47">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="T2s-t4-a4Z">
                                         <items>
                                             <menuItem title="四角" state="on" id="8rg-UI-p6L"/>
@@ -146,7 +149,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oM1-QS-Agh">
                                 <rect key="frame" x="106" y="20" width="56" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="パターン:" id="M4A-fL-uJA">
-                                    <font key="font" size="13" name=".HiraKakuInterface-W3"/>
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>

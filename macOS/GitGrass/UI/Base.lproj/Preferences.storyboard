@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jMQ-ZC-V3Y">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="jMQ-ZC-V3Y">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -62,13 +62,13 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XBf-NF-NfJ">
-                                <rect key="frame" x="168" y="86" width="120" height="25"/>
+                                <rect key="frame" x="167" y="85" width="122" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115" id="DqL-Ei-sMS"/>
                                 </constraints>
                                 <popUpButtonCell key="cell" type="push" title="5 minutes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="5" imageScaling="proportionallyDown" inset="2" selectedItem="WY6-jW-50D" id="h86-xe-ale">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="PuX-hx-6iX">
                                         <items>
                                             <menuItem title="5 minutes" state="on" tag="5" id="WY6-jW-50D"/>
@@ -88,17 +88,24 @@
                                 </connections>
                             </popUpButton>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3yB-41-brq">
-                                <rect key="frame" x="168" y="50" width="120" height="25"/>
+                                <rect key="frame" x="167" y="49" width="122" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115" id="5Ei-80-7M2"/>
                                 </constraints>
                                 <popUpButtonCell key="cell" type="push" title="Monochrome" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="M0S-Mg-UHC" id="iYb-Bt-qWi">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="s6h-np-WwE">
                                         <items>
-                                            <menuItem title="Monochrome" state="on" id="M0S-Mg-UHC"/>
-                                            <menuItem title="Green Grass" id="3vN-Jf-PdF"/>
+                                            <menuItem title="Monochrome" state="on" id="M0S-Mg-UHC">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="Green Grass" id="3vN-Jf-PdF">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
+                                            <menuItem title="Accent Color" id="fwi-pJ-NfQ">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                            </menuItem>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
@@ -123,13 +130,13 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FNC-ZL-WwK">
-                                <rect key="frame" x="168" y="14" width="120" height="25"/>
+                                <rect key="frame" x="167" y="13" width="122" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="115" id="Xva-fL-rHP"/>
                                 </constraints>
                                 <popUpButtonCell key="cell" type="push" title="Block" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="OQx-2G-pgc" id="Xav-Pb-UCZ">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="Qip-T9-e6N">
                                         <items>
                                             <menuItem title="Block" state="on" id="OQx-2G-pgc"/>
