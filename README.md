@@ -19,15 +19,18 @@ GitHub Contributions Checker on the macOS menubar or iOS widget.
 # Demo
 
 ## for macOS menubar
-  
+
 ![Demo](resources/file-0.png)
 
 Download GitGrass for macOS → [App Store](https://apps.apple.com/us/app/gitgrass/id1501139279)
 
-## for iOS widget  
+## for iOS widget
+
 ![Demo](resources/file-1.png)
 
-Download GitGrass for iOS → [App Store](https://apps.apple.com/us/app/gitgrass/id1503987405)
+~~Download GitGrass for iOS → [App Store](https://apps.apple.com/us/app/gitgrass/id1503987405)~~
+
+The official GitHub app has started offering the same features, so GitGrass for iOS has stopped delivering to the App Store.
 
 # Contributors
 
