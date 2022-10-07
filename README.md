@@ -33,10 +33,6 @@ Download GitGrass for macOS → [App Store](https://apps.apple.com/us/app/gitgra
 
 The official GitHub app has started offering the same features, so GitGrass for iOS has stopped delivering to the App Store.
 
-# Contributors
-
-- [Kyome22](https://github.com/Kyome22)
-
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
