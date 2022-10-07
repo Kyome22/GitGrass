@@ -21,6 +21,7 @@ GitHub Contributions Checker on the macOS menubar or iOS widget.
 ## for macOS menubar
 
 ![Demo](resources/file-0.png)
+![Demo with this week history](https://user-images.githubusercontent.com/48209860/194648556-24649ab4-cd94-4efd-8561-cf3070c6cbe3.png)
 
 Download GitGrass for macOS → [App Store](https://apps.apple.com/us/app/gitgrass/id1501139279)
 
