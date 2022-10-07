@@ -83,7 +83,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.image = NSImage(dayData: dayData,
                                    color: dm.color,
                                    style: dm.style,
-                                   isDark: isDark)
+                                   isDark: isDark,
+                                   history: dm.history)
         }
     }
     

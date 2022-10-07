@@ -45,13 +45,19 @@ class DataManager {
         get { return Style(rawValue: userDefaults.integer(forKey: "style"))! }
         set { userDefaults.set(newValue.rawValue, forKey: "style") }
     }
-    
+
+    var history: History {
+        get { return History(rawValue: userDefaults.integer(forKey: "history"))! }
+        set { userDefaults.set(newValue.rawValue, forKey: "history") }
+    }
+
     private init() {
         // userDefaults.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         userDefaults.register(defaults: ["username" : "",
                                          "cycle" : 5,
                                          "color" : Color.monochrome.rawValue,
-                                         "style" : Style.block.rawValue])
+                                         "style" : Style.block.rawValue,
+                                         "history": History.all.rawValue])
     }
     
 }
