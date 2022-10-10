@@ -26,7 +26,8 @@ class PreferencesVC: NSViewController {
     @IBOutlet weak var cyclePopUp: NSPopUpButton!
     @IBOutlet weak var colorPopUp: NSPopUpButton!
     @IBOutlet weak var stylePopUp: NSPopUpButton!
-    
+    @IBOutlet weak var historyPopUp: NSPopUpButton!
+
     private let dm = DataManager.shared
     
     override func viewDidLoad() {
@@ -36,6 +37,7 @@ class PreferencesVC: NSViewController {
         cyclePopUp.selectItem(withTag: dm.cycle)
         colorPopUp.selectItem(at: dm.color.rawValue)
         stylePopUp.selectItem(at: dm.style.rawValue)
+        historyPopUp.selectItem(at: dm.history.rawValue)
     }
     
     @IBAction func cycleChange(_ sender: NSPopUpButton) {
@@ -51,6 +53,11 @@ class PreferencesVC: NSViewController {
     
     @IBAction func styleChange(_ sender: NSPopUpButton) {
         dm.style = Style(rawValue: sender.indexOfSelectedItem)!
+        AppDelegate.shared.updateGrassImage()
+    }
+
+    @IBAction func historyChange(_ sender: NSPopUpButton) {
+        dm.history = History(rawValue: sender.indexOfSelectedItem)!
         AppDelegate.shared.updateGrassImage()
     }
     
