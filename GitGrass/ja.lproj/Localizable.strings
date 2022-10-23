@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  GitGrass
+
+  Created by Takuto Nakamura on 2022/10/11.
+  
+*/
+
+// Menu
+"preferences" = "環境設定…";
+"aboutGitGrass" = "GitGrassについて";
+"quitGitGrass" = "GitGrassを終了";
+
+"oss" = "GitGrassはオープンソースソフトウェアです。\n";
+"notFound" = "現在指定しているGitHubアカウントは存在しないようです。";
+
+// GeneralSettings
+"general" = "一般";
+"accountName" = "GitHubアカウント名:";
+"updateCycle" = "アップデート周期:";
+"minutes5" = "５分";
+"minutes10" = "１０分";
+"minutes15" = "１５分";
+"minutes30" = "３０分";
+"hour1" = "１時間";
+"color" = "カラー:";
+"monochrome" = "モノクロ";
+"greenGrass" = "緑の芝";
+"accentColor" = "アクセントカラー";
+"style" = "スタイル:";
+"block" = "四角";
+"dot" = "丸";
+"period" = "期間:";
+"thisYear" = "今年";
+"thisWeek" = "今週";

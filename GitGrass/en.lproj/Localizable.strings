@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  GitGrass
+
+  Created by Takuto Nakamura on 2022/10/11.
+  
+*/
+
+// Menu
+"preferences" = "Preferences…";
+"aboutGitGrass" = "About GitGrass";
+"quitGitGrass" = "Quit GitGrass";
+
+"oss" = "GitGrass is an open-source software.\n";
+"notFound" = "The GitHub account your input does not exist.";
+
+// GeneralSettings
+"general" = "General";
+"accountName" = "GitHub Account Name:";
+"updateCycle" = "Update Cycle:";
+"minutes5" = "5 minutes";
+"minutes10" = "10 minutes";
+"minutes15" = "15 minutes";
+"minutes30" = "30 minutes";
+"hour1" = "1 hour";
+"color" = "Color:";
+"monochrome" = "Monochrome";
+"greenGrass" = "Green Grass";
+"accentColor" = "Accent Color";
+"style" = "Style:";
+"dot" = "Dot";
+"block" = "Block";
+"period" = "Period:";
+"thisYear" = "This Year";
+"thisWeek" = "This Week";
