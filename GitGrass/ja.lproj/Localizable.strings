@@ -16,6 +16,7 @@
 
 // GeneralSettings
 "general" = "一般";
+"wrapText" = "GitHubアカウント名:";
 "accountName" = "GitHubアカウント名:";
 "updateCycle" = "アップデート周期:";
 "minutes5" = "５分";
@@ -33,3 +34,5 @@
 "period" = "期間:";
 "thisYear" = "今年";
 "thisWeek" = "今週";
+"launch" = "起動:";
+"launchAtLogin" = "ログイン時に自動でGitGrassを起動";

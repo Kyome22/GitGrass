@@ -20,20 +20,33 @@
 
 import SwiftUI
 
-struct SettingsView: View {
+struct SettingsView<GAM: GitGrassAppModel,
+                    GVM: GeneralSettingsViewModel>: View {
+    @EnvironmentObject private var appModel: GAM
+
     private enum Tabs: Hashable {
         case general
     }
 
     var body: some View {
         TabView {
-            GeneralSettingsView()
-                .tabItem {
-                    Label("general", systemImage: "gear")
-                }
-                .tag(Tabs.general)
+            GeneralSettingsView(viewModel: GVM.init(appModel.userDefaultsRepository,
+                                                    appModel.launchAtLoginRepository))
+            .tabItem {
+                Label("general", systemImage: "gear")
+            }
+            .tag(Tabs.general)
         }
         .padding(.horizontal, 40)
         .padding(.vertical, 20)
+        .accessibilityIdentifier("Preferences")
+    }
+}
+
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView<PreviewMock.GitGrassAppModelMock,
+                     PreviewMock.GeneralSettingsViewModelMock>()
+            .environmentObject(PreviewMock.GitGrassAppModelMock())
     }
 }

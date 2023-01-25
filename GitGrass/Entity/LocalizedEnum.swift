@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  LocalizedEnum.swift
 //  GitGrass
 //
 //  Created by Takuto Nakamura on 2022/10/11.
@@ -18,12 +18,8 @@
 //  limitations under the License.
 //
 
-import Cocoa
+import SwiftUI
 
-final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
-    private var menuManager: MenuManager?
-
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        menuManager = MenuManager.shared
-    }
+protocol LocalizedEnum {
+    var localizedKey: LocalizedStringKey { get }
 }

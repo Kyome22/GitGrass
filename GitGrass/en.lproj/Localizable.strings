@@ -16,6 +16,7 @@
 
 // GeneralSettings
 "general" = "General";
+"wrapText" = "GitHub Account Name:";
 "accountName" = "GitHub Account Name:";
 "updateCycle" = "Update Cycle:";
 "minutes5" = "5 minutes";
@@ -33,3 +34,5 @@
 "period" = "Period:";
 "thisYear" = "This Year";
 "thisWeek" = "This Week";
+"launch" = "Launch:";
+"launchAtLogin" = "Launch GitGrass automatically at login.";

@@ -33,6 +33,23 @@ extension NSStatusItem {
     }
 }
 
+extension NSMenu {
+    func addItem(title: String, action: Selector, target: AnyObject) {
+        self.addItem(NSMenuItem(title: title, action: action, target: target))
+    }
+
+    func addSeparator() {
+        self.addItem(NSMenuItem.separator())
+    }
+}
+
+extension NSMenuItem {
+    convenience init(title: String, action: Selector, target: AnyObject) {
+        self.init(title: title, action: action, keyEquivalent: "")
+        self.target = target
+    }
+}
+
 extension NSColor {
     static let url = NSColor(named: "urlColor")!
 

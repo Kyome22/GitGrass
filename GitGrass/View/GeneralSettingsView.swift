@@ -20,11 +20,15 @@
 
 import SwiftUI
 
-struct GeneralSettingsView: View {
-    @StateObject var viewModel = GeneralSettingsViewModel()
+struct GeneralSettingsView<GVM: GeneralSettingsViewModel>: View {
+    @StateObject var viewModel: GVM
+
+    init(viewModel: GVM) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text("accountName")
                 TextField("", text: $viewModel.username)
@@ -39,60 +43,54 @@ struct GeneralSettingsView: View {
                 }
                 .buttonStyle(.borderless)
             }
-            HStack {
-                wrapText(maxKey: "accountName", key: "updateCycle")
-                Picker(selection: $viewModel.cycle) {
-                    ForEach(GGCycle.allCases, id: \.rawValue) { cycle in
-                        Text(cycle.localizedKey).tag(cycle)
+            pickerItem(summaryKey: "updateCycle",
+                       selection: $viewModel.cycle)
+            pickerItem(summaryKey: "color",
+                       selection: $viewModel.color)
+            pickerItem(summaryKey: "style",
+                       selection: $viewModel.style)
+            pickerItem(summaryKey: "period",
+                       selection: $viewModel.period)
+            if macOS13OrLater {
+                Divider()
+                HStack(alignment: .center, spacing: 8) {
+                    wrapText(maxKey: "wrapText", key: "launch")
+                    Toggle(isOn: $viewModel.launchAtLogin) {
+                        Text("launchAtLogin")
                     }
-                } label: {
-                    EmptyView()
                 }
-                .pickerStyle(.menu)
-                .fixedSize()
-            }
-            HStack {
-                wrapText(maxKey: "accountName", key: "color")
-                Picker(selection: $viewModel.color) {
-                    ForEach(GGColor.allCases, id: \.rawValue) { color in
-                        Text(color.localizedKey).tag(color)
-                    }
-                } label: {
-                    EmptyView()
-                }
-                .pickerStyle(.menu)
-                .fixedSize()
-            }
-            HStack {
-                wrapText(maxKey: "accountName", key: "style")
-                Picker(selection: $viewModel.style) {
-                    ForEach(GGStyle.allCases, id: \.rawValue) { style in
-                        Text(style.localizedKey).tag(style)
-                    }
-                } label: {
-                    EmptyView()
-                }
-                .pickerStyle(.menu)
-                .fixedSize()
-            }
-            HStack {
-                wrapText(maxKey: "accountName", key: "period")
-                Picker(selection: $viewModel.period) {
-                    ForEach(GGPeriod.allCases, id: \.rawValue) { period in
-                        Text(period.localizedKey).tag(period)
-                    }
-                } label: {
-                    EmptyView()
-                }
-                .pickerStyle(.menu)
-                .fixedSize()
+                .frame(height: 20)
             }
         }
+        .fixedSize()
+    }
+
+    private func pickerItem<E: RawRepresentable & Hashable & CaseIterable & LocalizedEnum>(
+        summaryKey: LocalizedStringKey,
+        selection: Binding<E>
+    ) -> some View where E.RawValue == Int, E.AllCases == Array<E> {
+        HStack {
+            wrapText(maxKey: "wrapText", key: summaryKey)
+            Picker(selection: selection) {
+                ForEach(E.allCases, id: \.rawValue) { item in
+                    Text(item.localizedKey).tag(item)
+                }
+            } label: {
+                EmptyView()
+            }
+            .pickerStyle(.menu)
+            .fixedSize(horizontal: true, vertical: false)
+            Spacer()
+        }
+        .frame(height: 20)
     }
 }
 
 struct GeneralSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        GeneralSettingsView()
+        ForEach(["en_US", "ja_JP"], id: \.self) { id in
+            GeneralSettingsView(viewModel: PreviewMock.GeneralSettingsViewModelMock())
+                .environment(\.locale, .init(identifier: id))
+        }
     }
 }
