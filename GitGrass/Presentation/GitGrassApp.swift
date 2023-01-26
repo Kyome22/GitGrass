@@ -22,13 +22,15 @@ import SwiftUI
 
 @main
 struct GitGrassApp: App {
-    typealias GVMConcrete = GeneralSettingsViewModelImpl<UserDefaultsRepositoryImpl, LaunchAtLoginRepositoryImpl>
+    typealias GVMConcrete = GeneralSettingsViewModelImpl<UserDefaultsRepositoryImpl,
+                                                         LaunchAtLoginRepositoryImpl>
 
     @StateObject private var appModel = GitGrassAppModelImpl()
 
     var body: some Scene {
         Settings {
             SettingsView<GitGrassAppModelImpl, GVMConcrete>()
+                .environmentObject(appModel)
         }
     }
 }

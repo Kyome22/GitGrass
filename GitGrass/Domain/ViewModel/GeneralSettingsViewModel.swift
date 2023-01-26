@@ -28,8 +28,7 @@ protocol GeneralSettingsViewModel: ObservableObject {
     var period: GGPeriod { get set }
     var launchAtLogin: Bool { get set }
 
-    init(_ userDefaultsRepository: UserDefaultsRepository,
-         _ launchAtLoginRepository: LaunchAtLoginRepository)
+    init(_ userDefaultsRepository: UserDefaultsRepository)
 
     func updateUsername()
 }
@@ -60,12 +59,9 @@ final class GeneralSettingsViewModelImpl<UR: UserDefaultsRepository,
     private let userDefaultsRepository: UR
     private let launchAtLoginRepository: LR
 
-    init(
-        _ userDefaultsRepository: UserDefaultsRepository,
-        _ launchAtLoginRepository: LaunchAtLoginRepository
-    ) {
+    init(_ userDefaultsRepository: UserDefaultsRepository) {
         self.userDefaultsRepository = userDefaultsRepository as! UR
-        self.launchAtLoginRepository = launchAtLoginRepository as! LR
+        self.launchAtLoginRepository = LR()
         username = userDefaultsRepository.username
         cycle = userDefaultsRepository.cycle
         color = userDefaultsRepository.color
@@ -89,8 +85,7 @@ extension PreviewMock {
         @Published var period: GGPeriod = .lastYear
         @Published var launchAtLogin: Bool = true
 
-        init(_ userDefaultsRepository: UserDefaultsRepository,
-             _ launchAtLoginRepository: LaunchAtLoginRepository) {}
+        init(_ userDefaultsRepository: UserDefaultsRepository) {}
         init() {}
 
         func updateUsername() {}

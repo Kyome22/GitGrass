@@ -20,6 +20,10 @@
 
 import AppKit
 
+extension Notification.Name {
+    static let openWindow = Notification.Name("openWindow")
+}
+
 extension NSAppearance {
     var isDark: Bool {
         if self.name == .vibrantDark { return true }
@@ -53,11 +57,11 @@ extension NSMenuItem {
 extension NSColor {
     static let url = NSColor(named: "urlColor")!
 
-    static func fillColor(_ level: Int, _ color: GGColor, _ dark: Bool) -> NSColor {
+    static func fillColor(_ level: Int, _ color: GGColor, _ isDark: Bool) -> NSColor {
         if color == .monochrome {
             return NSColor.black.withAlphaComponent(0.2 * CGFloat(level + 1))
         } else if color == .greenGrass {
-            let grassColor = NSColor(named: "\(dark ? "dark" : "light")-grass")!
+            let grassColor = NSColor(named: "\(isDark ? "dark" : "light")-grass")!
             return grassColor.withAlphaComponent(0.2 * CGFloat(level + 1))
         } else {
             let accentColor = NSColor.controlAccentColor.usingColorSpace(NSColorSpace.deviceRGB)!
@@ -72,12 +76,13 @@ extension NSImage {
         color: GGColor,
         style: GGStyle,
         period: GGPeriod,
-        isDark: Bool
+        isDarkHandler: @escaping () -> Bool
     ) {
         switch period {
         case .lastYear:
             let width = 0.5 * CGFloat(5 * dayData[0].count - 1)
             self.init(size: CGSize(width: width, height: 18.0), flipped: false) { _ in
+                let isDark = isDarkHandler()
                 for i in (0 ..< 7) {
                     for j in (0 ..< dayData[i].count) {
                         NSColor.fillColor(dayData[i][j].level, color, isDark).setFill()
@@ -94,6 +99,7 @@ extension NSImage {
         case .thisWeek:
             let lastWeekData = dayData.sorted { $0.count < $1.count }.compactMap { $0.last }
             self.init(size: CGSize(width: 124.0, height: 18.0), flipped: false) { _ in
+                let isDark = isDarkHandler()
                 for i in (0 ..< lastWeekData.count) {
                     NSColor.fillColor(lastWeekData[i].level, color, isDark).setFill()
                     let rect = NSRect(x: 18.0 * CGFloat(i), y: 1.0, width: 16.0, height: 16.0)
@@ -106,6 +112,6 @@ extension NSImage {
                 return true
             }
         }
-        isTemplate = (color == .monochrome)
+        self.isTemplate = (color == .monochrome)
     }
 }

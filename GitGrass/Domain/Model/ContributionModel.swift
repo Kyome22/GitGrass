@@ -3,53 +3,74 @@
 //  GitGrass
 //
 //  Created by Takuto Nakamura on 2023/01/25.
+//  Copyright 2023 Takuto Nakamura
+//
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 //
 
-import Foundation
+import AppKit
 import Combine
 
-protocol GitGrassManager: AnyObject {
+protocol ContributionModel: AnyObject {
     var dayDataPublisher: AnyPublisher<[[DayData]], Never> { get }
-    var currentDayData: [[DayData]] { get }
 
-    func fetchGrass(username: String)
-    func startTimer(username: String, cycle: GGCycle)
+    init(_ userDefaultsRepository: UserDefaultsRepository)
+
+    func fetchGrass()
+    func startTimer()
     func stopTimer()
-    func updateCycle(username: String, cycle: GGCycle)
+    func updateCycle()
 }
 
-final class GitGrassManagerImpl: GitGrassManager {
+final class ContributionModelImpl<UR: UserDefaultsRepository,
+                                  CR: ContributionRepository>: ContributionModel {
+    private let userDefaultsRepository: UR
+    private let contributionRepository: CR
+    private var timerCancellable: AnyCancellable?
+    private var cancellables = Set<AnyCancellable>()
+
     private let dayDataSubject = CurrentValueSubject<[[DayData]], Never>(DayData.default)
     var dayDataPublisher: AnyPublisher<[[DayData]], Never> {
         return dayDataSubject.eraseToAnyPublisher()
     }
-    var currentDayData: [[DayData]] {
-        return dayDataSubject.value
-    }
-    private var timerCancellable: AnyCancellable?
 
-    init() {}
+    init(_ userDefaultsRepository: UserDefaultsRepository) {
+        self.userDefaultsRepository = userDefaultsRepository as! UR
+        self.contributionRepository = CR()
 
-    private func getGrass(username: String) async throws -> String {
-        let urlString = "https://github.com/users/\(username)/contributions"
-        guard let url = URL(string: urlString) else {
-            throw GitGrassError.invalidURL
-        }
-        let (data, response) = try await URLSession.shared.data(from: url)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw GitGrassError.responseError
-        }
-        if httpResponse.statusCode == 200, let text = String(data: data, encoding: .utf8) {
-            return text
-        }
-        throw GitGrassError.badStatus
-    }
+        NSWorkspace.shared.notificationCenter
+            .publisher(for: NSWorkspace.willSleepNotification)
+            .sink { [weak self] _ in
+                self?.stopTimer()
+            }
+            .store(in: &cancellables)
+        NSWorkspace.shared.notificationCenter
+            .publisher(for: NSWorkspace.didWakeNotification)
+            .sink { [weak self] _ in
+                self?.startTimer()
+            }
+            .store(in: &cancellables)
 
-    private func getDummyGrass(username: String) async throws -> String {
-        if let url = Bundle.main.url(forResource: "dummy", withExtension: "html") {
-            return try String(contentsOf: url, encoding: .utf8)
-        }
-        throw GitGrassError.invalidURL
+        self.userDefaultsRepository.usernamePublisher
+            .sink { [weak self] _ in
+                self?.fetchGrass()
+            }
+            .store(in: &cancellables)
+        self.userDefaultsRepository.cyclePublisher
+            .sink { [weak self] _ in
+                self?.updateCycle()
+            }
+            .store(in: &cancellables)
     }
 
     private func parse(html: String) -> [[DayData]] {
@@ -89,14 +110,15 @@ final class GitGrassManagerImpl: GitGrassManager {
         return dayData
     }
 
-    func fetchGrass(username: String) {
+    func fetchGrass() {
+        let username = userDefaultsRepository.username
         if username.isEmpty {
             dayDataSubject.send(DayData.default)
             return
         }
         Task {
             do {
-                let html = try await getGrass(username: username)
+                let html = try await contributionRepository.getGrass(username: username)
                 dayDataSubject.send(parse(html: html))
             } catch {
                 dayDataSubject.send(DayData.default)
@@ -104,13 +126,13 @@ final class GitGrassManagerImpl: GitGrassManager {
         }
     }
 
-    func startTimer(username: String, cycle: GGCycle) {
-        let interval = 60.0 * Double(cycle.rawValue)
+    func startTimer() {
+        let interval = 60.0 * Double(userDefaultsRepository.cycle.rawValue)
         timerCancellable = Timer.publish(every: interval, on: .main, in: .common)
             .autoconnect()
             .prepend(Date())
             .sink { [weak self] _ in
-                self?.fetchGrass(username: username)
+                self?.fetchGrass()
             }
     }
 
@@ -118,23 +140,25 @@ final class GitGrassManagerImpl: GitGrassManager {
         timerCancellable?.cancel()
     }
 
-    func updateCycle(username: String, cycle: GGCycle) {
+    func updateCycle() {
         stopTimer()
-        startTimer(username: username, cycle: cycle)
+        startTimer()
     }
 }
 
 // MARK: - Preview Mock
 extension PreviewMock {
-    final class GitGrassManagerMock: GitGrassManager {
+    final class ContributionModelMock: ContributionModel {
         var dayDataPublisher: AnyPublisher<[[DayData]], Never> {
             return Just(DayData.default).eraseToAnyPublisher()
         }
-        var currentDayData: [[DayData]] { [] }
 
-        func fetchGrass(username: String) {}
-        func startTimer(username: String, cycle: GGCycle) {}
+        init(_ userDefaultsRepository: UserDefaultsRepository) {}
+        init() {}
+
+        func fetchGrass() {}
+        func startTimer() {}
         func stopTimer() {}
-        func updateCycle(username: String, cycle: GGCycle) {}
+        func updateCycle() {}
     }
 }
