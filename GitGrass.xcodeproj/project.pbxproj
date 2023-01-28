@@ -25,7 +25,6 @@
 		1CC6C1232980CE1C00D89250 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C1222980CE1C00D89250 /* Utils.swift */; };
 		1CC6C1262980CFB000D89250 /* MenuBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C1252980CFB000D89250 /* MenuBarModel.swift */; };
 		1CC6C1282980CFCA00D89250 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C1272980CFCA00D89250 /* MenuBar.swift */; };
-		1CC6C12B2980D0D000D89250 /* WindowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C12A2980D0D000D89250 /* WindowType.swift */; };
 		1CC6C12D2981195800D89250 /* GGStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C12C2981195800D89250 /* GGStyle.swift */; };
 		1CC6C12F2981196200D89250 /* GGCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C12E2981196200D89250 /* GGCycle.swift */; };
 		1CC6C1312981196C00D89250 /* GGColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C1302981196C00D89250 /* GGColor.swift */; };
@@ -60,7 +59,6 @@
 		1CC6C1222980CE1C00D89250 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		1CC6C1252980CFB000D89250 /* MenuBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarModel.swift; sourceTree = "<group>"; };
 		1CC6C1272980CFCA00D89250 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
-		1CC6C12A2980D0D000D89250 /* WindowType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowType.swift; sourceTree = "<group>"; };
 		1CC6C12C2981195800D89250 /* GGStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGStyle.swift; sourceTree = "<group>"; };
 		1CC6C12E2981196200D89250 /* GGCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGCycle.swift; sourceTree = "<group>"; };
 		1CC6C1302981196C00D89250 /* GGColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGColor.swift; sourceTree = "<group>"; };
@@ -164,7 +162,6 @@
 		1CC6C1292980D0C100D89250 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				1CC6C12A2980D0D000D89250 /* WindowType.swift */,
 				1CB318AC28F487EC00F6E9D2 /* LocalizedEnum.swift */,
 				1CB318AE28F489ED00F6E9D2 /* DayData.swift */,
 				1CC6C12E2981196200D89250 /* GGCycle.swift */,
@@ -291,7 +288,6 @@
 				1CB318AF28F489ED00F6E9D2 /* DayData.swift in Sources */,
 				1CC6C1212980CD6300D89250 /* LaunchAtLoginRepository.swift in Sources */,
 				1CC6C11C2980CCD500D89250 /* GitGrassAppModel.swift in Sources */,
-				1CC6C12B2980D0D000D89250 /* WindowType.swift in Sources */,
 				1CB318AD28F487EC00F6E9D2 /* LocalizedEnum.swift in Sources */,
 				1CB318B728F4929500F6E9D2 /* GeneralSettingsView.swift in Sources */,
 				1CB318AB28F4867A00F6E9D2 /* AppKit+Extensions.swift in Sources */,
