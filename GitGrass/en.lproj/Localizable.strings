@@ -19,6 +19,7 @@
 "general" = "General";
 "wrapText" = "GitHub Personal Access Token:";
 "personalAccessToken" = "GitHub Personal Access Token:";
+"scope" = "You should only select the \"read:user\" scope.";
 "reset" = "Reset";
 "save" = "Save";
 "accountName" = "GitHub Account Name:";

@@ -26,36 +26,48 @@ struct GeneralSettingsView<GVM: GeneralSettingsViewModel>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             if viewModel.tokenIsAlreadyStored {
-                HStack(spacing: 8) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Text("personalAccessToken")
-                    Text(verbatim: viewModel.personalAccessToken.secured)
-                        .fontDesign(.monospaced)
-                        .foregroundColor(.secondary)
-                        .frame(width: 325)
-                }
-                HStack {
-                    Spacer()
-                    Button {
-                        viewModel.resetToken()
-                    } label: {
-                        Text("reset")
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(verbatim: viewModel.personalAccessToken.secured)
+                            .fontDesign(.monospaced)
+                            .foregroundColor(.secondary)
+                            .frame(width: 325, alignment: .leading)
+                            .padding(2)
+                            .border(Color.secondary.opacity(0.5))
+                        HStack {
+                            Text("scope")
+                                .lineLimit(1)
+                                .foregroundColor(.secondary)
+                            Button {
+                                viewModel.resetToken()
+                            } label: {
+                                Text("reset")
+                            }
+                        }
+                        .fixedSize()
                     }
                 }
             } else {
-                HStack(spacing: 8) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Text("personalAccessToken")
-                    TextField("", text: $viewModel.personalAccessToken)
-                        .disableAutocorrection(true)
-                        .frame(width: 325)
-                }
-                HStack {
-                    Spacer()
-                    Button {
-                        viewModel.saveToken()
-                    } label: {
-                        Text("save")
+                    VStack(alignment: .leading, spacing: 8) {
+                        TextField("", text: $viewModel.personalAccessToken)
+                            .disableAutocorrection(true)
+                            .frame(width: 325)
+                        HStack {
+                            Text("scope")
+                                .lineLimit(1)
+                                .foregroundColor(.secondary)
+                            Button {
+                                viewModel.saveToken()
+                            } label: {
+                                Text("save")
+                            }
+                            .disabled(viewModel.personalAccessToken.isEmpty)
+                        }
+                        .fixedSize()
                     }
-                    .disabled(viewModel.personalAccessToken.isEmpty)
                 }
             }
             HStack(spacing: 8) {

@@ -19,6 +19,7 @@
 "general" = "一般";
 "wrapText" = "GitHub個人用アクセストークン:";
 "personalAccessToken" = "GitHub個人用アクセストークン:";
+"scope" = "\"read:user\"スコープへの権限のみで十分です。";
 "reset" = "リセット";
 "save" = "保存";
 "accountName" = "GitHubアカウント名:";

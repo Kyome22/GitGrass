@@ -12,17 +12,24 @@ GitHub Contributions Checker on the macOS menubar.
 [![Github top language](https://img.shields.io/github/languages/top/Kyome22/GitGrass)](https://github.com/Kyome22/GitGrass/)
 [![Github license](https://img.shields.io/github/license/Kyome22/GitGrass)](https://github.com/Kyome22/GitGrass/)
 
-# Tags
+## Tags
 
-`GitHub` `Swift`
+`GitHub` `Swift` `GraphQL`
 
-# Demo
+## Demo
 
 <img src="./resources/this_year.png" height="350px" />
-<br>
-<img src="./resources/this_week.png" height="350px" />
 
 Download GitGrass for macOS → [App Store](https://apps.apple.com/us/app/gitgrass/id1501139279)
+
+## Setup
+
+You need to set up a GitHub personal access token and account name.
+
+Generate your personal access token [here](https://github.com/settings/tokens).  
+If you just want to get the contribution graph, you should only select the "read:user" scope.
+
+<img src="./resources/read_user.png" height="130px" />
 
 ## Contributors ✨
 
