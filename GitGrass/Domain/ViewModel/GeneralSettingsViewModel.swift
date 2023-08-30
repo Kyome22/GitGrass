@@ -21,6 +21,8 @@
 import AppKit
 
 protocol GeneralSettingsViewModel: ObservableObject {
+    var personalAccessToken: String { get set }
+    var tokenIsAlreadyStored: Bool { get }
     var username: String { get set }
     var cycle: GGCycle { get set }
     var color: GGColor { get set }
@@ -28,13 +30,19 @@ protocol GeneralSettingsViewModel: ObservableObject {
     var period: GGPeriod { get set }
     var launchAtLogin: Bool { get set }
 
-    init(_ userDefaultsRepository: UserDefaultsRepository)
+    init(_ userDefaultsRepository: UserDefaultsRepository,
+         _ keychainRepository: KeychainRepository)
 
+    func resetToken()
+    func saveToken()
     func updateUsername()
 }
 
 final class GeneralSettingsViewModelImpl<UR: UserDefaultsRepository,
+                                         KR: KeychainRepository,
                                          LR: LaunchAtLoginRepository>: GeneralSettingsViewModel {
+    @Published var personalAccessToken: String = ""
+    @Published var tokenIsAlreadyStored: Bool = false
     @Published var username: String
     @Published var cycle: GGCycle {
         didSet { userDefaultsRepository.cycle = cycle }
@@ -57,10 +65,15 @@ final class GeneralSettingsViewModelImpl<UR: UserDefaultsRepository,
     }
 
     private let userDefaultsRepository: UR
+    private let keychainRepository: KR
     private let launchAtLoginRepository: LR
 
-    init(_ userDefaultsRepository: UserDefaultsRepository) {
+    init(
+        _ userDefaultsRepository: UserDefaultsRepository,
+        _ keychainRepository: KeychainRepository
+    ) {
         self.userDefaultsRepository = userDefaultsRepository as! UR
+        self.keychainRepository = keychainRepository as! KR
         self.launchAtLoginRepository = LR()
         username = userDefaultsRepository.username
         cycle = userDefaultsRepository.cycle
@@ -68,6 +81,31 @@ final class GeneralSettingsViewModelImpl<UR: UserDefaultsRepository,
         style = userDefaultsRepository.style
         period = userDefaultsRepository.period
         launchAtLogin = launchAtLoginRepository.current
+        setToken()
+    }
+
+    private func setToken() {
+        let token = keychainRepository.personalAccessToken ?? ""
+        personalAccessToken = token
+        tokenIsAlreadyStored = !token.isEmpty
+    }
+
+    func resetToken() {
+        Task {
+            keychainRepository.personalAccessToken = nil
+            Task { @MainActor in
+                setToken()
+            }
+        }
+    }
+
+    func saveToken() {
+        Task {
+            keychainRepository.personalAccessToken = personalAccessToken
+            Task { @MainActor in
+                setToken()
+            }
+        }
     }
 
     func updateUsername() {
@@ -78,6 +116,8 @@ final class GeneralSettingsViewModelImpl<UR: UserDefaultsRepository,
 // MARK: - Preview Mock
 extension PreviewMock {
     final class GeneralSettingsViewModelMock: GeneralSettingsViewModel {
+        @Published var personalAccessToken: String = ""
+        @Published var tokenIsAlreadyStored: Bool = false
         @Published var username: String = ""
         @Published var cycle: GGCycle = .minutes5
         @Published var color: GGColor = .monochrome
@@ -85,9 +125,12 @@ extension PreviewMock {
         @Published var period: GGPeriod = .lastYear
         @Published var launchAtLogin: Bool = true
 
-        init(_ userDefaultsRepository: UserDefaultsRepository) {}
+        init(_ userDefaultsRepository: UserDefaultsRepository,
+             _ keychainRepository: KeychainRepository) {}
         init() {}
 
+        func resetToken() {}
+        func saveToken() {}
         func updateUsername() {}
     }
 }

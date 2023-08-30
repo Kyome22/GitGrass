@@ -23,6 +23,7 @@ import SwiftUI
 @main
 struct GitGrassApp: App {
     typealias GVMConcrete = GeneralSettingsViewModelImpl<UserDefaultsRepositoryImpl,
+                                                         KeychainRepositoryImpl,
                                                          LaunchAtLoginRepositoryImpl>
 
     @StateObject private var appModel = GitGrassAppModelImpl()

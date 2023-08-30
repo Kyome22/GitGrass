@@ -24,19 +24,21 @@ import Combine
 protocol ContributionModel: AnyObject {
     var dayDataPublisher: AnyPublisher<[[DayData]], Never> { get }
 
-    init(_ userDefaultsRepository: UserDefaultsRepository)
+    init(_ userDefaultsRepository: UserDefaultsRepository,
+         _ keychainRepository: KeychainRepository)
 
     func fetchGrass()
-    func startTimer()
     func stopTimer()
     func updateCycle()
 }
 
 final class ContributionModelImpl<UR: UserDefaultsRepository,
+                                  KR: KeychainRepository,
                                   CR: ContributionRepository>: ContributionModel {
     private let userDefaultsRepository: UR
+    private let keychainRepository: KR
     private let contributionRepository: CR
-    private var timerCancellable: AnyCancellable?
+    private var timer: Timer?
     private var cancellables = Set<AnyCancellable>()
 
     private let dayDataSubject = CurrentValueSubject<[[DayData]], Never>(DayData.default)
@@ -44,8 +46,12 @@ final class ContributionModelImpl<UR: UserDefaultsRepository,
         return dayDataSubject.eraseToAnyPublisher()
     }
 
-    init(_ userDefaultsRepository: UserDefaultsRepository) {
+    init(
+        _ userDefaultsRepository: UserDefaultsRepository,
+        _ keychainRepository: KeychainRepository
+    ) {
         self.userDefaultsRepository = userDefaultsRepository as! UR
+        self.keychainRepository = keychainRepository as! KR
         self.contributionRepository = CR()
 
         NSWorkspace.shared.notificationCenter
@@ -57,7 +63,7 @@ final class ContributionModelImpl<UR: UserDefaultsRepository,
         NSWorkspace.shared.notificationCenter
             .publisher(for: NSWorkspace.didWakeNotification)
             .sink { [weak self] _ in
-                self?.startTimer()
+                self?.fetchGrass()
             }
             .store(in: &cancellables)
 
@@ -73,71 +79,42 @@ final class ContributionModelImpl<UR: UserDefaultsRepository,
             .store(in: &cancellables)
     }
 
-    private func parse(html: String) -> [[DayData]] {
-        let tags = html.components(separatedBy: .newlines)
-        let rects = tags.compactMap({ (str) -> String? in
-            let res = str.trimmingCharacters(in: .whitespaces)
-            if res.contains("<rect"), res.contains("data-date="), res.contains("data-level=") {
-                let array = res.match(#"(<rect [^>]*?>)"#)
-                guard array.count == 2 else { return nil }
-                let range = array[1].range(of: array[1])
-                return array[1].replacingOccurrences(of: #"<rect|"|>|/>"#,
-                                                     with: "",
-                                                     options: .regularExpression,
-                                                     range: range)
+    private func convert(output: ContributionsOutput) -> [[DayData]] {
+        let calendar = output.user.contributionsCollection.contributionCalendar
+        return calendar.weeks.map { week in
+            week.contributionDays.map { day in
+                return DayData(day.contributionLevel.integer, day.contributionCount, day.date)
             }
-            return nil
-        })
-        // tidy the day data
-        var dayData = [[DayData]](repeating: [], count: 7)
-        for i in (0 ..< rects.count) {
-            let params = rects[i]
-                .trimmingCharacters(in: .whitespaces)
-                .components(separatedBy: " ")
-                .map({ (str) -> (key: String, value: String) in
-                    let array = str.components(separatedBy: "=")
-                    return (array[0], array[1])
-                })
-            var dict = [String : String]()
-            params.forEach { (param) in
-                dict[param.key] = param.value
-            }
-            let level = Int(dict["data-level"] ?? "0") ?? 0
-            let count = Int(dict["data-count"] ?? "0") ?? 0
-            let date = dict["data-date"] ?? ""
-            dayData[i % 7].append(DayData(level, count, date))
         }
-        return dayData
     }
 
     func fetchGrass() {
         let username = userDefaultsRepository.username
-        if username.isEmpty {
+        guard !username.isEmpty, let token = keychainRepository.personalAccessToken else {
             dayDataSubject.send(DayData.default)
             return
         }
         Task {
             do {
-                let html = try await contributionRepository.getGrass(username: username)
-                dayDataSubject.send(parse(html: html))
+                let output = try await contributionRepository.getGrass(token, username)
+                dayDataSubject.send(convert(output: output))
+                startTimer()
             } catch {
                 dayDataSubject.send(DayData.default)
             }
         }
     }
 
-    func startTimer() {
+    private func startTimer() {
         let interval = 60.0 * Double(userDefaultsRepository.cycle.rawValue)
-        timerCancellable = Timer.publish(every: interval, on: .main, in: .common)
-            .autoconnect()
-            .prepend(Date())
-            .sink { [weak self] _ in
-                self?.fetchGrass()
-            }
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { [weak self] _ in
+            self?.fetchGrass()
+        }
     }
 
     func stopTimer() {
-        timerCancellable?.cancel()
+        timer?.invalidate()
+        timer = nil
     }
 
     func updateCycle() {
@@ -153,11 +130,11 @@ extension PreviewMock {
             return Just(DayData.default).eraseToAnyPublisher()
         }
 
-        init(_ userDefaultsRepository: UserDefaultsRepository) {}
+        init(_ userDefaultsRepository: UserDefaultsRepository,
+             _ keychainRepository: KeychainRepository) {}
         init() {}
 
         func fetchGrass() {}
-        func startTimer() {}
         func stopTimer() {}
         func updateCycle() {}
     }

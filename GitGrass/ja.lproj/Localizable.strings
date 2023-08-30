@@ -7,8 +7,9 @@
 */
 
 // Menu
-"preferences" = "環境設定…";
+"settings" = "設定…";
 "aboutGitGrass" = "GitGrassについて";
+"licenses" = "ライセンス";
 "quitGitGrass" = "GitGrassを終了";
 
 "oss" = "GitGrassはオープンソースソフトウェアです。\n";
@@ -16,7 +17,10 @@
 
 // GeneralSettings
 "general" = "一般";
-"wrapText" = "GitHubアカウント名:";
+"wrapText" = "GitHub個人用アクセストークン:";
+"personalAccessToken" = "GitHub個人用アクセストークン:";
+"reset" = "リセット";
+"save" = "保存";
 "accountName" = "GitHubアカウント名:";
 "updateCycle" = "アップデート周期:";
 "minutes5" = "５分";

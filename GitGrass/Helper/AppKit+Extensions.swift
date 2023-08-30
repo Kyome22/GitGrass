@@ -80,13 +80,13 @@ extension NSImage {
     ) {
         switch period {
         case .lastYear:
-            let width = 0.5 * CGFloat(5 * dayData[0].count - 1)
+            let width = 0.5 * CGFloat(5 * dayData.count - 1)
             self.init(size: CGSize(width: width, height: 18.0), flipped: false) { _ in
                 let isDark = isDarkHandler()
-                for i in (0 ..< 7) {
-                    for j in (0 ..< dayData[i].count) {
+                (0 ..< dayData.count).forEach { i in
+                    (0 ..< dayData[i].count).forEach { j in
                         NSColor.fillColor(dayData[i][j].level, color, isDark).setFill()
-                        let rect = NSRect(x: 2.5 * CGFloat(j), y: 15.5 - 2.5 * CGFloat(i), width: 2.0, height: 2.0)
+                        let rect = NSRect(x: 2.5 * CGFloat(i), y: 15.5 - 2.5 * CGFloat(j), width: 2.0, height: 2.0)
                         if style == .block {
                             NSBezierPath(rect: rect).fill()
                         } else if style == .dot {
@@ -97,7 +97,7 @@ extension NSImage {
                 return true
             }
         case .thisWeek:
-            let lastWeekData = dayData.sorted { $0.count < $1.count }.compactMap { $0.last }
+            let lastWeekData = Array(dayData.flatMap { $0 }.suffix(7))
             self.init(size: CGSize(width: 124.0, height: 18.0), flipped: false) { _ in
                 let isDark = isDarkHandler()
                 for i in (0 ..< lastWeekData.count) {

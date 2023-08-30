@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C7235002A9EDA4E0065512A /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 1C7234FF2A9EDA4E0065512A /* KeychainAccess */; };
+		1C7235032A9EDA890065512A /* DependencyList in Frameworks */ = {isa = PBXBuildFile; productRef = 1C7235022A9EDA890065512A /* DependencyList */; };
+		1C7235072A9EDAAF0065512A /* KeychainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7235062A9EDAAF0065512A /* KeychainRepository.swift */; };
+		1C72350C2A9F34F50065512A /* GraphQLResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72350B2A9F34F50065512A /* GraphQLResult.swift */; };
+		1C72350F2A9F35380065512A /* ContributionsOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C72350E2A9F35380065512A /* ContributionsOutput.swift */; };
+		1C7235112A9F355B0065512A /* GraphQLBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7235102A9F355B0065512A /* GraphQLBody.swift */; };
+		1C7235132A9F35AF0065512A /* UserNameInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7235122A9F35AF0065512A /* UserNameInput.swift */; };
 		1CB3189128F4845F00F6E9D2 /* GitGrassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB3189028F4845F00F6E9D2 /* GitGrassApp.swift */; };
 		1CB3189328F4845F00F6E9D2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB3189228F4845F00F6E9D2 /* SettingsView.swift */; };
 		1CB3189528F4846000F6E9D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CB3189428F4846000F6E9D2 /* Assets.xcassets */; };
@@ -37,6 +44,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C7235062A9EDAAF0065512A /* KeychainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainRepository.swift; sourceTree = "<group>"; };
+		1C72350B2A9F34F50065512A /* GraphQLResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLResult.swift; sourceTree = "<group>"; };
+		1C72350E2A9F35380065512A /* ContributionsOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionsOutput.swift; sourceTree = "<group>"; };
+		1C7235102A9F355B0065512A /* GraphQLBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLBody.swift; sourceTree = "<group>"; };
+		1C7235122A9F35AF0065512A /* UserNameInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameInput.swift; sourceTree = "<group>"; };
 		1CB3188D28F4845F00F6E9D2 /* GitGrass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitGrass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CB3189028F4845F00F6E9D2 /* GitGrassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitGrassApp.swift; sourceTree = "<group>"; };
 		1CB3189228F4845F00F6E9D2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -75,12 +87,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C7235002A9EDA4E0065512A /* KeychainAccess in Frameworks */,
+				1C7235032A9EDA890065512A /* DependencyList in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C72350A2A9F34E10065512A /* GraphQL */ = {
+			isa = PBXGroup;
+			children = (
+				1C7235122A9F35AF0065512A /* UserNameInput.swift */,
+				1C72350E2A9F35380065512A /* ContributionsOutput.swift */,
+				1C7235102A9F355B0065512A /* GraphQLBody.swift */,
+				1C72350B2A9F34F50065512A /* GraphQLResult.swift */,
+			);
+			path = GraphQL;
+			sourceTree = "<group>";
+		};
 		1CB3188428F4845F00F6E9D2 = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				1CC6C11E2980CD5600D89250 /* UserDefaultsRepository.swift */,
+				1C7235062A9EDAAF0065512A /* KeychainRepository.swift */,
 				1CC6C1202980CD6300D89250 /* LaunchAtLoginRepository.swift */,
 				1CC6C13D2982B3E400D89250 /* ContributionRepository.swift */,
 			);
@@ -162,6 +188,7 @@
 		1CC6C1292980D0C100D89250 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				1C72350A2A9F34E10065512A /* GraphQL */,
 				1CB318AC28F487EC00F6E9D2 /* LocalizedEnum.swift */,
 				1CB318AE28F489ED00F6E9D2 /* DayData.swift */,
 				1CC6C12E2981196200D89250 /* GGCycle.swift */,
@@ -227,8 +254,13 @@
 			buildRules = (
 			);
 			dependencies = (
+				1C7235052A9EDA970065512A /* PBXTargetDependency */,
 			);
 			name = GitGrass;
+			packageProductDependencies = (
+				1C7234FF2A9EDA4E0065512A /* KeychainAccess */,
+				1C7235022A9EDA890065512A /* DependencyList */,
+			);
 			productName = GitGrass;
 			productReference = 1CB3188D28F4845F00F6E9D2 /* GitGrass.app */;
 			productType = "com.apple.product-type.application";
@@ -258,6 +290,10 @@
 				ja,
 			);
 			mainGroup = 1CB3188428F4845F00F6E9D2;
+			packageReferences = (
+				1C7234FE2A9EDA4E0065512A /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				1C7235012A9EDA890065512A /* XCRemoteSwiftPackageReference "DependencyList" */,
+			);
 			productRefGroup = 1CB3188E28F4845F00F6E9D2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -301,10 +337,15 @@
 				1CC6C1372981696A00D89250 /* GitGrassError.swift in Sources */,
 				1CC6C13E2982B3E400D89250 /* ContributionRepository.swift in Sources */,
 				1CB318C128F5B47400F6E9D2 /* View+Extensions.swift in Sources */,
+				1C7235132A9F35AF0065512A /* UserNameInput.swift in Sources */,
+				1C72350C2A9F34F50065512A /* GraphQLResult.swift in Sources */,
 				1CC6C1452982D1F300D89250 /* GGImageInfo.swift in Sources */,
+				1C72350F2A9F35380065512A /* ContributionsOutput.swift in Sources */,
 				1CC6C11F2980CD5600D89250 /* UserDefaultsRepository.swift in Sources */,
 				1CC6C1282980CFCA00D89250 /* MenuBar.swift in Sources */,
+				1C7235112A9F355B0065512A /* GraphQLBody.swift in Sources */,
 				1CB3189328F4845F00F6E9D2 /* SettingsView.swift in Sources */,
+				1C7235072A9EDAAF0065512A /* KeychainRepository.swift in Sources */,
 				1CB3189128F4845F00F6E9D2 /* GitGrassApp.swift in Sources */,
 				1CC6C1312981196C00D89250 /* GGColor.swift in Sources */,
 				1CC6C1262980CFB000D89250 /* MenuBarModel.swift in Sources */,
@@ -313,6 +354,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1C7235052A9EDA970065512A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 1C7235042A9EDA970065512A /* PrepareDependencyList */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1CB318BE28F496C400F6E9D2 /* Localizable.strings */ = {
@@ -379,7 +427,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -435,7 +483,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -534,6 +582,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1C7234FE2A9EDA4E0065512A /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				kind = exactVersion;
+				version = 4.2.2;
+			};
+		};
+		1C7235012A9EDA890065512A /* XCRemoteSwiftPackageReference "DependencyList" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kyome22/DependencyList.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1C7234FF2A9EDA4E0065512A /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C7234FE2A9EDA4E0065512A /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		1C7235022A9EDA890065512A /* DependencyList */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C7235012A9EDA890065512A /* XCRemoteSwiftPackageReference "DependencyList" */;
+			productName = DependencyList;
+		};
+		1C7235042A9EDA970065512A /* PrepareDependencyList */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C7235012A9EDA890065512A /* XCRemoteSwiftPackageReference "DependencyList" */;
+			productName = "plugin:PrepareDependencyList";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1CB3188528F4845F00F6E9D2 /* Project object */;
 }

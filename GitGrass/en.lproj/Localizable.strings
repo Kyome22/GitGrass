@@ -7,8 +7,9 @@
 */
 
 // Menu
-"preferences" = "Preferences…";
+"settings" = "Settings…";
 "aboutGitGrass" = "About GitGrass";
+"licenses" = "Licenses";
 "quitGitGrass" = "Quit GitGrass";
 
 "oss" = "GitGrass is an open-source software.\n";
@@ -16,7 +17,10 @@
 
 // GeneralSettings
 "general" = "General";
-"wrapText" = "GitHub Account Name:";
+"wrapText" = "GitHub Personal Access Token:";
+"personalAccessToken" = "GitHub Personal Access Token:";
+"reset" = "Reset";
+"save" = "Save";
 "accountName" = "GitHub Account Name:";
 "updateCycle" = "Update Cycle:";
 "minutes5" = "5 minutes";

@@ -21,8 +21,8 @@
 import Foundation
 
 struct DayData {
-    private static let line = [DayData](repeating: DayData(0, 0, "dummy"), count: 53)
-    static let `default` = [[DayData]](repeating: DayData.line, count: 7)
+    private static let week = [DayData](repeating: DayData(0, 0, ""), count: 7)
+    static let `default` = [[DayData]](repeating: DayData.week, count: 53)
 
     let level: Int
     let count: Int

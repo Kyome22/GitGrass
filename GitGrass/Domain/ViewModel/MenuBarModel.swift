@@ -28,8 +28,9 @@ protocol MenuBarModel: AnyObject {
          _ contributionModel: ContributionModel,
          _ windowModel: WindowModel)
 
-    func openPreferences()
+    func openSettings()
     func openAbout()
+    func openLicenses()
     func terminateApp()
 }
 
@@ -67,12 +68,16 @@ final class MenuBarModelImpl<UR: UserDefaultsRepository,
             .store(in: &cancellables)
     }
 
-    func openPreferences() {
-        windowModel.openPreferences()
+    func openSettings() {
+        windowModel.openSettings()
     }
 
     func openAbout() {
         windowModel.openAbout()
+    }
+
+    func openLicenses() {
+        windowModel.openLicenses()
     }
 
     func terminateApp() {
@@ -92,8 +97,9 @@ extension PreviewMock {
              _ windowModel: WindowModel) {}
         init() {}
 
-        func openPreferences() {}
+        func openSettings() {}
         func openAbout() {}
+        func openLicenses() {}
         func terminateApp() {}
     }
 }

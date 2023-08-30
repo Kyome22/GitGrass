@@ -31,14 +31,10 @@ protocol LaunchAtLoginRepository: AnyObject {
 
 final class LaunchAtLoginRepositoryImpl: LaunchAtLoginRepository {
     var current: Bool {
-        if #available(macOS 13, *) {
-            return SMAppService.mainApp.status == .enabled
-        }
-        return false
+        return SMAppService.mainApp.status == .enabled
     }
 
     func switchRegistration(_ newValue: Bool, failureHandler: @escaping () -> Void) {
-        guard #available(macOS 13, *) else { return }
         do {
             if newValue {
                 try SMAppService.mainApp.register()

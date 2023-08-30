@@ -23,38 +23,58 @@ import Foundation
 protocol ContributionRepository: AnyObject {
     init()
 
-    func getGrass(username: String) async throws -> String
-    func getDummyGrass(username: String) async throws -> String
+    // rate limit: 5000 points per hour
+    func getGrass(_ token: String, _ username: String) async throws -> ContributionsOutput
 }
 
 final class ContributionRepositoryImpl: ContributionRepository {
-    func getGrass(username: String) async throws -> String {
-        let urlString = "https://github.com/users/\(username)/contributions"
-        guard let url = URL(string: urlString) else {
-            throw GitGrassError.invalidURL
-        }
-        let (data, response) = try await URLSession.shared.data(from: url)
-        guard let httpResponse = response as? HTTPURLResponse else {
+    func getGrass(_ token: String, _ username: String) async throws -> ContributionsOutput {
+        let body = GraphQLBody(
+            input: UserNameInput(userName: username),
+            queryString: """
+            query($userName: String!) {
+                user(login: $userName){
+                    contributionsCollection {
+                        contributionCalendar {
+                            totalContributions
+                            weeks {
+                                contributionDays {
+                                    contributionLevel
+                                    contributionCount
+                                    date
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            """
+        )
+        let url = URL(string: "https://api.github.com/graphql")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try JSONEncoder().encode(body)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw GitGrassError.responseError
         }
-        if httpResponse.statusCode == 200, let text = String(data: data, encoding: .utf8) {
-            return text
+        let result = try JSONDecoder().decode(GraphQLResult.self, from: data)
+        if result.errorMessages.isEmpty, let output = result.output {
+            return output
+        } else {
+            result.errorMessages.forEach { error in
+                logput(error)
+            }
+            throw GitGrassError.graphqlReturnedErrorMessages
         }
-        throw GitGrassError.badStatus
-    }
-
-    func getDummyGrass(username: String) async throws -> String {
-        if let url = Bundle.main.url(forResource: "dummy", withExtension: "html") {
-            return try String(contentsOf: url, encoding: .utf8)
-        }
-        throw GitGrassError.invalidURL
     }
 }
 
 // MARK: - Preview Mock
 extension PreviewMock {
     final class ContributionRepositoryMock: ContributionRepository {
-        func getGrass(username: String) async throws -> String { "" }
-        func getDummyGrass(username: String) async throws -> String { "" }
+        func getGrass(_ token: String, _ username: String) async throws -> ContributionsOutput { .dummy }
     }
 }

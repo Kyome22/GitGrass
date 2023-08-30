@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "dependencylist",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Kyome22/DependencyList.git",
+      "state" : {
+        "revision" : "b9dbb0f20d6f60aae01f795e852918119917c304",
+        "version" : "0.0.2"
+      }
+    },
+    {
+      "identity" : "keychainaccess",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kishikawakatsumi/KeychainAccess.git",
+      "state" : {
+        "revision" : "84e546727d66f1adc5439debad16270d0fdd04e7",
+        "version" : "4.2.2"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "state" : {
+        "revision" : "fddd1c00396eed152c45a46bea9f47b98e59301d",
+        "version" : "1.2.0"
+      }
+    }
+  ],
+  "version" : 2
+}

@@ -33,4 +33,10 @@ extension String {
             NSString(string: self).substring(with: matched.range(at: $0))
         }
     }
+
+    var secured: String {
+        let n = max(0, self.count - 6)
+        return self.replacingOccurrences(of: self.prefix(n).description,
+                                         with: String(repeating: "*", count: n))
+    }
 }

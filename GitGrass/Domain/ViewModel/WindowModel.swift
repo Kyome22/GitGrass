@@ -20,25 +20,25 @@
 
 import AppKit
 import Combine
+import DependencyList
 
 protocol WindowModel: AnyObject {
-    func openPreferences()
+    func openSettings()
     func openAbout()
+    func openLicenses()
 }
 
-final class WindowModelImpl: WindowModel {
+final class WindowModelImpl: NSObject, WindowModel, NSWindowDelegate {
+    private var licensesWindowController: NSWindowController?
+
     private var settingsWindow: NSWindow? {
         return NSApp.windows.first(where: { window in
             window.frameAutosaveName == "com_apple_SwiftUI_Settings_window"
         })
     }
 
-    func openPreferences() {
-        if #available(macOS 13, *) {
-            NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-        } else {
-            NSApp.sendAction(Selector(("showPreferencesWindow:")), to: nil, from: nil)
-        }
+    func openSettings() {
+        NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
         guard let window = settingsWindow else { return }
         if window.canBecomeMain {
             window.center()
@@ -58,13 +58,37 @@ final class WindowModelImpl: WindowModel {
         let key = NSApplication.AboutPanelOptionKey.credits
         NSApp.orderFrontStandardAboutPanel(options: [key: mutableAttrStr])
     }
-}
 
+    func openLicenses() {
+        if licensesWindowController == nil {
+            NSApp.activate(ignoringOtherApps: true)
+            let window = DependencyListWindow()
+            window.delegate = self
+            licensesWindowController = NSWindowController(window: window)
+            licensesWindowController?.showWindow(nil)
+            window.center()
+        } else {
+            if let window = licensesWindowController?.window as? DependencyListWindow {
+                NSApp.activate(ignoringOtherApps: true)
+                window.orderFrontRegardless()
+            }
+        }
+    }
+
+    // MARK: NSWindowDelegate
+    func windowWillClose(_ notification: Notification) {
+        guard let window = notification.object as? NSWindow else { return }
+        if window === licensesWindowController?.window {
+            licensesWindowController = nil
+        }
+    }
+}
 
 // MARK: - Preview Mock
 extension PreviewMock {
     final class WindowModelMock: WindowModel {
-        func openPreferences() {}
+        func openSettings() {}
         func openAbout() {}
+        func openLicenses() {}
     }
 }

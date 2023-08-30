@@ -30,7 +30,10 @@ struct SettingsView<GAM: GitGrassAppModel,
 
     var body: some View {
         TabView {
-            GeneralSettingsView(viewModel: GVM(appModel.userDefaultsRepository))
+            GeneralSettingsView(
+                viewModel: GVM(appModel.userDefaultsRepository,
+                               appModel.keychainRepository)
+            )
             .tabItem {
                 Label("general", systemImage: "gear")
             }

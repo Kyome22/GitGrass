@@ -32,12 +32,15 @@ final class MenuBar<MM: MenuBarModel>: NSObject {
         self.menuBarModel = menuBarModel
         super.init()
 
-        menu.addItem(title: "preferences".localized,
-                     action: #selector(openPreferences(_:)),
+        menu.addItem(title: "settings".localized,
+                     action: #selector(openSettings(_:)),
                      target: self)
         menu.addSeparator()
         menu.addItem(title: "aboutGitGrass".localized,
                      action: #selector(openAbout(_:)),
+                     target: self)
+        menu.addItem(title: "licenses".localized,
+                     action: #selector(openLicenses(_:)),
                      target: self)
         menu.addItem(title: "quitGitGrass".localized,
                      action: #selector(terminateApp(_:)),
@@ -64,12 +67,16 @@ final class MenuBar<MM: MenuBarModel>: NSObject {
         )
     }
 
-    @objc func openPreferences(_ sender: Any?) {
-        menuBarModel.openPreferences()
+    @objc func openSettings(_ sender: Any?) {
+        menuBarModel.openSettings()
     }
 
     @objc func openAbout(_ sender: Any?) {
         menuBarModel.openAbout()
+    }
+
+    @objc func openLicenses(_ sender: Any?) {
+        menuBarModel.openLicenses()
     }
 
     @objc func terminateApp(_ sender: Any?) {

@@ -23,14 +23,43 @@ import SwiftUI
 struct GeneralSettingsView<GVM: GeneralSettingsViewModel>: View {
     @StateObject var viewModel: GVM
 
-    init(viewModel: GVM) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
-
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                Text("accountName")
+            if viewModel.tokenIsAlreadyStored {
+                HStack(spacing: 8) {
+                    Text("personalAccessToken")
+                    Text(verbatim: viewModel.personalAccessToken.secured)
+                        .fontDesign(.monospaced)
+                        .foregroundColor(.secondary)
+                        .frame(width: 325)
+                }
+                HStack {
+                    Spacer()
+                    Button {
+                        viewModel.resetToken()
+                    } label: {
+                        Text("reset")
+                    }
+                }
+            } else {
+                HStack(spacing: 8) {
+                    Text("personalAccessToken")
+                    TextField("", text: $viewModel.personalAccessToken)
+                        .disableAutocorrection(true)
+                        .frame(width: 325)
+                }
+                HStack {
+                    Spacer()
+                    Button {
+                        viewModel.saveToken()
+                    } label: {
+                        Text("save")
+                    }
+                    .disabled(viewModel.personalAccessToken.isEmpty)
+                }
+            }
+            HStack(spacing: 8) {
+                wrapText(maxKey: "wrapText", key: "accountName")
                 TextField("", text: $viewModel.username)
                     .onSubmit {
                         viewModel.updateUsername()
@@ -43,6 +72,7 @@ struct GeneralSettingsView<GVM: GeneralSettingsViewModel>: View {
                 }
                 .buttonStyle(.borderless)
             }
+            Divider()
             pickerItem(summaryKey: "updateCycle",
                        selection: $viewModel.cycle)
             pickerItem(summaryKey: "color",
@@ -51,16 +81,14 @@ struct GeneralSettingsView<GVM: GeneralSettingsViewModel>: View {
                        selection: $viewModel.style)
             pickerItem(summaryKey: "period",
                        selection: $viewModel.period)
-            if macOS13OrLater {
-                Divider()
-                HStack(alignment: .center, spacing: 8) {
-                    wrapText(maxKey: "wrapText", key: "launch")
-                    Toggle(isOn: $viewModel.launchAtLogin) {
-                        Text("launchAtLogin")
-                    }
+            Divider()
+            HStack(alignment: .center, spacing: 8) {
+                wrapText(maxKey: "wrapText", key: "launch")
+                Toggle(isOn: $viewModel.launchAtLogin) {
+                    Text("launchAtLogin")
                 }
-                .frame(height: 20)
             }
+            .frame(height: 20)
         }
         .fixedSize()
     }

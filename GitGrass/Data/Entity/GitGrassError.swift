@@ -21,5 +21,6 @@
 enum GitGrassError: Error {
     case invalidURL
     case responseError
+    case graphqlReturnedErrorMessages
     case badStatus
 }

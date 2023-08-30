@@ -21,14 +21,6 @@
 import SwiftUI
 
 extension View {
-    var macOS13OrLater: Bool {
-        if #available(macOS 13, *) {
-            return true
-        } else {
-            return false
-        }
-    }
-
     func wrapText(
         maxKey: LocalizedStringKey,
         key: LocalizedStringKey
