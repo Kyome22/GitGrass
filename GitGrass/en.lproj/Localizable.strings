@@ -23,21 +23,27 @@
 "reset" = "Reset";
 "save" = "Save";
 "accountName" = "GitHub Account Name:";
+
 "updateCycle" = "Update Cycle:";
 "minutes5" = "5 minutes";
 "minutes10" = "10 minutes";
 "minutes15" = "15 minutes";
 "minutes30" = "30 minutes";
 "hour1" = "1 hour";
+
 "color" = "Color:";
 "monochrome" = "Monochrome";
 "greenGrass" = "Green Grass";
 "accentColor" = "Accent Color";
+
 "style" = "Style:";
 "dot" = "Dot";
 "block" = "Block";
+
 "period" = "Period:";
-"thisYear" = "This Year";
-"thisWeek" = "This Week";
+"lastYear" = "Last Year";
+"lastMonth" = "Last Month";
+"lastWeek" = "Last Week";
+
 "launch" = "Launch:";
 "launchAtLogin" = "Launch GitGrass automatically at login.";
