@@ -58,6 +58,7 @@ struct GeneralSettingsView<GVM: GeneralSettingsViewModel>: View {
                 }
             }
         }
+        .formStyle(.columns)
         .fixedSize()
     }
 
