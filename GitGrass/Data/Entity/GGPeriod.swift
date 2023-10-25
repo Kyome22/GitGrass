@@ -22,12 +22,14 @@ import SwiftUI
 
 enum GGPeriod: Int, CaseIterable, LocalizedEnum {
     case lastYear = 0
-    case thisWeek = 1
+    case lastMonth = 1
+    case lastWeek = 2
 
     var localizedKey: LocalizedStringKey {
         switch self {
-        case .lastYear: return "thisYear"
-        case .thisWeek: return "thisWeek"
+        case .lastYear:  return "lastYear"
+        case .lastMonth: return "lastMonth"
+        case .lastWeek:  return "lastWeek"
         }
     }
 }

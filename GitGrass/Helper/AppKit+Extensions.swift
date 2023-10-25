@@ -78,25 +78,7 @@ extension NSImage {
         period: GGPeriod,
         isDarkHandler: @escaping () -> Bool
     ) {
-        switch period {
-        case .lastYear:
-            let width = 0.5 * CGFloat(5 * dayData.count - 1)
-            self.init(size: CGSize(width: width, height: 18.0), flipped: false) { _ in
-                let isDark = isDarkHandler()
-                (0 ..< dayData.count).forEach { i in
-                    (0 ..< dayData[i].count).forEach { j in
-                        NSColor.fillColor(dayData[i][j].level, color, isDark).setFill()
-                        let rect = NSRect(x: 2.5 * CGFloat(i), y: 15.5 - 2.5 * CGFloat(j), width: 2.0, height: 2.0)
-                        if style == .block {
-                            NSBezierPath(rect: rect).fill()
-                        } else if style == .dot {
-                            NSBezierPath(ovalIn: rect).fill()
-                        }
-                    }
-                }
-                return true
-            }
-        case .thisWeek:
+        if period == .lastWeek {
             let lastWeekData = Array(dayData.flatMap { $0 }.suffix(7))
             self.init(size: CGSize(width: 124.0, height: 18.0), flipped: false) { _ in
                 let isDark = isDarkHandler()
@@ -107,6 +89,27 @@ extension NSImage {
                         NSBezierPath(roundedRect: rect, xRadius: 4.0, yRadius: 4.0).fill()
                     } else if style == .dot {
                         NSBezierPath(ovalIn: rect).fill()
+                    }
+                }
+                return true
+            }
+        } else {
+            var dayData = dayData
+            if period == .lastMonth {
+                dayData = Array(dayData.suffix(5))
+            }
+            let width = 0.5 * CGFloat(5 * dayData.count - 1)
+            self.init(size: NSSize(width: width, height: 18.0), flipped: false) { _ in
+                let isDark = isDarkHandler()
+                (0 ..< dayData.count).forEach { i in
+                    (0 ..< dayData[i].count).forEach { j in
+                        NSColor.fillColor(dayData[i][j].level, color, isDark).setFill()
+                        let rect = NSRect(x: 2.5 * CGFloat(i), y: 15.5 - 2.5 * CGFloat(j), width: 2.0, height: 2.0)
+                        if style == .block {
+                            NSBezierPath(rect: rect).fill()
+                        } else if style == .dot {
+                            NSBezierPath(ovalIn: rect).fill()
+                        }
                     }
                 }
                 return true
