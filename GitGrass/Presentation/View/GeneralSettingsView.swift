@@ -26,18 +26,21 @@ struct GeneralSettingsView<GVM: GeneralSettingsViewModel>: View {
     var body: some View {
         Form {
             personalAccessTokenField
-            HStack(spacing: 8) {
-                TextField("accountName", text: $viewModel.username)
-                    .onSubmit {
+            LabeledContent("accountName") {
+                HStack(spacing: 8) {
+                    TextField("", text: $viewModel.username)
+                        .labelsHidden()
+                        .onSubmit {
+                            viewModel.updateUsername()
+                        }
+                        .frame(width: 120)
+                    Button {
                         viewModel.updateUsername()
+                    } label: {
+                        Image(systemName: "arrow.counterclockwise")
                     }
-                    .frame(width: 300)
-                Button {
-                    viewModel.updateUsername()
-                } label: {
-                    Image(systemName: "arrow.counterclockwise")
+                    .buttonStyle(.borderless)
                 }
-                .buttonStyle(.borderless)
             }
             Divider()
             pickerItem(labelKey: "updateCycle",
@@ -60,17 +63,18 @@ struct GeneralSettingsView<GVM: GeneralSettingsViewModel>: View {
 
     private var personalAccessTokenField: some View {
         Group {
-            if viewModel.tokenIsAlreadyStored {
-                LabeledContent("personalAccessToken") {
+            LabeledContent("personalAccessToken") {
+                if viewModel.tokenIsAlreadyStored {
                     Text(verbatim: viewModel.personalAccessToken.secured)
                         .fontDesign(.monospaced)
                         .foregroundColor(.secondary)
                         .padding(2)
                         .border(Color.secondary.opacity(0.5))
+                } else {
+                    TextField("", text: $viewModel.personalAccessToken)
+                        .disableAutocorrection(true)
+                        .labelsHidden()
                 }
-            } else {
-                TextField("personalAccessToken", text: $viewModel.personalAccessToken)
-                    .disableAutocorrection(true)
             }
             HStack {
                 Text("scope")
