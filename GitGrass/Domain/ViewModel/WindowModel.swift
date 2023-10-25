@@ -53,7 +53,7 @@ final class WindowModelImpl: NSObject, WindowModel, NSWindowDelegate {
         var attr: [NSAttributedString.Key : Any] = [.foregroundColor : NSColor.textColor]
         mutableAttrStr.append(NSAttributedString(string: "oss".localized, attributes: attr))
         let url = "https://github.com/Kyome22/GitGrass"
-        attr = [.foregroundColor : NSColor.url, .link : url]
+        attr = [.foregroundColor : NSColor(resource: .URL), .link : url]
         mutableAttrStr.append(NSAttributedString(string: url, attributes: attr))
         let key = NSApplication.AboutPanelOptionKey.credits
         NSApp.orderFrontStandardAboutPanel(options: [key: mutableAttrStr])

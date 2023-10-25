@@ -55,13 +55,11 @@ extension NSMenuItem {
 }
 
 extension NSColor {
-    static let url = NSColor(named: "urlColor")!
-
     static func fillColor(_ level: Int, _ color: GGColor, _ isDark: Bool) -> NSColor {
         if color == .monochrome {
             return NSColor.black.withAlphaComponent(0.2 * CGFloat(level + 1))
         } else if color == .greenGrass {
-            let grassColor = NSColor(named: "\(isDark ? "dark" : "light")-grass")!
+            let grassColor = NSColor(resource: isDark ? .darkGrass : .lightGrass)
             return grassColor.withAlphaComponent(0.2 * CGFloat(level + 1))
         } else {
             let accentColor = NSColor.controlAccentColor.usingColorSpace(NSColorSpace.deviceRGB)!
