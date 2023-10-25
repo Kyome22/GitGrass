@@ -24,59 +24,14 @@ struct GeneralSettingsView<GVM: GeneralSettingsViewModel>: View {
     @StateObject var viewModel: GVM
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            if viewModel.tokenIsAlreadyStored {
-                HStack(alignment: .firstTextBaseline, spacing: 8) {
-                    Text("personalAccessToken")
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(verbatim: viewModel.personalAccessToken.secured)
-                            .fontDesign(.monospaced)
-                            .foregroundColor(.secondary)
-                            .frame(width: 325, alignment: .leading)
-                            .padding(2)
-                            .border(Color.secondary.opacity(0.5))
-                        HStack {
-                            Text("scope")
-                                .lineLimit(1)
-                                .foregroundColor(.secondary)
-                            Button {
-                                viewModel.resetToken()
-                            } label: {
-                                Text("reset")
-                            }
-                        }
-                        .fixedSize()
-                    }
-                }
-            } else {
-                HStack(alignment: .firstTextBaseline, spacing: 8) {
-                    Text("personalAccessToken")
-                    VStack(alignment: .leading, spacing: 8) {
-                        TextField("", text: $viewModel.personalAccessToken)
-                            .disableAutocorrection(true)
-                            .frame(width: 325)
-                        HStack {
-                            Text("scope")
-                                .lineLimit(1)
-                                .foregroundColor(.secondary)
-                            Button {
-                                viewModel.saveToken()
-                            } label: {
-                                Text("save")
-                            }
-                            .disabled(viewModel.personalAccessToken.isEmpty)
-                        }
-                        .fixedSize()
-                    }
-                }
-            }
+        Form {
+            personalAccessTokenField
             HStack(spacing: 8) {
-                wrapText(maxKey: "wrapText", key: "accountName")
-                TextField("", text: $viewModel.username)
+                TextField("accountName", text: $viewModel.username)
                     .onSubmit {
                         viewModel.updateUsername()
                     }
-                    .frame(width: 120)
+                    .frame(width: 300)
                 Button {
                     viewModel.updateUsername()
                 } label: {
@@ -85,44 +40,68 @@ struct GeneralSettingsView<GVM: GeneralSettingsViewModel>: View {
                 .buttonStyle(.borderless)
             }
             Divider()
-            pickerItem(summaryKey: "updateCycle",
+            pickerItem(labelKey: "updateCycle",
                        selection: $viewModel.cycle)
-            pickerItem(summaryKey: "color",
+            pickerItem(labelKey: "color",
                        selection: $viewModel.color)
-            pickerItem(summaryKey: "style",
+            pickerItem(labelKey: "style",
                        selection: $viewModel.style)
-            pickerItem(summaryKey: "period",
+            pickerItem(labelKey: "period",
                        selection: $viewModel.period)
             Divider()
-            HStack(alignment: .center, spacing: 8) {
-                wrapText(maxKey: "wrapText", key: "launch")
+            LabeledContent("launch") {
                 Toggle(isOn: $viewModel.launchAtLogin) {
                     Text("launchAtLogin")
                 }
             }
-            .frame(height: 20)
         }
         .fixedSize()
     }
 
+    private var personalAccessTokenField: some View {
+        Group {
+            if viewModel.tokenIsAlreadyStored {
+                LabeledContent("personalAccessToken") {
+                    Text(verbatim: viewModel.personalAccessToken.secured)
+                        .fontDesign(.monospaced)
+                        .foregroundColor(.secondary)
+                        .padding(2)
+                        .border(Color.secondary.opacity(0.5))
+                }
+            } else {
+                TextField("personalAccessToken", text: $viewModel.personalAccessToken)
+                    .disableAutocorrection(true)
+            }
+            HStack {
+                Text("scope")
+                    .lineLimit(1)
+                    .foregroundColor(.secondary)
+                if viewModel.tokenIsAlreadyStored {
+                    Button("reset") {
+                        viewModel.resetToken()
+                    }
+                } else {
+                    Button("save") {
+                        viewModel.saveToken()
+                    }
+                    .disabled(viewModel.personalAccessToken.isEmpty)
+                }
+            }
+            .fixedSize()
+        }
+    }
+
     private func pickerItem<E: RawRepresentable & Hashable & CaseIterable & LocalizedEnum>(
-        summaryKey: LocalizedStringKey,
+        labelKey: LocalizedStringKey,
         selection: Binding<E>
     ) -> some View where E.RawValue == Int, E.AllCases == Array<E> {
-        HStack {
-            wrapText(maxKey: "wrapText", key: summaryKey)
-            Picker(selection: selection) {
-                ForEach(E.allCases, id: \.rawValue) { item in
-                    Text(item.localizedKey).tag(item)
-                }
-            } label: {
-                EmptyView()
+        Picker(labelKey, selection: selection) {
+            ForEach(E.allCases, id: \.rawValue) { item in
+                Text(item.localizedKey).tag(item)
             }
-            .pickerStyle(.menu)
-            .fixedSize(horizontal: true, vertical: false)
-            Spacer()
         }
-        .frame(height: 20)
+        .pickerStyle(.menu)
+        .fixedSize()
     }
 }
 

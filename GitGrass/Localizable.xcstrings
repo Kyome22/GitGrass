@@ -1,16 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ""
-          }
-        }
-      }
-    },
     "aboutGitGrass" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -460,7 +450,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "\"read:user\"スコープへの権限のみで十分です。"
+            "value" : "\"read:user\"スコープ権限のみの選択で十分です。"
           }
         }
       }
@@ -511,22 +501,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "アップデート周期:"
-          }
-        }
-      }
-    },
-    "wrapText" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "GitHub Personal Access Token:"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "GitHub個人用アクセストークン:"
           }
         }
       }

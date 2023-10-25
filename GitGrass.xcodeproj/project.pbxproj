@@ -30,7 +30,6 @@
 		1CB318AF28F489ED00F6E9D2 /* DayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB318AE28F489ED00F6E9D2 /* DayData.swift */; };
 		1CB318B728F4929500F6E9D2 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB318B628F4929500F6E9D2 /* GeneralSettingsView.swift */; };
 		1CB318B928F4933B00F6E9D2 /* GeneralSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB318B828F4933B00F6E9D2 /* GeneralSettingsViewModel.swift */; };
-		1CB318C128F5B47400F6E9D2 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB318C028F5B47400F6E9D2 /* View+Extensions.swift */; };
 		1CC6C11C2980CCD500D89250 /* GitGrassAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C11B2980CCD500D89250 /* GitGrassAppModel.swift */; };
 		1CC6C11F2980CD5600D89250 /* UserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C11E2980CD5600D89250 /* UserDefaultsRepository.swift */; };
 		1CC6C1212980CD6300D89250 /* LaunchAtLoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C1202980CD6300D89250 /* LaunchAtLoginRepository.swift */; };
@@ -71,7 +70,6 @@
 		1CB318AE28F489ED00F6E9D2 /* DayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayData.swift; sourceTree = "<group>"; };
 		1CB318B628F4929500F6E9D2 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
 		1CB318B828F4933B00F6E9D2 /* GeneralSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsViewModel.swift; sourceTree = "<group>"; };
-		1CB318C028F5B47400F6E9D2 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		1CC6C11B2980CCD500D89250 /* GitGrassAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitGrassAppModel.swift; sourceTree = "<group>"; };
 		1CC6C11E2980CD5600D89250 /* UserDefaultsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsRepository.swift; sourceTree = "<group>"; };
 		1CC6C1202980CD6300D89250 /* LaunchAtLoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginRepository.swift; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 				1CC6C1222980CE1C00D89250 /* Utils.swift */,
 				1CB318A828F4864D00F6E9D2 /* String+Extensions.swift */,
 				1CB318AA28F4867A00F6E9D2 /* AppKit+Extensions.swift */,
-				1CB318C028F5B47400F6E9D2 /* View+Extensions.swift */,
 				1CAB3F242AE8F01600BE23F0 /* Color+Extensions.swift */,
 			);
 			path = Helper;
@@ -347,7 +344,6 @@
 				1CC6C1432982CD5A00D89250 /* WindowModel.swift in Sources */,
 				1CC6C1372981696A00D89250 /* GitGrassError.swift in Sources */,
 				1CC6C13E2982B3E400D89250 /* ContributionRepository.swift in Sources */,
-				1CB318C128F5B47400F6E9D2 /* View+Extensions.swift in Sources */,
 				1C7235132A9F35AF0065512A /* UserNameInput.swift in Sources */,
 				1C72350C2A9F34F50065512A /* GraphQLResult.swift in Sources */,
 				1CC6C1452982D1F300D89250 /* GGImageInfo.swift in Sources */,
