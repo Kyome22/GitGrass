@@ -45,10 +45,8 @@ struct SettingsView<GAM: GitGrassAppModel,
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView<PreviewMock.GitGrassAppModelMock,
-                     PreviewMock.GeneralSettingsViewModelMock>()
-            .environmentObject(PreviewMock.GitGrassAppModelMock())
-    }
+#Preview {
+    SettingsView<PreviewMock.GitGrassAppModelMock,
+                 PreviewMock.GeneralSettingsViewModelMock>()
+        .environmentObject(PreviewMock.GitGrassAppModelMock())
 }

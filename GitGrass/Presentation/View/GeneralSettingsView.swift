@@ -126,11 +126,9 @@ struct GeneralSettingsView<GVM: GeneralSettingsViewModel>: View {
     }
 }
 
-struct GeneralSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ForEach(["en_US", "ja_JP"], id: \.self) { id in
-            GeneralSettingsView(viewModel: PreviewMock.GeneralSettingsViewModelMock())
-                .environment(\.locale, .init(identifier: id))
-        }
+#Preview {
+    ForEach(["en_US", "ja_JP"], id: \.self) { id in
+        GeneralSettingsView(viewModel: PreviewMock.GeneralSettingsViewModelMock())
+            .environment(\.locale, .init(identifier: id))
     }
 }
