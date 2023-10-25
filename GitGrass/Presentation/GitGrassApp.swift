@@ -22,16 +22,34 @@ import SwiftUI
 
 @main
 struct GitGrassApp: App {
-    typealias GVMConcrete = GeneralSettingsViewModelImpl<UserDefaultsRepositoryImpl,
-                                                         KeychainRepositoryImpl,
-                                                         LaunchAtLoginRepositoryImpl>
+    typealias UR = UserDefaultsRepositoryImpl
+    typealias KR = KeychainRepositoryImpl
+    typealias LR = LaunchAtLoginRepositoryImpl
+    typealias CR = ContributionRepositoryImpl
+    typealias CM = ContributionModelImpl<UR, KR, CR>
+    typealias WM = WindowModelImpl
+    typealias MBM = MenuBarModelImpl<UR, CM, WM>
+    typealias GVM = GeneralSettingsViewModelImpl<UR, KR, LR>
 
     @StateObject private var appModel = GitGrassAppModelImpl()
 
     var body: some Scene {
         Settings {
-            SettingsView<GitGrassAppModelImpl, GVMConcrete>()
+            SettingsView<GitGrassAppModelImpl, GVM>()
                 .environmentObject(appModel)
+        }
+        MenuBarExtra {
+            MenuView<MBM>()
+                .environmentObject(appModel.menuBarModel)
+        } label: {
+            StatusImage<MBM>()
+                .environment(\.displayScale, 2.0)
+                .environmentObject(appModel.menuBarModel)
         }
     }
 }
+
+//    isDarkHandler: { [weak self] in
+//        return self?.statusItem.button?.superview?.effectiveAppearance.isDark ?? false
+//    }
+//    )

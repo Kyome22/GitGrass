@@ -15,7 +15,10 @@
 		1C7235112A9F355B0065512A /* GraphQLBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7235102A9F355B0065512A /* GraphQLBody.swift */; };
 		1C7235132A9F35AF0065512A /* UserNameInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7235122A9F35AF0065512A /* UserNameInput.swift */; };
 		1CAB3F1C2AE8DC3A00BE23F0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1CAB3F1B2AE8DC3A00BE23F0 /* Localizable.xcstrings */; };
-		1CAB3F1F2AE8DE8E00BE23F0 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB3F1E2AE8DE8E00BE23F0 /* MenuViewModel.swift */; };
+		1CAB3F1F2AE8DE8E00BE23F0 /* MenuBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB3F1E2AE8DE8E00BE23F0 /* MenuBarModel.swift */; };
+		1CAB3F212AE8E2D900BE23F0 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB3F202AE8E2D900BE23F0 /* MenuView.swift */; };
+		1CAB3F232AE8EED700BE23F0 /* StatusImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB3F222AE8EED700BE23F0 /* StatusImage.swift */; };
+		1CAB3F252AE8F01600BE23F0 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB3F242AE8F01600BE23F0 /* Color+Extensions.swift */; };
 		1CB3189128F4845F00F6E9D2 /* GitGrassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB3189028F4845F00F6E9D2 /* GitGrassApp.swift */; };
 		1CB3189328F4845F00F6E9D2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB3189228F4845F00F6E9D2 /* SettingsView.swift */; };
 		1CB3189528F4846000F6E9D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CB3189428F4846000F6E9D2 /* Assets.xcassets */; };
@@ -31,8 +34,6 @@
 		1CC6C11F2980CD5600D89250 /* UserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C11E2980CD5600D89250 /* UserDefaultsRepository.swift */; };
 		1CC6C1212980CD6300D89250 /* LaunchAtLoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C1202980CD6300D89250 /* LaunchAtLoginRepository.swift */; };
 		1CC6C1232980CE1C00D89250 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C1222980CE1C00D89250 /* Utils.swift */; };
-		1CC6C1262980CFB000D89250 /* MenuBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C1252980CFB000D89250 /* MenuBarModel.swift */; };
-		1CC6C1282980CFCA00D89250 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C1272980CFCA00D89250 /* MenuBar.swift */; };
 		1CC6C12D2981195800D89250 /* GGStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C12C2981195800D89250 /* GGStyle.swift */; };
 		1CC6C12F2981196200D89250 /* GGCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C12E2981196200D89250 /* GGCycle.swift */; };
 		1CC6C1312981196C00D89250 /* GGColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6C1302981196C00D89250 /* GGColor.swift */; };
@@ -51,7 +52,10 @@
 		1C7235102A9F355B0065512A /* GraphQLBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLBody.swift; sourceTree = "<group>"; };
 		1C7235122A9F35AF0065512A /* UserNameInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameInput.swift; sourceTree = "<group>"; };
 		1CAB3F1B2AE8DC3A00BE23F0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		1CAB3F1E2AE8DE8E00BE23F0 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		1CAB3F1E2AE8DE8E00BE23F0 /* MenuBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarModel.swift; sourceTree = "<group>"; };
+		1CAB3F202AE8E2D900BE23F0 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		1CAB3F222AE8EED700BE23F0 /* StatusImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusImage.swift; sourceTree = "<group>"; };
+		1CAB3F242AE8F01600BE23F0 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		1CB3188D28F4845F00F6E9D2 /* GitGrass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitGrass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CB3189028F4845F00F6E9D2 /* GitGrassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitGrassApp.swift; sourceTree = "<group>"; };
 		1CB3189228F4845F00F6E9D2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -70,8 +74,6 @@
 		1CC6C11E2980CD5600D89250 /* UserDefaultsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsRepository.swift; sourceTree = "<group>"; };
 		1CC6C1202980CD6300D89250 /* LaunchAtLoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginRepository.swift; sourceTree = "<group>"; };
 		1CC6C1222980CE1C00D89250 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		1CC6C1252980CFB000D89250 /* MenuBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarModel.swift; sourceTree = "<group>"; };
-		1CC6C1272980CFCA00D89250 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		1CC6C12C2981195800D89250 /* GGStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGStyle.swift; sourceTree = "<group>"; };
 		1CC6C12E2981196200D89250 /* GGCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGCycle.swift; sourceTree = "<group>"; };
 		1CC6C1302981196C00D89250 /* GGColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GGColor.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				1CB318A828F4864D00F6E9D2 /* String+Extensions.swift */,
 				1CB318AA28F4867A00F6E9D2 /* AppKit+Extensions.swift */,
 				1CB318C028F5B47400F6E9D2 /* View+Extensions.swift */,
+				1CAB3F242AE8F01600BE23F0 /* Color+Extensions.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -225,8 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				1CC6C1422982CD5A00D89250 /* WindowModel.swift */,
-				1CC6C1252980CFB000D89250 /* MenuBarModel.swift */,
-				1CAB3F1E2AE8DE8E00BE23F0 /* MenuViewModel.swift */,
+				1CAB3F1E2AE8DE8E00BE23F0 /* MenuBarModel.swift */,
 				1CB318B828F4933B00F6E9D2 /* GeneralSettingsViewModel.swift */,
 			);
 			path = ViewModel;
@@ -235,7 +237,8 @@
 		1CC6C1412982B6D900D89250 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1CC6C1272980CFCA00D89250 /* MenuBar.swift */,
+				1CAB3F202AE8E2D900BE23F0 /* MenuView.swift */,
+				1CAB3F222AE8EED700BE23F0 /* StatusImage.swift */,
 				1CB3189228F4845F00F6E9D2 /* SettingsView.swift */,
 				1CB318B628F4929500F6E9D2 /* GeneralSettingsView.swift */,
 			);
@@ -325,8 +328,9 @@
 			files = (
 				1CB318AF28F489ED00F6E9D2 /* DayData.swift in Sources */,
 				1CC6C1212980CD6300D89250 /* LaunchAtLoginRepository.swift in Sources */,
+				1CAB3F212AE8E2D900BE23F0 /* MenuView.swift in Sources */,
 				1CC6C11C2980CCD500D89250 /* GitGrassAppModel.swift in Sources */,
-				1CAB3F1F2AE8DE8E00BE23F0 /* MenuViewModel.swift in Sources */,
+				1CAB3F1F2AE8DE8E00BE23F0 /* MenuBarModel.swift in Sources */,
 				1CB318AD28F487EC00F6E9D2 /* LocalizedEnum.swift in Sources */,
 				1CB318B728F4929500F6E9D2 /* GeneralSettingsView.swift in Sources */,
 				1CB318AB28F4867A00F6E9D2 /* AppKit+Extensions.swift in Sources */,
@@ -345,14 +349,14 @@
 				1CC6C1452982D1F300D89250 /* GGImageInfo.swift in Sources */,
 				1C72350F2A9F35380065512A /* ContributionsOutput.swift in Sources */,
 				1CC6C11F2980CD5600D89250 /* UserDefaultsRepository.swift in Sources */,
-				1CC6C1282980CFCA00D89250 /* MenuBar.swift in Sources */,
 				1C7235112A9F355B0065512A /* GraphQLBody.swift in Sources */,
 				1CB3189328F4845F00F6E9D2 /* SettingsView.swift in Sources */,
 				1C7235072A9EDAAF0065512A /* KeychainRepository.swift in Sources */,
 				1CB3189128F4845F00F6E9D2 /* GitGrassApp.swift in Sources */,
 				1CC6C1312981196C00D89250 /* GGColor.swift in Sources */,
-				1CC6C1262980CFB000D89250 /* MenuBarModel.swift in Sources */,
+				1CAB3F252AE8F01600BE23F0 /* Color+Extensions.swift in Sources */,
 				1CC6C12D2981195800D89250 /* GGStyle.swift in Sources */,
+				1CAB3F232AE8EED700BE23F0 /* StatusImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

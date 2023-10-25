@@ -20,7 +20,8 @@
 
 import Foundation
 
-struct GGImageInfo {
+struct GGImageInfo: Identifiable {
+    var id = UUID()
     var dayData: [[DayData]]
     var color: GGColor
     var style: GGStyle

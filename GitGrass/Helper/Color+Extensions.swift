@@ -1,9 +1,9 @@
 /*
- MenuViewModel.swift
+ Color+Extensions.swift
  GitGrass
 
  Created by Takuto Nakamura on 2023/10/25.
- Copyright 2023 Takuto Nakamura
+ Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,4 +18,16 @@
  limitations under the License.
 */
 
-import Foundation
+import SwiftUI
+
+extension Color {
+    static func fillColor(_ level: Int, _ color: GGColor, _ isDark: Bool) -> Color {
+        if color == .monochrome {
+            return Color.black.opacity(0.2 * Double(level + 1))
+        } else if color == .greenGrass {
+            return Color(isDark ? .darkGrass : .lightGrass).opacity(0.2 * Double(level + 1))
+        } else {
+            return Color.accentColor.opacity(0.2 * Double(level + 1))
+        }
+    }
+}

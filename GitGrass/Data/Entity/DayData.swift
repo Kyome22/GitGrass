@@ -20,7 +20,7 @@
 
 import Foundation
 
-struct DayData {
+struct DayData: Equatable {
     private static let week = [DayData](repeating: DayData(0, 0, ""), count: 7)
     static let `default` = [[DayData]](repeating: DayData.week, count: 53)
 

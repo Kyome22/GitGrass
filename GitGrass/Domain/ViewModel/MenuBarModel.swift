@@ -2,7 +2,7 @@
  MenuBarModel.swift
  GitGrass
 
- Created by Takuto Nakamura on 2023/01/25.
+ Created by Takuto Nakamura on 2023/10/25.
  Copyright 2023 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,8 +21,8 @@
 import AppKit
 import Combine
 
-protocol MenuBarModel: AnyObject {
-    var imageInfoPublisher: AnyPublisher<GGImageInfo, Never> { get }
+protocol MenuBarModel: ObservableObject {
+    var imageInfo: GGImageInfo { get set }
 
     init(_ userDefaultsRepository: UserDefaultsRepository,
          _ contributionModel: ContributionModel,
@@ -39,13 +39,10 @@ final class MenuBarModelImpl<UR: UserDefaultsRepository,
                              WM: WindowModel>: MenuBarModel {
     private let userDefaultsRepository: UR
     private let contributionModel: CM
-    private let windowModel: WindowModel
+    private let windowModel: WM
     private var cancellables = Set<AnyCancellable>()
 
-    private let imageInfoSubject = PassthroughSubject<GGImageInfo, Never>()
-    var imageInfoPublisher: AnyPublisher<GGImageInfo, Never> {
-        return imageInfoSubject.eraseToAnyPublisher()
-    }
+    @Published var imageInfo = GGImageInfo(DayData.default, .monochrome, .block, .lastYear)
 
     init(
         _ userDefaultsRepository: UserDefaultsRepository,
@@ -58,12 +55,13 @@ final class MenuBarModelImpl<UR: UserDefaultsRepository,
         let properties = GGProperties(userDefaultsRepository.color,
                                       userDefaultsRepository.style,
                                       userDefaultsRepository.period)
-        self.userDefaultsRepository.propertiesPublisher
+        userDefaultsRepository.propertiesPublisher
             .prepend(properties)
-            .combineLatest(self.contributionModel.dayDataPublisher)
+            .combineLatest(contributionModel.dayDataPublisher)
             .map { ($1, $0.0, $0.1, $0.2) }
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] (dayData, color, style, period) in
-                self?.imageInfoSubject.send(GGImageInfo(dayData, color, style, period))
+                self?.imageInfo = GGImageInfo(dayData, color, style, period)
             }
             .store(in: &cancellables)
     }
@@ -88,9 +86,10 @@ final class MenuBarModelImpl<UR: UserDefaultsRepository,
 // MARK: - Preview Mock
 extension PreviewMock {
     final class MenuBarModelMock: MenuBarModel {
-        var imageInfoPublisher: AnyPublisher<GGImageInfo, Never> {
-            return Just(GGImageInfo.mock).eraseToAnyPublisher()
-        }
+        @Published var imageInfo = GGImageInfo(DayData.default,
+                                               GGColor.monochrome,
+                                               GGStyle.block,
+                                               GGPeriod.lastYear)
 
         init(_ userDefaultsRepository: UserDefaultsRepository,
              _ contributionModel: ContributionModel,

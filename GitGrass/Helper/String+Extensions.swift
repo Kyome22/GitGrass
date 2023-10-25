@@ -25,15 +25,6 @@ extension String {
         return NSLocalizedString(self, comment: self)
     }
 
-    func match(_ pattern: String) -> [String] {
-        guard let regex = try? NSRegularExpression(pattern: pattern),
-              let matched = regex.firstMatch(in: self, range: NSRange(location: 0, length: self.count))
-        else { return [] }
-        return (0 ..< matched.numberOfRanges).map {
-            NSString(string: self).substring(with: matched.range(at: $0))
-        }
-    }
-
     var secured: String {
         let n = max(0, self.count - 6)
         return self.replacingOccurrences(of: self.prefix(n).description,

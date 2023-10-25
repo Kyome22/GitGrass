@@ -25,35 +25,34 @@ import Combine
 protocol GitGrassAppModel: ObservableObject {
     associatedtype UR: UserDefaultsRepository
     associatedtype KR: KeychainRepository
+    associatedtype MBM: MenuBarModel
 
     var userDefaultsRepository: UR { get }
     var keychainRepository: KR { get }
+    var menuBarModel: MBM { get }
 }
 
 final class GitGrassAppModelImpl: NSObject, GitGrassAppModel {
     typealias UR = UserDefaultsRepositoryImpl
     typealias KR = KeychainRepositoryImpl
     typealias CR = ContributionRepositoryImpl
-    typealias CMConcrete = ContributionModelImpl<UR, KR, CR>
+    typealias CM = ContributionModelImpl<UR, KR, CR>
     typealias WM = WindowModelImpl
-    typealias MMConcrete = MenuBarModelImpl<UR, CMConcrete, WM>
-
+    typealias MBM = MenuBarModelImpl<UR, CM, WM>
 
     let userDefaultsRepository: UR
     let keychainRepository: KR
-
-    private let contributionModel: CMConcrete
-    private let windowModel: WindowModelImpl
-    private let menuBarModel: MMConcrete
-    private var menuBar: MenuBar<MMConcrete>?
+    private let contributionModel: CM
+    private let windowModel: WM
+    let menuBarModel: MBM
     private var cancellables = Set<AnyCancellable>()
 
     override init() {
         userDefaultsRepository = UR()
         keychainRepository = KR()
-        contributionModel = CMConcrete(userDefaultsRepository, keychainRepository)
-        windowModel = WindowModelImpl()
-        menuBarModel = MMConcrete(userDefaultsRepository, contributionModel, windowModel)
+        contributionModel = CM(userDefaultsRepository, keychainRepository)
+        windowModel = WM()
+        menuBarModel = MBM(userDefaultsRepository, contributionModel, windowModel)
         super.init()
 
         NotificationCenter.default.publisher(for: NSApplication.didFinishLaunchingNotification)
@@ -69,7 +68,6 @@ final class GitGrassAppModelImpl: NSObject, GitGrassAppModel {
     }
 
     private func applicationDidFinishLaunching() {
-        menuBar = MenuBar(menuBarModel: menuBarModel)
         contributionModel.fetchGrass()
         if keychainRepository.personalAccessToken == nil || userDefaultsRepository.username.isEmpty {
             windowModel.openSettings()
@@ -86,8 +84,10 @@ extension PreviewMock {
     final class GitGrassAppModelMock: GitGrassAppModel {
         typealias UR = UserDefaultsRepositoryMock
         typealias KR = KeychainRepositoryMock
+        typealias MBM = MenuBarModelMock
 
         var userDefaultsRepository = UR()
         var keychainRepository = KR()
+        var menuBarModel = MBM()
     }
 }
