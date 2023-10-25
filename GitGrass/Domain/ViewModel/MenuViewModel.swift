@@ -1,9 +1,9 @@
 /*
- DayData.swift
+ MenuViewModel.swift
  GitGrass
 
- Created by Takuto Nakamura on 2022/10/11.
- Copyright 2022 Takuto Nakamura
+ Created by Takuto Nakamura on 2023/10/25.
+ Copyright 2023 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -19,22 +19,3 @@
 */
 
 import Foundation
-
-struct DayData {
-    private static let week = [DayData](repeating: DayData(0, 0, ""), count: 7)
-    static let `default` = [[DayData]](repeating: DayData.week, count: 53)
-
-    let level: Int
-    let count: Int
-    let date: String
-
-    var description: String {
-        return "level: \(level) count: \(count) date: \(date)"
-    }
-
-    init(_ level: Int, _ count: Int, _ date: String) {
-        self.level = level
-        self.count = count
-        self.date = date
-    }
-}
