@@ -39,8 +39,3 @@ struct GitGrassApp: App {
         }
     }
 }
-
-//    isDarkHandler: { [weak self] in
-//        return self?.statusItem.button?.superview?.effectiveAppearance.isDark ?? false
-//    }
-//    )

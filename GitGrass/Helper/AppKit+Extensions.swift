@@ -20,13 +20,6 @@
 
 import AppKit
 
-extension NSAppearance {
-    var isDark: Bool {
-        if self.name == .vibrantDark { return true }
-        return self.bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
-    }
-}
-
 extension NSTextField {
     override open func performKeyEquivalent(with event: NSEvent) -> Bool {
         let flags = event.modifierFlags.intersection(.deviceIndependentFlagsMask)

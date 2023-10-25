@@ -30,7 +30,7 @@ struct StatusIcon<SIM: StatusIconModel>: View {
             return Image(size: CGSize(width: 124.0, height: 18.0)) { context in
                 for i in (0 ..< lastWeekData.count) {
                     let rect = CGRect(x: 18.0 * CGFloat(i), y: 1.0, width: 16.0, height: 16.0)
-                    let fillColor = Color.fillColor(lastWeekData[i].level, imageInfo.color, false)
+                    let fillColor = Color.fillColor(lastWeekData[i].level, imageInfo.color)
                     switch imageInfo.style {
                     case .block:
                         context.fill(Path(roundedRect: rect, cornerRadius: 4.0), with: .color(fillColor))
@@ -50,7 +50,7 @@ struct StatusIcon<SIM: StatusIconModel>: View {
                 (0 ..< dayData.count).forEach { i in
                     (0 ..< dayData[i].count).forEach { j in
                         let rect = CGRect(x: 2.5 * CGFloat(i), y: 0.5 + 2.5 * CGFloat(j), width: 2.0, height: 2.0)
-                        let fillColor = Color.fillColor(dayData[i][j].level, imageInfo.color, false)
+                        let fillColor = Color.fillColor(dayData[i][j].level, imageInfo.color)
                         switch imageInfo.style {
                         case .block:
                             context.fill(Path(rect), with: .color(fillColor))

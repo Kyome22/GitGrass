@@ -21,10 +21,6 @@
 import Foundation
 
 extension String {
-    var localized: String {
-        return NSLocalizedString(self, comment: self)
-    }
-
     var secured: String {
         let n = max(0, self.count - 6)
         return self.replacingOccurrences(of: self.prefix(n).description,

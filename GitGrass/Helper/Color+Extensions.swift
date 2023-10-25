@@ -21,11 +21,11 @@
 import SwiftUI
 
 extension Color {
-    static func fillColor(_ level: Int, _ color: GGColor, _ isDark: Bool) -> Color {
+    static func fillColor(_ level: Int, _ color: GGColor) -> Color {
         if color == .monochrome {
             return Color.black.opacity(0.2 * Double(level + 1))
         } else if color == .greenGrass {
-            return Color(isDark ? .darkGrass : .lightGrass).opacity(0.2 * Double(level + 1))
+            return Color(.grass).opacity(0.2 * Double(level + 1))
         } else {
             return Color.accentColor.opacity(0.2 * Double(level + 1))
         }

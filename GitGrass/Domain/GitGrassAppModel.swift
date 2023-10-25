@@ -21,7 +21,6 @@
 import AppKit
 import Combine
 
-// PublishedなPropertyを持っていないので今はObservableObjectである意味がない
 protocol GitGrassAppModel: ObservableObject {
     associatedtype UR: UserDefaultsRepository
     associatedtype KR: KeychainRepository

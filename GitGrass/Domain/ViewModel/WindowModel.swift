@@ -51,7 +51,7 @@ final class WindowModelImpl: NSObject, WindowModel, NSWindowDelegate {
         NSApp.activate(ignoringOtherApps: true)
         let mutableAttrStr = NSMutableAttributedString()
         var attr: [NSAttributedString.Key : Any] = [.foregroundColor : NSColor.textColor]
-        mutableAttrStr.append(NSAttributedString(string: "oss".localized, attributes: attr))
+        mutableAttrStr.append(NSAttributedString(string: String(localized: "oss"), attributes: attr))
         let url = "https://github.com/Kyome22/GitGrass"
         attr = [.foregroundColor : NSColor(resource: .URL), .link : url]
         mutableAttrStr.append(NSAttributedString(string: url, attributes: attr))
