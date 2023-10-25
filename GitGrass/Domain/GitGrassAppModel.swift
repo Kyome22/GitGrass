@@ -25,26 +25,31 @@ import Combine
 protocol GitGrassAppModel: ObservableObject {
     associatedtype UR: UserDefaultsRepository
     associatedtype KR: KeychainRepository
-    associatedtype MBM: MenuBarModel
+    associatedtype CM: ContributionModel
+    associatedtype WM: WindowModel
+    associatedtype MVM: MenuViewModel
+    associatedtype SIM: StatusIconModel
+    associatedtype GVM: GeneralSettingsViewModel
 
     var userDefaultsRepository: UR { get }
     var keychainRepository: KR { get }
-    var menuBarModel: MBM { get }
+    var contributionModel: CM { get }
+    var windowModel: WM { get }
 }
 
 final class GitGrassAppModelImpl: NSObject, GitGrassAppModel {
     typealias UR = UserDefaultsRepositoryImpl
     typealias KR = KeychainRepositoryImpl
-    typealias CR = ContributionRepositoryImpl
-    typealias CM = ContributionModelImpl<UR, KR, CR>
+    typealias CM = ContributionModelImpl<ContributionRepositoryImpl>
     typealias WM = WindowModelImpl
-    typealias MBM = MenuBarModelImpl<UR, CM, WM>
+    typealias MVM = MenuViewModelImpl
+    typealias SIM = StatusIconModelImpl
+    typealias GVM = GeneralSettingsViewModelImpl<LaunchAtLoginRepositoryImpl>
 
     let userDefaultsRepository: UR
     let keychainRepository: KR
-    private let contributionModel: CM
-    private let windowModel: WM
-    let menuBarModel: MBM
+    let contributionModel: CM
+    let windowModel: WM
     private var cancellables = Set<AnyCancellable>()
 
     override init() {
@@ -52,7 +57,6 @@ final class GitGrassAppModelImpl: NSObject, GitGrassAppModel {
         keychainRepository = KR()
         contributionModel = CM(userDefaultsRepository, keychainRepository)
         windowModel = WM()
-        menuBarModel = MBM(userDefaultsRepository, contributionModel, windowModel)
         super.init()
 
         NotificationCenter.default.publisher(for: NSApplication.didFinishLaunchingNotification)
@@ -84,10 +88,15 @@ extension PreviewMock {
     final class GitGrassAppModelMock: GitGrassAppModel {
         typealias UR = UserDefaultsRepositoryMock
         typealias KR = KeychainRepositoryMock
-        typealias MBM = MenuBarModelMock
+        typealias CM = ContributionModelMock
+        typealias WM = WindowModelMock
+        typealias MVM = MenuViewModelMock
+        typealias SIM = StatusIconModelMock
+        typealias GVM = GeneralSettingsViewModelMock
 
-        var userDefaultsRepository = UR()
-        var keychainRepository = KR()
-        var menuBarModel = MBM()
+        let userDefaultsRepository = UR()
+        let keychainRepository = KR()
+        let contributionModel = CM()
+        let windowModel = WM()
     }
 }

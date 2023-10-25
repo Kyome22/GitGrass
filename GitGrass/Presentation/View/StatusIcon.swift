@@ -1,5 +1,5 @@
 /*
- StatusImage.swift
+ StatusIcon.swift
  GitGrass
 
  Created by Takuto Nakamura on 2023/10/25.
@@ -20,11 +20,11 @@
 
 import SwiftUI
 
-struct StatusImage<MBM: MenuBarModel>: View {
-    @EnvironmentObject private var menuBarModel: MBM
+struct StatusIcon<SIM: StatusIconModel>: View {
+    @StateObject var viewModel: SIM
 
     var body: some View {
-        let imageInfo = menuBarModel.imageInfo
+        let imageInfo = viewModel.imageInfo
         if imageInfo.period == .lastWeek {
             let lastWeekData = Array(imageInfo.dayData.flatMap { $0 }.suffix(7))
             return Image(size: CGSize(width: 124.0, height: 18.0)) { context in
@@ -66,6 +66,5 @@ struct StatusImage<MBM: MenuBarModel>: View {
 }
 
 #Preview {
-    StatusImage<PreviewMock.MenuBarModelMock>()
-        .environmentObject(PreviewMock.MenuBarModelMock())
+    StatusIcon(viewModel: PreviewMock.StatusIconModelMock())
 }

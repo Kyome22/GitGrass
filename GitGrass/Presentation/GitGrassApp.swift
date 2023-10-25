@@ -22,29 +22,20 @@ import SwiftUI
 
 @main
 struct GitGrassApp: App {
-    typealias UR = UserDefaultsRepositoryImpl
-    typealias KR = KeychainRepositoryImpl
-    typealias LR = LaunchAtLoginRepositoryImpl
-    typealias CR = ContributionRepositoryImpl
-    typealias CM = ContributionModelImpl<UR, KR, CR>
-    typealias WM = WindowModelImpl
-    typealias MBM = MenuBarModelImpl<UR, CM, WM>
-    typealias GVM = GeneralSettingsViewModelImpl<UR, KR, LR>
-
-    @StateObject private var appModel = GitGrassAppModelImpl()
+    typealias GAM = GitGrassAppModelImpl
+    @StateObject private var appModel = GAM()
 
     var body: some Scene {
         Settings {
-            SettingsView<GitGrassAppModelImpl, GVM>()
+            SettingsView<GAM>()
                 .environmentObject(appModel)
         }
         MenuBarExtra {
-            MenuView<MBM>()
-                .environmentObject(appModel.menuBarModel)
+            MenuView(viewModel: GAM.MVM(appModel.windowModel))
         } label: {
-            StatusImage<MBM>()
-                .environment(\.displayScale, 2.0)
-                .environmentObject(appModel.menuBarModel)
+            StatusIcon(viewModel: GAM.SIM(appModel.userDefaultsRepository,
+                                          appModel.contributionModel))
+            .environment(\.displayScale, 2.0)
         }
     }
 }

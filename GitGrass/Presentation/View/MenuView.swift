@@ -20,8 +20,8 @@
 
 import SwiftUI
 
-struct MenuView<MBM: MenuBarModel>: View {
-    @EnvironmentObject private var menuBarModel: MBM
+struct MenuView<MVM: MenuViewModel>: View {
+    @StateObject var viewModel: MVM
 
     var body: some View {
         VStack {
@@ -31,24 +31,23 @@ struct MenuView<MBM: MenuBarModel>: View {
                 }
             } else {
                 Button("settings") {
-                    menuBarModel.openSettings()
+                    viewModel.openSettings()
                 }
             }
             Divider()
             Button("aboutGitGrass") {
-                menuBarModel.openAbout()
+                viewModel.openAbout()
             }
             Button("licenses") {
-                menuBarModel.openLicenses()
+                viewModel.openLicenses()
             }
             Button("quitGitGrass") {
-                menuBarModel.terminateApp()
+                viewModel.terminateApp()
             }
         }
     }
 }
 
 #Preview {
-    MenuView<PreviewMock.MenuBarModelMock>()
-        .environmentObject(PreviewMock.MenuBarModelMock())
+    MenuView(viewModel: PreviewMock.MenuViewModelMock())
 }

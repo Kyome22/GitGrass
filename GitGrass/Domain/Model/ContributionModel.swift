@@ -32,11 +32,9 @@ protocol ContributionModel: AnyObject {
     func updateCycle()
 }
 
-final class ContributionModelImpl<UR: UserDefaultsRepository,
-                                  KR: KeychainRepository,
-                                  CR: ContributionRepository>: ContributionModel {
-    private let userDefaultsRepository: UR
-    private let keychainRepository: KR
+final class ContributionModelImpl<CR: ContributionRepository>: ContributionModel {
+    private let userDefaultsRepository: UserDefaultsRepository
+    private let keychainRepository: KeychainRepository
     private let contributionRepository: CR
     private var timer: Timer?
     private var cancellables = Set<AnyCancellable>()
@@ -50,8 +48,8 @@ final class ContributionModelImpl<UR: UserDefaultsRepository,
         _ userDefaultsRepository: UserDefaultsRepository,
         _ keychainRepository: KeychainRepository
     ) {
-        self.userDefaultsRepository = userDefaultsRepository as! UR
-        self.keychainRepository = keychainRepository as! KR
+        self.userDefaultsRepository = userDefaultsRepository
+        self.keychainRepository = keychainRepository
         self.contributionRepository = CR()
 
         NSWorkspace.shared.notificationCenter

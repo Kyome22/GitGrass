@@ -20,8 +20,7 @@
 
 import SwiftUI
 
-struct SettingsView<GAM: GitGrassAppModel,
-                    GVM: GeneralSettingsViewModel>: View {
+struct SettingsView<GAM: GitGrassAppModel>: View {
     @EnvironmentObject private var appModel: GAM
 
     private enum Tabs: Hashable {
@@ -31,8 +30,8 @@ struct SettingsView<GAM: GitGrassAppModel,
     var body: some View {
         TabView {
             GeneralSettingsView(
-                viewModel: GVM(appModel.userDefaultsRepository,
-                               appModel.keychainRepository)
+                viewModel: GAM.GVM(appModel.userDefaultsRepository,
+                                   appModel.keychainRepository)
             )
             .tabItem {
                 Label("general", systemImage: "gear")
@@ -46,7 +45,6 @@ struct SettingsView<GAM: GitGrassAppModel,
 }
 
 #Preview {
-    SettingsView<PreviewMock.GitGrassAppModelMock,
-                 PreviewMock.GeneralSettingsViewModelMock>()
+    SettingsView<PreviewMock.GitGrassAppModelMock>()
         .environmentObject(PreviewMock.GitGrassAppModelMock())
 }

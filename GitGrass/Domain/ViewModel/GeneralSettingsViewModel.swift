@@ -38,9 +38,7 @@ protocol GeneralSettingsViewModel: ObservableObject {
     func updateUsername()
 }
 
-final class GeneralSettingsViewModelImpl<UR: UserDefaultsRepository,
-                                         KR: KeychainRepository,
-                                         LR: LaunchAtLoginRepository>: GeneralSettingsViewModel {
+final class GeneralSettingsViewModelImpl<LR: LaunchAtLoginRepository>: GeneralSettingsViewModel {
     @Published var personalAccessToken: String = ""
     @Published var tokenIsAlreadyStored: Bool = false
     @Published var username: String
@@ -64,16 +62,16 @@ final class GeneralSettingsViewModelImpl<UR: UserDefaultsRepository,
         }
     }
 
-    private let userDefaultsRepository: UR
-    private let keychainRepository: KR
+    private let userDefaultsRepository: UserDefaultsRepository
+    private let keychainRepository: KeychainRepository
     private let launchAtLoginRepository: LR
 
     init(
         _ userDefaultsRepository: UserDefaultsRepository,
         _ keychainRepository: KeychainRepository
     ) {
-        self.userDefaultsRepository = userDefaultsRepository as! UR
-        self.keychainRepository = keychainRepository as! KR
+        self.userDefaultsRepository = userDefaultsRepository
+        self.keychainRepository = keychainRepository
         self.launchAtLoginRepository = LR()
         username = userDefaultsRepository.username
         cycle = userDefaultsRepository.cycle
