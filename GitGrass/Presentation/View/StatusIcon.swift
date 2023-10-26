@@ -24,44 +24,58 @@ struct StatusIcon<SIM: StatusIconModel>: View {
     @StateObject var viewModel: SIM
 
     var body: some View {
-        let imageInfo = viewModel.imageInfo
-        if imageInfo.period == .lastWeek {
-            let lastWeekData = Array(imageInfo.dayData.flatMap { $0 }.suffix(7))
-            return Image(size: CGSize(width: 124.0, height: 18.0)) { context in
-                for i in (0 ..< lastWeekData.count) {
-                    let rect = CGRect(x: 18.0 * CGFloat(i), y: 1.0, width: 16.0, height: 16.0)
-                    let fillColor = Color.fillColor(lastWeekData[i].level, imageInfo.color)
+        Group {
+            if viewModel.imageInfo.period == .lastWeek {
+                lastWeekImage(viewModel.imageInfo)
+            } else {
+                lastMonthOrLastYear(viewModel.imageInfo)
+            }
+        }
+        .onAppear {
+            viewModel.setAppearanceObserver()
+        }
+    }
+
+    func lastWeekImage(_ imageInfo: GGImageInfo) -> Image {
+        let lastWeekData = Array(imageInfo.dayData.flatMap { $0 }.suffix(7))
+        return Image(size: CGSize(width: 124.0, height: 18.0)) { context in
+            for i in (0 ..< lastWeekData.count) {
+                let rect = CGRect(x: 18.0 * CGFloat(i), y: 1.0, width: 16.0, height: 16.0)
+                let fillColor = imageInfo.fillColor(level: lastWeekData[i].level,
+                                                    isDark: viewModel.isDark)
+                switch imageInfo.style {
+                case .block:
+                    context.fill(Path(roundedRect: rect, cornerRadius: 4.0), with: .color(fillColor))
+                case .dot:
+                    context.fill(Path(ellipseIn: rect), with: .color(fillColor))
+                }
+            }
+        }
+        .renderingMode(imageInfo.renderingMode)
+    }
+
+    func lastMonthOrLastYear(_ imageInfo: GGImageInfo) -> Image {
+        var dayData = imageInfo.dayData
+        if imageInfo.period == .lastMonth {
+            dayData = Array(dayData.suffix(5))
+        }
+        let width = 0.5 * CGFloat(5 * dayData.count - 1)
+        return Image(size: CGSize(width: width, height: 18.0)) { context in
+            (0 ..< dayData.count).forEach { i in
+                (0 ..< dayData[i].count).forEach { j in
+                    let rect = CGRect(x: 2.5 * CGFloat(i), y: 0.5 + 2.5 * CGFloat(j), width: 2.0, height: 2.0)
+                    let fillColor = imageInfo.fillColor(level: dayData[i][j].level,
+                                                        isDark: viewModel.isDark)
                     switch imageInfo.style {
                     case .block:
-                        context.fill(Path(roundedRect: rect, cornerRadius: 4.0), with: .color(fillColor))
+                        context.fill(Path(rect), with: .color(fillColor))
                     case .dot:
                         context.fill(Path(ellipseIn: rect), with: .color(fillColor))
                     }
                 }
             }
-            .renderingMode(imageInfo.color == .monochrome ? .template : .original)
-        } else {
-            var dayData = imageInfo.dayData
-            if imageInfo.period == .lastMonth {
-                dayData = Array(dayData.suffix(5))
-            }
-            let width = 0.5 * CGFloat(5 * dayData.count - 1)
-            return Image(size: CGSize(width: width, height: 18.0)) { context in
-                (0 ..< dayData.count).forEach { i in
-                    (0 ..< dayData[i].count).forEach { j in
-                        let rect = CGRect(x: 2.5 * CGFloat(i), y: 0.5 + 2.5 * CGFloat(j), width: 2.0, height: 2.0)
-                        let fillColor = Color.fillColor(dayData[i][j].level, imageInfo.color)
-                        switch imageInfo.style {
-                        case .block:
-                            context.fill(Path(rect), with: .color(fillColor))
-                        case .dot:
-                            context.fill(Path(ellipseIn: rect), with: .color(fillColor))
-                        }
-                    }
-                }
-            }
-            .renderingMode(imageInfo.color == .monochrome ? .template : .original)
         }
+        .renderingMode(imageInfo.renderingMode)
     }
 }
 

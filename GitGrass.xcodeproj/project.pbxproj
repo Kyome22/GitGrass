@@ -18,7 +18,6 @@
 		1CAB3F1F2AE8DE8E00BE23F0 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB3F1E2AE8DE8E00BE23F0 /* MenuViewModel.swift */; };
 		1CAB3F212AE8E2D900BE23F0 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB3F202AE8E2D900BE23F0 /* MenuView.swift */; };
 		1CAB3F232AE8EED700BE23F0 /* StatusIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB3F222AE8EED700BE23F0 /* StatusIcon.swift */; };
-		1CAB3F252AE8F01600BE23F0 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB3F242AE8F01600BE23F0 /* Color+Extensions.swift */; };
 		1CAB3F292AE90D3A00BE23F0 /* StatusIconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB3F282AE90D3A00BE23F0 /* StatusIconModel.swift */; };
 		1CB3189128F4845F00F6E9D2 /* GitGrassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB3189028F4845F00F6E9D2 /* GitGrassApp.swift */; };
 		1CB3189328F4845F00F6E9D2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB3189228F4845F00F6E9D2 /* SettingsView.swift */; };
@@ -55,7 +54,6 @@
 		1CAB3F1E2AE8DE8E00BE23F0 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
 		1CAB3F202AE8E2D900BE23F0 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		1CAB3F222AE8EED700BE23F0 /* StatusIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIcon.swift; sourceTree = "<group>"; };
-		1CAB3F242AE8F01600BE23F0 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		1CAB3F282AE90D3A00BE23F0 /* StatusIconModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIconModel.swift; sourceTree = "<group>"; };
 		1CB3188D28F4845F00F6E9D2 /* GitGrass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitGrass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CB3189028F4845F00F6E9D2 /* GitGrassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitGrassApp.swift; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 				1CC6C1222980CE1C00D89250 /* Utils.swift */,
 				1CB318A828F4864D00F6E9D2 /* String+Extensions.swift */,
 				1CB318AA28F4867A00F6E9D2 /* AppKit+Extensions.swift */,
-				1CAB3F242AE8F01600BE23F0 /* Color+Extensions.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -354,7 +351,6 @@
 				1C7235072A9EDAAF0065512A /* KeychainRepository.swift in Sources */,
 				1CB3189128F4845F00F6E9D2 /* GitGrassApp.swift in Sources */,
 				1CC6C1312981196C00D89250 /* GGColor.swift in Sources */,
-				1CAB3F252AE8F01600BE23F0 /* Color+Extensions.swift in Sources */,
 				1CC6C12D2981195800D89250 /* GGStyle.swift in Sources */,
 				1CAB3F232AE8EED700BE23F0 /* StatusIcon.swift in Sources */,
 			);

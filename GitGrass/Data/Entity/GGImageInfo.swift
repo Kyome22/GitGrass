@@ -18,7 +18,7 @@
  limitations under the License.
 */
 
-import Foundation
+import SwiftUI
 
 struct GGImageInfo: Identifiable {
     var id = UUID()
@@ -27,11 +27,29 @@ struct GGImageInfo: Identifiable {
     var style: GGStyle
     var period: GGPeriod
 
+    var renderingMode: Image.TemplateRenderingMode {
+        switch color {
+        case .monochrome:  return .template
+        case .greenGrass:  return .original
+        case .accentColor: return .original
+        }
+    }
+
     init(_ dayData: [[DayData]], _ color: GGColor, _ style: GGStyle, _ period: GGPeriod) {
         self.dayData = dayData
         self.color = color
         self.style = style
         self.period = period
+    }
+
+    func fillColor(level: Int, isDark: Bool) -> Color {
+        let fillColor: Color
+        switch color {
+        case .monochrome:  fillColor = Color.black
+        case .greenGrass:  fillColor = isDark ? Color(.grassDark) : Color(.grassLight)
+        case .accentColor: fillColor = Color(nsColor: NSColor.controlAccentColor)
+        }
+        return fillColor.opacity(0.2 * Double(level + 1))
     }
 
     static let mock = GGImageInfo(DayData.default, .monochrome, .block, .lastYear)
