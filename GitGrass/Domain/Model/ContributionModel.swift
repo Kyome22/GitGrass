@@ -22,14 +22,13 @@ import AppKit
 import Combine
 
 protocol ContributionModel: AnyObject {
-    var dayDataPublisher: AnyPublisher<[[DayData]], Never> { get }
+    var imageInfoPublisher: AnyPublisher<GGImageInfo, Never> { get }
 
     init(_ userDefaultsRepository: UserDefaultsRepository,
          _ keychainRepository: KeychainRepository)
 
     func fetchGrass()
     func stopTimer()
-    func updateCycle()
 }
 
 final class ContributionModelImpl<CR: ContributionRepository>: ContributionModel {
@@ -39,9 +38,9 @@ final class ContributionModelImpl<CR: ContributionRepository>: ContributionModel
     private var timer: Timer?
     private var cancellables = Set<AnyCancellable>()
 
-    private let dayDataSubject = CurrentValueSubject<[[DayData]], Never>(DayData.default)
-    var dayDataPublisher: AnyPublisher<[[DayData]], Never> {
-        return dayDataSubject.eraseToAnyPublisher()
+    private let imageInfoSubject: CurrentValueSubject<GGImageInfo, Never>
+    var imageInfoPublisher: AnyPublisher<GGImageInfo, Never> {
+        return imageInfoSubject.eraseToAnyPublisher()
     }
 
     init(
@@ -51,6 +50,13 @@ final class ContributionModelImpl<CR: ContributionRepository>: ContributionModel
         self.userDefaultsRepository = userDefaultsRepository
         self.keychainRepository = keychainRepository
         self.contributionRepository = CR()
+
+        imageInfoSubject = .init(GGImageInfo(
+            dayData: DayData.default,
+            color: userDefaultsRepository.color,
+            style: userDefaultsRepository.style,
+            period: userDefaultsRepository.period
+        ))
 
         NSWorkspace.shared.notificationCenter
             .publisher(for: NSWorkspace.willSleepNotification)
@@ -65,16 +71,41 @@ final class ContributionModelImpl<CR: ContributionRepository>: ContributionModel
             }
             .store(in: &cancellables)
 
-        self.userDefaultsRepository.usernamePublisher
+        userDefaultsRepository.usernamePublisher
             .sink { [weak self] _ in
                 self?.fetchGrass()
             }
             .store(in: &cancellables)
-        self.userDefaultsRepository.cyclePublisher
+        userDefaultsRepository.cyclePublisher
             .sink { [weak self] _ in
-                self?.updateCycle()
+                self?.startTimer()
             }
             .store(in: &cancellables)
+        userDefaultsRepository.propertiesPublisher
+            .sink { [weak self] in
+                self?.updateImageInfo()
+            }
+            .store(in: &cancellables)
+    }
+
+    private func updateImageInfo(with dayData: [[DayData]]? = nil) {
+        if let dayData {
+            imageInfoSubject.send(GGImageInfo(
+                dayData: dayData,
+                color: userDefaultsRepository.color,
+                style: userDefaultsRepository.style,
+                period: userDefaultsRepository.period
+            ))
+        } else {
+            let dayData = imageInfoSubject.value.dayData
+            imageInfoSubject.send(GGImageInfo(
+                dayData: dayData,
+                color: userDefaultsRepository.color,
+                style: userDefaultsRepository.style,
+                period: userDefaultsRepository.period
+            ))
+        }
+        startTimer()
     }
 
     private func convert(output: ContributionsOutput) -> [[DayData]] {
@@ -89,43 +120,42 @@ final class ContributionModelImpl<CR: ContributionRepository>: ContributionModel
     func fetchGrass() {
         let username = userDefaultsRepository.username
         guard !username.isEmpty, let token = keychainRepository.personalAccessToken else {
-            dayDataSubject.send(DayData.default)
+            updateImageInfo(with: DayData.default)
             return
         }
         Task {
             do {
                 let output = try await contributionRepository.getGrass(token, username)
-                dayDataSubject.send(convert(output: output))
-                startTimer()
+                updateImageInfo(with: convert(output: output))
             } catch {
-                dayDataSubject.send(DayData.default)
+                logput(error.localizedDescription)
+                updateImageInfo(with: DayData.default)
             }
         }
     }
 
     private func startTimer() {
+        timer?.invalidate()
+        timer = nil
         let interval = 60.0 * Double(userDefaultsRepository.cycle.rawValue)
-        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { [weak self] _ in
+        let date = Date.now.addingTimeInterval(interval)
+        timer = Timer(fire: date, interval: 0, repeats: false) { [weak self] _ in
             self?.fetchGrass()
         }
+        RunLoop.main.add(timer!, forMode: .common)
     }
 
     func stopTimer() {
         timer?.invalidate()
         timer = nil
     }
-
-    func updateCycle() {
-        stopTimer()
-        startTimer()
-    }
 }
 
 // MARK: - Preview Mock
 extension PreviewMock {
     final class ContributionModelMock: ContributionModel {
-        var dayDataPublisher: AnyPublisher<[[DayData]], Never> {
-            return Just(DayData.default).eraseToAnyPublisher()
+        var imageInfoPublisher: AnyPublisher<GGImageInfo, Never> {
+            return Just(GGImageInfo.default).eraseToAnyPublisher()
         }
 
         init(_ userDefaultsRepository: UserDefaultsRepository,
@@ -134,6 +164,5 @@ extension PreviewMock {
 
         func fetchGrass() {}
         func stopTimer() {}
-        func updateCycle() {}
     }
 }

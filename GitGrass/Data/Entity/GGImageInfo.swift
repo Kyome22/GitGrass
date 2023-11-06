@@ -35,7 +35,7 @@ struct GGImageInfo: Identifiable {
         }
     }
 
-    init(_ dayData: [[DayData]], _ color: GGColor, _ style: GGStyle, _ period: GGPeriod) {
+    init(dayData: [[DayData]], color: GGColor, style: GGStyle, period: GGPeriod) {
         self.dayData = dayData
         self.color = color
         self.style = style
@@ -52,5 +52,8 @@ struct GGImageInfo: Identifiable {
         return fillColor.opacity(0.2 * Double(level + 1))
     }
 
-    static let mock = GGImageInfo(DayData.default, .monochrome, .block, .lastYear)
+    static let `default` = GGImageInfo(dayData: DayData.default,
+                                       color: .monochrome,
+                                       style: .block,
+                                       period: .lastYear)
 }

@@ -22,12 +22,11 @@ import Foundation
 import Combine
 
 fileprivate let RESET_USER_DEFAULTS = false
-typealias GGProperties = (GGColor, GGStyle, GGPeriod)
 
 protocol UserDefaultsRepository: AnyObject {
-    var usernamePublisher: AnyPublisher<String, Never> { get }
+    var usernamePublisher: AnyPublisher<Void, Never> { get }
     var cyclePublisher: AnyPublisher<GGCycle, Never> { get }
-    var propertiesPublisher: AnyPublisher<GGProperties, Never> { get }
+    var propertiesPublisher: AnyPublisher<Void, Never> { get }
 
     var username: String { get set }
     var cycle: GGCycle { get set }
@@ -39,8 +38,8 @@ protocol UserDefaultsRepository: AnyObject {
 final class UserDefaultsRepositoryImpl: UserDefaultsRepository {
     private let userDefaults: UserDefaults
 
-    private let usernameSubject = PassthroughSubject<String, Never>()
-    var usernamePublisher: AnyPublisher<String, Never> {
+    private let usernameSubject = PassthroughSubject<Void, Never>()
+    var usernamePublisher: AnyPublisher<Void, Never> {
         return usernameSubject.eraseToAnyPublisher()
     }
 
@@ -49,8 +48,8 @@ final class UserDefaultsRepositoryImpl: UserDefaultsRepository {
         return cycleSubject.eraseToAnyPublisher()
     }
 
-    private let propertiesSubject = PassthroughSubject<GGProperties, Never>()
-    var propertiesPublisher: AnyPublisher<GGProperties, Never> {
+    private let propertiesSubject = PassthroughSubject<Void, Never>()
+    var propertiesPublisher: AnyPublisher<Void, Never> {
         return propertiesSubject.eraseToAnyPublisher()
     }
 
@@ -58,7 +57,7 @@ final class UserDefaultsRepositoryImpl: UserDefaultsRepository {
         get { userDefaults.string(forKey: "username")! }
         set {
             userDefaults.set(newValue, forKey: "username")
-            usernameSubject.send(newValue)
+            usernameSubject.send()
         }
     }
 
@@ -74,7 +73,7 @@ final class UserDefaultsRepositoryImpl: UserDefaultsRepository {
         get { GGColor(rawValue: userDefaults.integer(forKey: "color"))! }
         set {
             userDefaults.set(newValue.rawValue, forKey: "color")
-            propertiesSubject.send((newValue, style, period))
+            propertiesSubject.send()
         }
     }
 
@@ -82,7 +81,7 @@ final class UserDefaultsRepositoryImpl: UserDefaultsRepository {
         get { GGStyle(rawValue: userDefaults.integer(forKey: "style"))! }
         set {
             userDefaults.set(newValue.rawValue, forKey: "style")
-            propertiesSubject.send((color, newValue, period))
+            propertiesSubject.send()
         }
     }
 
@@ -90,7 +89,7 @@ final class UserDefaultsRepositoryImpl: UserDefaultsRepository {
         get { GGPeriod(rawValue: userDefaults.integer(forKey: "period"))! }
         set {
             userDefaults.set(newValue.rawValue, forKey: "period")
-            propertiesSubject.send((color, style, newValue))
+            propertiesSubject.send()
         }
     }
 
@@ -125,14 +124,14 @@ final class UserDefaultsRepositoryImpl: UserDefaultsRepository {
 // MARK: - Preview Mock
 extension PreviewMock {
     final class UserDefaultsRepositoryMock: UserDefaultsRepository {
-        var usernamePublisher: AnyPublisher<String, Never> {
-            return Just(username).eraseToAnyPublisher()
+        var usernamePublisher: AnyPublisher<Void, Never> {
+            return Just(()).eraseToAnyPublisher()
         }
         var cyclePublisher: AnyPublisher<GGCycle, Never> {
             return Just(cycle).eraseToAnyPublisher()
         }
-        var propertiesPublisher: AnyPublisher<GGProperties, Never> {
-            return Just((color, style, period)).eraseToAnyPublisher()
+        var propertiesPublisher: AnyPublisher<Void, Never> {
+            return Just(()).eraseToAnyPublisher()
         }
 
         var username: String = ""

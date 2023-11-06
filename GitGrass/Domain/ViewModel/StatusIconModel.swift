@@ -18,6 +18,7 @@
  limitations under the License.
 */
 
+import AppKit
 import SwiftUI
 import Combine
 
@@ -25,65 +26,50 @@ protocol StatusIconModel: ObservableObject {
     var imageInfo: GGImageInfo { get set }
     var isDark: Bool { get set }
 
-    init(_ userDefaultsRepository: UserDefaultsRepository,
-         _ contributionModel: ContributionModel)
+    init(_ contributionModel: ContributionModel)
 
     func setAppearanceObserver()
 }
 
 final class StatusIconModelImpl: StatusIconModel {
-    @Published var imageInfo = GGImageInfo(DayData.default, .monochrome, .block, .lastYear)
+    @Published var imageInfo: GGImageInfo = .default
     @Published var isDark: Bool = false
 
-    private var imageInfoCancellable: AnyCancellable?
-    private var appearanceCancellable: AnyCancellable?
+    private var statusItem: NSStatusItem?
+    private var cancellables = Set<AnyCancellable>()
 
-    init(
-        _ userDefaultsRepository: UserDefaultsRepository,
-        _ contributionModel: ContributionModel
-    ) {
-        let properties = GGProperties(userDefaultsRepository.color,
-                                      userDefaultsRepository.style,
-                                      userDefaultsRepository.period)
-        imageInfoCancellable = userDefaultsRepository
-            .propertiesPublisher
-            .prepend(properties)
-            .combineLatest(contributionModel.dayDataPublisher)
-            .map { ($1, $0.0, $0.1, $0.2) }
+    init(_ contributionModel: ContributionModel) {
+        contributionModel.imageInfoPublisher
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] (dayData, color, style, period) in
-                self?.imageInfo = GGImageInfo(dayData, color, style, period)
+            .sink { [weak self] imageInfo in
+                self?.imageInfo = imageInfo
             }
+            .store(in: &cancellables)
     }
 
+    // Workaround for broken colorScheme in MenuBarExtra
     func setAppearanceObserver() {
-        if appearanceCancellable != nil { return }
-        let subviews = NSApp.windows.compactMap { window -> NSStatusBarButton? in
-            guard let contentView = window.contentView,
-                  let nsView = contentView.subviews.first,
-                  let barButton = nsView.subviews.first as? NSStatusBarButton else {
-                return nil
-            }
-            return barButton
-        }
-        guard let barButton = subviews.first else { return }
-        appearanceCancellable = barButton
-            .publisher(for: \.effectiveAppearance)
+        guard statusItem == nil else { return }
+        statusItem = NSStatusItem.default
+        statusItem?.isVisible = false
+        guard let barButton = statusItem?.button else { return }
+        barButton.publisher(for: \.effectiveAppearance)
             .merge(with: NSApp.publisher(for: \.effectiveAppearance, options: .new))
+            .debounce(for: 0.5, scheduler: RunLoop.main)
             .sink { [weak self] _ in
                 self?.isDark = barButton.effectiveAppearance.isDark
             }
+            .store(in: &cancellables)
     }
 }
 
 // MARK: - Preview Mock
 extension PreviewMock {
     final class StatusIconModelMock: StatusIconModel {
-        @Published var imageInfo = GGImageInfo(DayData.default, .monochrome, .block, .lastYear)
+        @Published var imageInfo: GGImageInfo = .default
         @Published var isDark: Bool = false
 
-        init(_ userDefaultsRepository: UserDefaultsRepository,
-             _ contributionModel: ContributionModel) {}
+        init(_ contributionModel: ContributionModel) {}
         init() {}
 
         func setAppearanceObserver() {}

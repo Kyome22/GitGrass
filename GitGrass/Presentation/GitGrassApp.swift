@@ -33,9 +33,8 @@ struct GitGrassApp: App {
         MenuBarExtra {
             MenuView(viewModel: GAM.MVM(appModel.windowModel))
         } label: {
-            StatusIcon(viewModel: GAM.SIM(appModel.userDefaultsRepository,
-                                          appModel.contributionModel))
-            .environment(\.displayScale, 2.0)
+            StatusIcon(viewModel: GAM.SIM(appModel.contributionModel))
+                .environment(\.displayScale, 2.0)
         }
     }
 }

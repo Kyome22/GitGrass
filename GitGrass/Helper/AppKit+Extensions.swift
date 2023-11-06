@@ -20,6 +20,12 @@
 
 import AppKit
 
+extension NSStatusItem {
+    static var `default`: NSStatusItem {
+        return NSStatusBar.system.statusItem(withLength: Self.variableLength)
+    }
+}
+
 extension NSAppearance {
     var isDark: Bool {
         if self.name == .vibrantDark { return true }

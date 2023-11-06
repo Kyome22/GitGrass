@@ -48,4 +48,3 @@ extension PreviewMock {
         var personalAccessToken: String? = ""
     }
 }
-
