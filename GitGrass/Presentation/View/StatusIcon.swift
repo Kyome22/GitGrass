@@ -38,16 +38,18 @@ struct StatusIcon<SIM: StatusIconModel>: View {
 
     func lastWeekImage(_ imageInfo: GGImageInfo) -> Image {
         let lastWeekData = Array(imageInfo.dayData.flatMap { $0 }.suffix(7))
-        return Image(size: CGSize(width: 124.0, height: 18.0)) { context in
+        return Image(size: CGSize(width: 26.0, height: 18.0)) { context in
             for i in (0 ..< lastWeekData.count) {
-                let rect = CGRect(x: 18.0 * CGFloat(i), y: 1.0, width: 16.0, height: 16.0)
+                let level = lastWeekData[i].level
+                let power = 0.2 * CGFloat(level + 1)
+                let rect = CGRect(x: 4.0 * CGFloat(i), y: 8.0 * (1.0 - power), width: 2.0, height: 16.0 * power)
                 let fillColor = imageInfo.fillColor(level: lastWeekData[i].level,
                                                     isDark: viewModel.isDark)
                 switch imageInfo.style {
                 case .block:
-                    context.fill(Path(roundedRect: rect, cornerRadius: 4.0), with: .color(fillColor))
+                    context.fill(Path(rect), with: .color(fillColor))
                 case .dot:
-                    context.fill(Path(ellipseIn: rect), with: .color(fillColor))
+                    context.fill(Path(roundedRect: rect, cornerRadius: 1.0), with: .color(fillColor))
                 }
             }
         }
