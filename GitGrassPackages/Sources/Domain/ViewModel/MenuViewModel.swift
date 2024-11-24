@@ -56,6 +56,7 @@ import Observation
         if licensesWindow == nil {
             nsAppClient.activate(true)
             licensesWindow = dependencyListClient.window()
+            licensesWindow?.isReleasedWhenClosed = false
             licensesWindow?.delegate = self
             licensesWindow?.center()
             licensesWindow?.orderFrontRegardless()

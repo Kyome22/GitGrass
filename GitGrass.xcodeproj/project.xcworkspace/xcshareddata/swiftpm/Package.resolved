@@ -1,13 +1,13 @@
 {
-  "originHash" : "b9d51e940c891d1557a2f23e7edbca219d8c36619d72f5002e63774992b86118",
+  "originHash" : "1b71b87f1b7df32c3c422641b800566023760ac4f7e8d8959c52d36c078929ee",
   "pins" : [
     {
       "identity" : "dependencylist",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Kyome22/DependencyList.git",
       "state" : {
-        "revision" : "62ee4ac0eab322a2c8461a38ba34ae4be78e248c",
-        "version" : "0.1.1"
+        "revision" : "b334c876c5228eb428f8991c96c4b14e875d207c",
+        "version" : "0.2.0"
       }
     },
     {
