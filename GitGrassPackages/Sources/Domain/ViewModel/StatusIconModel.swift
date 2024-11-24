@@ -20,18 +20,25 @@
 
 import AppKit
 import DataLayer
-import Foundation
 import Observation
+import SwiftUI
 
 @MainActor @Observable public final class StatusIconModel {
     private let userDefaultsRepository: UserDefaultsRepository
     private let contributionService: ContributionService
     private let logService: LogService
 
+    private static let statusItem: NSStatusItem = {
+        let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusItem.isVisible = false
+        return statusItem
+    }()
+
     @ObservationIgnored private var timerTask: Task<Void, Never>?
     @ObservationIgnored private var task: Task<Void, Never>?
 
     public var imageProperties = ImageProperties.default
+    public var colorScheme = ColorScheme.light
 
     public init(
         _ userDefaultsClient: UserDefaultsClient,
@@ -41,6 +48,11 @@ import Observation
         self.userDefaultsRepository = .init(userDefaultsClient)
         self.contributionService = contributionService
         self.logService = logService
+    }
+
+    deinit {
+        task?.cancel()
+        timerTask?.cancel()
     }
 
     public func onAppear(screenName: String) {
@@ -78,6 +90,17 @@ import Observation
         startTimer()
         Task {
             await contributionService.fetchGrass()
+        }
+    }
+
+    public func onTask() async {
+        guard let button = Self.statusItem.button else { return }
+        let publisher = button
+            .publisher(for: \.effectiveAppearance)
+            .merge(with: NSApp.publisher(for: \.effectiveAppearance, options: .new))
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+        for await _ in publisher.values {
+            colorScheme = button.effectiveAppearance.isDark ? .dark : .light
         }
     }
 

@@ -41,8 +41,12 @@ struct StatusIcon: View {
                 lastMonthOrLastYear(viewModel.imageProperties)
             }
         }
+        .environment(\.colorScheme, viewModel.colorScheme)
         .onAppear {
             viewModel.onAppear(screenName: String(describing: Self.self))
+        }
+        .task {
+            await viewModel.onTask()
         }
     }
 
