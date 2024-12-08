@@ -18,24 +18,24 @@
  limitations under the License.
 */
 
+import AppKit
 import DataLayer
-import SwiftUI
 
 extension ImageProperties {
-    var renderingMode: Image.TemplateRenderingMode {
+    var isTemplate: Bool {
         switch color {
-        case .monochrome: .template
-        case .greenGrass: .original
-        case .accentColor: .original
+        case .monochrome: true
+        case .greenGrass: false
+        case .accentColor: false
         }
     }
 
-    func fillColor(level: Int) -> Color {
-        let fillColor: Color = switch color {
-        case .monochrome: Color.black
-        case .greenGrass: Color(.grass)
-        case .accentColor: Color(nsColor: NSColor.controlAccentColor)
+    func fillColor(level: Int) -> NSColor {
+        let nsColor = switch color {
+        case .monochrome: NSColor.black
+        case .greenGrass: NSColor(resource: .grass)
+        case .accentColor: NSColor.controlAccentColor
         }
-        return fillColor.opacity(0.2 * Double(level + 1))
+        return nsColor.withAlphaComponent(0.2 * CGFloat(level + 1))
     }
 }

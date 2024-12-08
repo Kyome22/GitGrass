@@ -18,7 +18,6 @@
  limitations under the License.
 */
 
-import AppKit
 import DataLayer
 import Observation
 import SwiftUI
@@ -28,17 +27,22 @@ import SwiftUI
     private let contributionService: ContributionService
     private let logService: LogService
 
-    private static let statusItem: NSStatusItem = {
-        let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        statusItem.isVisible = false
-        return statusItem
-    }()
-
     @ObservationIgnored private var timerTask: Task<Void, Never>?
     @ObservationIgnored private var task: Task<Void, Never>?
 
     public var imageProperties = ImageProperties.default
-    public var colorScheme = ColorScheme.light
+
+    public var lastYearData: [[DayData]] {
+        imageProperties.dayData
+    }
+
+    public var lastMonthData: [[DayData]] {
+        imageProperties.dayData.suffix(5).map(\.self)
+    }
+
+    public var lastWeekData: [DayData] {
+        imageProperties.dayData.flatMap(\.self).suffix(7).map(\.self)
+    }
 
     public init(
         _ userDefaultsClient: UserDefaultsClient,
@@ -85,22 +89,20 @@ import SwiftUI
                         await self.startTimer()
                     }
                 }
+                group.addTask {
+                    let publisher = DistributedNotificationCenter.default()
+                        .publisher(for: .NSAppleColorPreferencesChanged)
+                    for await _ in publisher.values {
+                        await MainActor.run {
+                            self.imageProperties = self.imageProperties
+                        }
+                    }
+                }
             }
         }
         startTimer()
         Task {
             await contributionService.fetchGrass()
-        }
-    }
-
-    public func onTask() async {
-        guard let button = Self.statusItem.button else { return }
-        let publisher = button
-            .publisher(for: \.effectiveAppearance)
-            .merge(with: NSApp.publisher(for: \.effectiveAppearance, options: .new))
-            .debounce(for: 0.2, scheduler: RunLoop.main)
-        for await _ in publisher.values {
-            colorScheme = button.effectiveAppearance.isDark ? .dark : .light
         }
     }
 

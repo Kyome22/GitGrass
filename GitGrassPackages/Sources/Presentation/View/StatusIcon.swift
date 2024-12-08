@@ -35,61 +35,60 @@ struct StatusIcon: View {
 
     var body: some View {
         Group {
-            if viewModel.imageProperties.period == .lastWeek {
-                lastWeekImage(viewModel.imageProperties)
-            } else {
-                lastMonthOrLastYear(viewModel.imageProperties)
+            switch viewModel.imageProperties.period {
+            case .lastYear:
+                twoDimentionalImage(viewModel.lastYearData)
+            case .lastMonth:
+                twoDimentionalImage(viewModel.lastMonthData)
+            case .lastWeek:
+                oneDimentionalImage(viewModel.lastWeekData)
             }
         }
-        .environment(\.colorScheme, viewModel.colorScheme)
         .onAppear {
             viewModel.onAppear(screenName: String(describing: Self.self))
         }
-        .task {
-            await viewModel.onTask()
-        }
     }
 
-    private func lastWeekImage(_ imageProperties: ImageProperties) -> Image {
-        let lastWeekData = Array(imageProperties.dayData.flatMap(\.self).suffix(7))
-        return Image(size: CGSize(width: 26.0, height: 18.0)) { context in
-            (0 ..< lastWeekData.count).forEach { i in
-                let level = lastWeekData[i].level
-                let power = 0.2 * CGFloat(level + 1)
-                let rect = CGRect(x: 4.0 * CGFloat(i), y: 8.0 * (1.0 - power), width: 2.0, height: 16.0 * power)
-                let fillColor = imageProperties.fillColor(level: lastWeekData[i].level)
-                switch imageProperties.style {
-                case .block:
-                    context.fill(Path(rect), with: .color(fillColor))
-                case .dot:
-                    context.fill(Path(roundedRect: rect, cornerRadius: 1.0), with: .color(fillColor))
-                }
-            }
-        }
-        .renderingMode(imageProperties.renderingMode)
-    }
-
-    private func lastMonthOrLastYear(_ imageProperties: ImageProperties) -> Image {
-        let dayData: [[DayData]] = if imageProperties.period == .lastMonth {
-            Array(imageProperties.dayData.suffix(5))
-        } else {
-            imageProperties.dayData
-        }
+    private func twoDimentionalImage(_ dayData: [[DayData]]) -> Image {
         let width = 0.5 * CGFloat(5 * dayData.count - 1)
-        return Image(size: CGSize(width: width, height: 18.0)) { context in
-            (0 ..< dayData.count).forEach { i in
-                (0 ..< dayData[i].count).forEach { j in
-                    let rect = CGRect(x: 2.5 * CGFloat(i), y: 0.5 + 2.5 * CGFloat(j), width: 2.0, height: 2.0)
-                    let fillColor = imageProperties.fillColor(level: dayData[i][j].level)
-                    let path: Path = switch imageProperties.style {
-                    case .block: Path(rect)
-                    case .dot: Path(ellipseIn: rect)
+        let nsImage = NSImage(size: CGSize(width: width, height: 18), flipped: true) { _ in
+            dayData.indices.forEach { i in
+                dayData[i].indices.forEach { j in
+                    let level = dayData[i][j].level
+                    let rect = CGRect(x: 2.5 * CGFloat(i), y: 0.5 + 2.5 * CGFloat(j), width: 2, height: 2)
+                    viewModel.imageProperties.fillColor(level: level).setFill()
+                    switch viewModel.imageProperties.style {
+                    case .block:
+                        NSBezierPath(rect: rect).fill()
+                    case .dot:
+                        NSBezierPath(ovalIn: rect).fill()
                     }
-                    context.fill(path, with: .color(fillColor))
                 }
             }
+            return true
         }
-        .renderingMode(imageProperties.renderingMode)
+        nsImage.isTemplate = viewModel.imageProperties.isTemplate
+        return Image(nsImage: nsImage)
+    }
+
+    private func oneDimentionalImage(_ dayData: [DayData]) -> Image {
+        let nsImage = NSImage(size: CGSize(width: 26, height: 18), flipped: true) { _ in
+            dayData.indices.forEach { i in
+                let level = dayData[i].level
+                let power = 0.2 * CGFloat(level + 1)
+                let rect = CGRect(x: 4 * CGFloat(i), y: 8 * (1 - power), width: 2, height: 16 * power)
+                viewModel.imageProperties.fillColor(level: level).setFill()
+                switch viewModel.imageProperties.style {
+                case .block:
+                    NSBezierPath(rect: rect).fill()
+                case .dot:
+                    NSBezierPath(roundedRect: rect, xRadius: 1, yRadius: 1).fill()
+                }
+            }
+            return true
+        }
+        nsImage.isTemplate = viewModel.imageProperties.isTemplate
+        return Image(nsImage: nsImage)
     }
 }
 
