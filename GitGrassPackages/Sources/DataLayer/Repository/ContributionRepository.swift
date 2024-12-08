@@ -27,7 +27,7 @@ public struct ContributionRepository: Sendable {
         self.urlSessionClient = urlSessionClient
     }
 
-    public func getGrass(token: String, username: String) async throws -> ContributionsOutput {
+    public func getGrass(token: String, username: String) async throws -> GitHubUser {
         let body = GraphQLBody(
             input: UserNameInput(userName: username),
             queryString: """
@@ -57,17 +57,27 @@ public struct ContributionRepository: Sendable {
         request.httpBody = try JSONEncoder().encode(body)
         let (data, response) = try await urlSessionClient.data(request)
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw OperationError.responseError
+            throw OperationError.invalidResponse
         }
         let result = try JSONDecoder().decode(GraphQLResult.self, from: data)
-        guard result.errorMessages.isEmpty, let output = result.output else {
-            throw OperationError.decodingError(result.errorMessages)
+        guard let user = result.user else {
+            if let errors = result.errors {
+                if errors.contains(where: { $0.type == "NOT_FOUND" }) {
+                    throw OperationError.gitHubAccountNotFound
+                } else {
+                    throw OperationError.uncategorizedErrorsOccurred(errors.map(\.message))
+                }
+            } else {
+                throw OperationError.decodingFailed
+            }
         }
-        return output
+        return user
     }
 
     public enum OperationError: Error {
-        case responseError
-        case decodingError([String])
+        case invalidResponse
+        case gitHubAccountNotFound
+        case uncategorizedErrorsOccurred([String])
+        case decodingFailed
     }
 }

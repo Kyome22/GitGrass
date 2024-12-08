@@ -21,18 +21,18 @@
 import Logging
 
 public enum CriticalEvent {
-    case failedContribution(any Error)
+    case failedToGetContribution(any Error)
 
     public var message: Logger.Message {
         switch self {
-        case .failedContribution:
-            "Failed to execute script."
+        case .failedToGetContribution:
+            "Failed to get contribution."
         }
     }
 
     public var metadata: Logger.Metadata? {
         switch self {
-        case let .failedContribution(error):
+        case let .failedToGetContribution(error):
             ["cause": "\(error.localizedDescription)"]
         }
     }

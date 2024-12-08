@@ -18,7 +18,32 @@
  limitations under the License.
 */
 
-public struct ContributionsOutput: Decodable, Sendable {
+struct ContributionsData: Decodable, Sendable {
+    var user: GitHubUser?
+}
+
+public struct GitHubUser: Decodable, Sendable {
+    public var contributionsCollection: ContributionsCollection
+
+    public struct ContributionsCollection: Decodable, Sendable {
+        public var contributionCalendar: ContributionCalendar
+    }
+
+    public struct ContributionCalendar: Decodable, Sendable {
+        public var totalContributions: Int
+        public var weeks: [Week]
+    }
+
+    public struct Week: Decodable, Sendable {
+        public var contributionDays: [Day]
+    }
+
+    public struct Day: Decodable, Sendable {
+        public var contributionLevel: ContributionLevel
+        public var contributionCount: Int
+        public var date: String
+    }
+
     public enum ContributionLevel: String, Decodable, Sendable {
         case firstQuartile = "FIRST_QUARTILE"
         case secondQuartile = "SECOND_QUARTILE"
@@ -42,43 +67,4 @@ public struct ContributionsOutput: Decodable, Sendable {
             self = type(of: self).init(rawValue: rawValue) ?? .none
         }
     }
-
-    public struct Day: Decodable, Sendable {
-        public var contributionLevel: ContributionLevel
-        public var contributionCount: Int
-        public var date: String
-    }
-
-    public struct Week: Decodable, Sendable {
-        public var contributionDays: [Day]
-    }
-
-    public struct ContributionCalendar: Decodable, Sendable {
-        public var totalContributions: Int
-        public var weeks: [Week]
-    }
-
-    public struct ContributionsCollection: Decodable, Sendable {
-        public var contributionCalendar: ContributionCalendar
-    }
-
-    public struct User: Decodable, Sendable {
-        public var contributionsCollection: ContributionsCollection
-    }
-
-    public var user: User
 }
-
-//public extension ContributionsOutput {
-//    static var dummy: ContributionsOutput {
-//        let weeks = (0 ..< 53).map { _ in
-//            let days = (0 ..< 7).map { _ in
-//                Day(contributionLevel: .none, contributionCount: 0, date: "")
-//            }
-//            return Week(contributionDays: days)
-//        }
-//        let calendar = ContributionCalendar(totalContributions: 53, weeks: weeks)
-//        let collection = ContributionsCollection(contributionCalendar: calendar)
-//        return ContributionsOutput(user: User(contributionsCollection: collection))
-//    }
-//}

@@ -97,8 +97,8 @@ public actor ContributionService {
         ))
     }
 
-    private func convert(output: ContributionsOutput) -> [[DayData]] {
-        let calendar = output.user.contributionsCollection.contributionCalendar
+    private func convert(user: GitHubUser) -> [[DayData]] {
+        let calendar = user.contributionsCollection.contributionCalendar
         return calendar.weeks.map { week in
             week.contributionDays.map { day in
                 DayData(
@@ -117,8 +117,8 @@ public actor ContributionService {
             return
         }
         do {
-            let output = try await contributionRepository.getGrass(token: token, username: username)
-            updateImageInfo(with: convert(output: output))
+            let user = try await contributionRepository.getGrass(token: token, username: username)
+            updateImageInfo(with: convert(user: user))
         } catch {
             errorSubject.send(error)
             updateImageInfo(with: DayData.default)

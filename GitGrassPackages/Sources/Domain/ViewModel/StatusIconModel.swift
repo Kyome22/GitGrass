@@ -31,6 +31,7 @@ import SwiftUI
     @ObservationIgnored private var task: Task<Void, Never>?
 
     public var imageProperties = ImageProperties.default
+    public var gitHubAccountNotFound = false
 
     public var lastYearData: [[DayData]] {
         imageProperties.dayData
@@ -76,6 +77,11 @@ import SwiftUI
                     }
                 }
                 group.addTask {
+                    for await value in await self.contributionService.errorStream() {
+                        await self.handleError(value)
+                    }
+                }
+                group.addTask {
                     let publisher = NSWorkspace.shared.notificationCenter
                         .publisher(for: NSWorkspace.willSleepNotification)
                     for await _ in publisher.values {
@@ -103,6 +109,16 @@ import SwiftUI
         startTimer()
         Task {
             await contributionService.fetchGrass()
+        }
+    }
+
+    public func onCloseAlert() {
+        gitHubAccountNotFound = false
+    }
+
+    func handleError(_ error: any Error) {
+        if case ContributionRepository.OperationError.gitHubAccountNotFound = error {
+            gitHubAccountNotFound = true
         }
     }
 

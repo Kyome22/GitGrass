@@ -1,9 +1,9 @@
 /*
- GitGrassError.swift
+ GraphQLError.swift
  DataLayer
 
- Created by Takuto Nakamura on 2024/11/24.
- Copyright 2023 Takuto Nakamura
+ Created by Takuto Nakamura on 2024/12/08.
+ Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,9 +18,7 @@
  limitations under the License.
 */
 
-public enum GitGrassError: Error {
-    case responseError
-    case graphqlError([String])
-    //    case invalidURL
-    //    case badStatus
+public struct GraphQLError: Decodable {
+    public var type: String
+    public var message: String
 }

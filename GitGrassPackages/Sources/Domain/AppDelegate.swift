@@ -36,10 +36,8 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
         }
         Task {
             for await error in await appServices.contributionService.errorStream() {
-                appServices.logService.critical(.failedContribution(error))
+                appServices.logService.critical(.failedToGetContribution(error))
             }
         }
     }
-
-    public func applicationWillTerminate(_ notification: Notification) {}
 }

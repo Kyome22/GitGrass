@@ -49,6 +49,22 @@
         }
       }
     },
+    "accountNotFound" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The GitHub account you entered was not found."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "入力されたGitHubアカウントが見つかりませんでした。"
+          }
+        }
+      }
+    },
     "AutomaticallyLaunchAtLogin" : {
       "localizations" : {
         "en" : {
@@ -77,6 +93,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "四角"
+          }
+        }
+      }
+    },
+    "checkAccountName" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please check your account name."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アカウント名を確認してください。"
           }
         }
       }

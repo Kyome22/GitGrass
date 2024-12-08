@@ -18,26 +18,18 @@
  limitations under the License.
 */
 
-public struct GraphQLResult: Decodable {
-    var output: ContributionsOutput?
-    var errorMessages: [String]
+struct GraphQLResult: Decodable {
+    var user: GitHubUser?
+    var errors: [GraphQLError]?
 
     enum CodingKeys: String, CodingKey {
         case data
         case errors
     }
 
-    struct GraphQLError: Decodable {
-        let message: String
-    }
-
-    public init(from decoder: any Decoder) throws {
+    init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        output = try container.decodeIfPresent(ContributionsOutput.self, forKey: .data)
-        errorMessages = if let errors = try container.decodeIfPresent([GraphQLError].self, forKey: .errors) {
-            errors.map { $0.message }
-        } else {
-            []
-        }
+        user = try container.decodeIfPresent(ContributionsData.self, forKey: .data)?.user
+        errors = try container.decodeIfPresent([GraphQLError].self, forKey: .errors)
     }
 }

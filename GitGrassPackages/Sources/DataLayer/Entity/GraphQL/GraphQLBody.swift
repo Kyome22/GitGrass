@@ -18,7 +18,7 @@
  limitations under the License.
 */
 
-public struct GraphQLBody: Encodable {
+struct GraphQLBody: Encodable {
     var input: UserNameInput
     var queryString: String
 
@@ -27,7 +27,7 @@ public struct GraphQLBody: Encodable {
         case query
     }
 
-    public func encode(to encoder: any Encoder) throws {
+    func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(input, forKey: .variables)
         try container.encode(queryString, forKey: .query)

@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C4DA6BB2D0563C500BB2658 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1C4DA6BA2D0563C500BB2658 /* InfoPlist.xcstrings */; };
 		1C71F4612CF31E9B00174BCA /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 1C71F4602CF31E9B00174BCA /* Domain */; };
 		1C71F4632CF31E9B00174BCA /* Presentation in Frameworks */ = {isa = PBXBuildFile; productRef = 1C71F4622CF31E9B00174BCA /* Presentation */; };
-		1CAB3F1C2AE8DC3A00BE23F0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1CAB3F1B2AE8DC3A00BE23F0 /* Localizable.xcstrings */; };
 		1CB3189128F4845F00F6E9D2 /* GitGrassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB3189028F4845F00F6E9D2 /* GitGrassApp.swift */; };
 		1CB3189528F4846000F6E9D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CB3189428F4846000F6E9D2 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C4DA6BA2D0563C500BB2658 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		1C71F45E2CF2535D00174BCA /* GitGrassPackages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GitGrassPackages; sourceTree = "<group>"; };
-		1CAB3F1B2AE8DC3A00BE23F0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		1CB3188D28F4845F00F6E9D2 /* GitGrass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitGrass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CB3189028F4845F00F6E9D2 /* GitGrassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitGrassApp.swift; sourceTree = "<group>"; };
 		1CB3189428F4846000F6E9D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -68,7 +68,7 @@
 				1CB3189F28F484A500F6E9D2 /* Info.plist */,
 				1CB3189928F4846000F6E9D2 /* GitGrass.entitlements */,
 				1CB3189428F4846000F6E9D2 /* Assets.xcassets */,
-				1CAB3F1B2AE8DC3A00BE23F0 /* Localizable.xcstrings */,
+				1C4DA6BA2D0563C500BB2658 /* InfoPlist.xcstrings */,
 				1CB3189028F4845F00F6E9D2 /* GitGrassApp.swift */,
 			);
 			path = GitGrass;
@@ -139,7 +139,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CAB3F1C2AE8DC3A00BE23F0 /* Localizable.xcstrings in Resources */,
+				1C4DA6BB2D0563C500BB2658 /* InfoPlist.xcstrings in Resources */,
 				1CB3189528F4846000F6E9D2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,6 +219,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -277,6 +278,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;

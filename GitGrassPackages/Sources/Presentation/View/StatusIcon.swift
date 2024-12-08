@@ -47,6 +47,11 @@ struct StatusIcon: View {
         .onAppear {
             viewModel.onAppear(screenName: String(describing: Self.self))
         }
+        .onChange(of: viewModel.gitHubAccountNotFound) { _, newValue in
+            if newValue {
+                showAlert()
+            }
+        }
     }
 
     private func twoDimentionalImage(_ dayData: [[DayData]]) -> Image {
@@ -89,6 +94,21 @@ struct StatusIcon: View {
         }
         nsImage.isTemplate = viewModel.imageProperties.isTemplate
         return Image(nsImage: nsImage)
+    }
+
+    private func showAlert() {
+        let nsError = NSError(
+            domain: Bundle.main.bundleIdentifier!,
+            code: 1,
+            userInfo: [
+                NSLocalizedDescriptionKey: String(localized: "accountNotFound", bundle: .module),
+                NSLocalizedRecoverySuggestionErrorKey: String(localized: "checkAccountName", bundle: .module)
+            ]
+        )
+        let result = NSAlert(error: nsError).runModal()
+        if result == .alertFirstButtonReturn {
+            viewModel.onCloseAlert()
+        }
     }
 }
 
