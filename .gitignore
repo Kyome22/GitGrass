@@ -1,3 +1,16 @@
+# Mac
 .DS_Store
-*.xcuserstate
 
+# Xcode
+xcuserdata/
+*.xcuserstate
+*.xccheckout
+
+# Swift Package Manager
+Packages.resolved
+.swiftpm/
+.build/
+ShiftWindowPackages/Package.resolved
+
+# Test
+TestResults/
