@@ -83,25 +83,25 @@ import Observation
         setToken()
     }
 
-    public func updateUsername() {
+    public func updateUsername() async {
         userDefaultsRepository.username = username
-        Task.detached(priority: .background) {
+        await Task.detached(priority: .background) {
             await self.contributionService.fetchGrass()
-        }
+        }.value
     }
 
-    public func updateCycle(_ cycle: GGCycle) {
+    public func updateCycle(_ cycle: GGCycle) async {
         userDefaultsRepository.cycle = cycle
-        Task {
+        await Task {
             await self.contributionService.updateCycle()
-        }
+        }.value
     }
 
     public func updateImageProperties(
         color: GGColor? = nil,
         style: GGStyle? = nil,
         period: GGPeriod? = nil
-    ) {
+    ) async {
         if let color {
             userDefaultsRepository.color = color
         }
@@ -111,9 +111,7 @@ import Observation
         if let period {
             userDefaultsRepository.period = period
         }
-        Task {
-            await self.contributionService.updateImageInfo(with: nil)
-        }
+        await self.contributionService.updateImageInfo(with: nil)
     }
 
     public func launchAtLoginSwitched(_ isEnabled: Bool) {

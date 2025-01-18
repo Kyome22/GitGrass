@@ -27,7 +27,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-log.git", exact: "1.6.1"),
+        .package(url: "https://github.com/apple/swift-log.git", exact: "1.6.2"),
         .package(url: "https://github.com/Kyome22/DependencyList.git", exact: "0.2.0"),
         .package(url: "https://github.com/kishikawakatsumi/KeychainAccess.git", exact: "4.2.2"),
     ],
@@ -60,6 +60,7 @@ let package = Package(
         .target(
             name: "Presentation",
             dependencies: [
+                "DataLayer",
                 "Domain",
             ],
             swiftSettings: swiftSettings

@@ -20,7 +20,7 @@
 
 import Foundation
 
-public struct ImageProperties: Sendable {
+public struct ImageProperties: Sendable, Equatable {
     public var dayData: [[DayData]]
     public var color: GGColor
     public var style: GGStyle

@@ -51,11 +51,15 @@ struct GeneralSettingsView: View {
                     }
                     .labelsHidden()
                     .onSubmit {
-                        viewModel.updateUsername()
+                        Task {
+                            await viewModel.updateUsername()
+                        }
                     }
                     .frame(width: 120)
                     Button {
-                        viewModel.updateUsername()
+                        Task {
+                            await viewModel.updateUsername()
+                        }
                     } label: {
                         Image(systemName: "arrow.counterclockwise")
                     }
@@ -69,28 +73,36 @@ struct GeneralSettingsView: View {
                 labelKey: "updateCycle",
                 selection: Binding<GGCycle>(
                     get: { viewModel.cycle },
-                    set: { viewModel.updateCycle($0) }
+                    set: { newValue in
+                        Task { await viewModel.updateCycle(newValue) }
+                    }
                 )
             )
             pickerItem(
                 labelKey: "color",
                 selection: Binding<GGColor>(
                     get: { viewModel.color },
-                    set: { viewModel.updateImageProperties(color: $0) }
+                    set: { newValue in
+                        Task { await viewModel.updateImageProperties(color: newValue) }
+                    }
                 )
             )
             pickerItem(
                 labelKey: "style",
                 selection: Binding<GGStyle>(
                     get: { viewModel.style },
-                    set: { viewModel.updateImageProperties(style: $0) }
+                    set: { newValue in
+                        Task { await viewModel.updateImageProperties(style: newValue) }
+                    }
                 )
             )
             pickerItem(
                 labelKey: "period",
                 selection: Binding<GGPeriod>(
                     get: { viewModel.period },
-                    set: { viewModel.updateImageProperties(period: $0) }
+                    set: { newValue in
+                        Task { await viewModel.updateImageProperties(period: newValue) }
+                    }
                 )
             )
             Divider()
