@@ -53,16 +53,7 @@ public final class AppDependencies: Sendable {
 }
 
 struct AppDependenciesKey: EnvironmentKey {
-    static let defaultValue = AppDependencies(
-        dependencyListClient: .testValue,
-        keychainClient: .testValue,
-        loggingSystemClient: .testValue,
-        nsAppClient: .testValue,
-        nsStatusBarClient: .testValue,
-        smAppServiceClient: .testValue,
-        urlSessionClient: .testValue,
-        userDefaultsClient: .testValue
-    )
+    static let defaultValue = AppDependencies()
 }
 
 public extension EnvironmentValues {

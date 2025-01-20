@@ -21,13 +21,8 @@
 import AppKit
 
 public final class AppDelegate: NSObject, NSApplicationDelegate {
-    public let appDependencies = AppDependencies()
-    public let appServices: AppServices
-
-    public override init() {
-        appServices = .init(appDependencies: appDependencies)
-        super.init()
-    }
+    public let appDependencies = AppDependenciesKey.defaultValue
+    public let appServices = AppServicesKey.defaultValue
 
     public func applicationDidFinishLaunching(_ notification: Notification) {
         Task {
