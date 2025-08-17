@@ -29,4 +29,3 @@ public struct SettingsWindowScene: Scene {
         }
     }
 }
-

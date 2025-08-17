@@ -22,13 +22,11 @@ import DataLayer
 import Domain
 import SwiftUI
 
-public struct SettingsView: View {
+struct SettingsView: View {
     @Environment(\.appDependencies) private var appDependencies
     @Environment(\.appServices) private var appServices
 
-    public init() {}
-
-    public var body: some View {
+    var body: some View {
         TabView {
             GeneralSettingsView(
                 keychainClient: appDependencies.keychainClient,
