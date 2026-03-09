@@ -1,8 +1,8 @@
 /*
- GitGrassApp.swift
- GitGrass
+ GGStyle+Extension.swift
+ Presentation
 
- Created by Takuto Nakamura on 2022/10/11.
+ Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,16 +18,15 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
+import DataSource
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
+extension GGStyle: Localizable {
+    var label: String {
+        switch self {
+        case .block:
+            String(localized: "block", bundle: .module)
+        case .dot:
+            String(localized: "dot", bundle: .module)
+        }
     }
 }

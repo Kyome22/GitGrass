@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C47172F2F5F353900C567C8 /* Model in Frameworks */ = {isa = PBXBuildFile; productRef = 1C47172E2F5F353900C567C8 /* Model */; };
+		1C4717312F5F353900C567C8 /* UserInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 1C4717302F5F353900C567C8 /* UserInterface */; };
 		1C4DA6BB2D0563C500BB2658 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1C4DA6BA2D0563C500BB2658 /* InfoPlist.xcstrings */; };
-		1C71F4612CF31E9B00174BCA /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 1C71F4602CF31E9B00174BCA /* Domain */; };
-		1C71F4632CF31E9B00174BCA /* Presentation in Frameworks */ = {isa = PBXBuildFile; productRef = 1C71F4622CF31E9B00174BCA /* Presentation */; };
 		1CB3189128F4845F00F6E9D2 /* GitGrassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB3189028F4845F00F6E9D2 /* GitGrassApp.swift */; };
 		1CB3189528F4846000F6E9D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CB3189428F4846000F6E9D2 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1C4DA6BA2D0563C500BB2658 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
-		1C71F45E2CF2535D00174BCA /* GitGrassPackages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GitGrassPackages; sourceTree = "<group>"; };
+		1C71F45E2CF2535D00174BCA /* LocalPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LocalPackage; sourceTree = "<group>"; };
 		1CB3188D28F4845F00F6E9D2 /* GitGrass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitGrass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CB3189028F4845F00F6E9D2 /* GitGrassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitGrassApp.swift; sourceTree = "<group>"; };
 		1CB3189428F4846000F6E9D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -29,8 +29,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C71F4632CF31E9B00174BCA /* Presentation in Frameworks */,
-				1C71F4612CF31E9B00174BCA /* Domain in Frameworks */,
+				1C47172F2F5F353900C567C8 /* Model in Frameworks */,
+				1C4717312F5F353900C567C8 /* UserInterface in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,7 +47,7 @@
 		1CB3188428F4845F00F6E9D2 = {
 			isa = PBXGroup;
 			children = (
-				1C71F45E2CF2535D00174BCA /* GitGrassPackages */,
+				1C71F45E2CF2535D00174BCA /* LocalPackage */,
 				1CB3188F28F4845F00F6E9D2 /* GitGrass */,
 				1C71F45F2CF31E9B00174BCA /* Frameworks */,
 				1CB3188E28F4845F00F6E9D2 /* Products */,
@@ -91,8 +91,8 @@
 			);
 			name = GitGrass;
 			packageProductDependencies = (
-				1C71F4602CF31E9B00174BCA /* Domain */,
-				1C71F4622CF31E9B00174BCA /* Presentation */,
+				1C47172E2F5F353900C567C8 /* Model */,
+				1C4717302F5F353900C567C8 /* UserInterface */,
 			);
 			productName = GitGrass;
 			productReference = 1CB3188D28F4845F00F6E9D2 /* GitGrass.app */;
@@ -371,13 +371,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1C71F4602CF31E9B00174BCA /* Domain */ = {
+		1C47172E2F5F353900C567C8 /* Model */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Domain;
+			productName = Model;
 		};
-		1C71F4622CF31E9B00174BCA /* Presentation */ = {
+		1C4717302F5F353900C567C8 /* UserInterface */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Presentation;
+			productName = UserInterface;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
