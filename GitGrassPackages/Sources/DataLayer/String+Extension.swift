@@ -18,8 +18,6 @@
  limitations under the License.
 */
 
-import Foundation
-
 extension String {
     static let username = "username"
     static let cycle = "cycle"
