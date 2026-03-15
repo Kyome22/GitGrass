@@ -1,8 +1,8 @@
 /*
- String+Extension.swift
- DataLayer
+ GraphQLBody.swift
+ DataSource
 
- Created by Takuto Nakamura on 2024/11/24.
+ Created by Takuto Nakamura on 2023/08/30.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,11 +18,18 @@
  limitations under the License.
 */
 
-extension String {
-    static let username = "username"
-    static let cycle = "cycle"
-    static let color = "color"
-    static let style = "style"
-    static let period = "period"
-    static let personalAccessToken = "personalAccessToken"
+struct GraphQLBody: Encodable {
+    var input: UserNameInput
+    var queryString: String
+
+    enum CodingKeys: String, CodingKey {
+        case variables
+        case query
+    }
+
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(input, forKey: .variables)
+        try container.encode(queryString, forKey: .query)
+    }
 }

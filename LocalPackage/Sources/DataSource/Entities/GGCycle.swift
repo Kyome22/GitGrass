@@ -1,9 +1,9 @@
 /*
- UserNameInput.swift
- DataLayer
+ GGCycle.swift
+ DataSource
 
- Created by Takuto Nakamura on 2023/08/30.
- Copyright 2022 Takuto Nakamura
+ Created by Takuto Nakamura on 2023/01/25.
+ Copyright 2023 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,6 +18,10 @@
  limitations under the License.
 */
 
-public struct UserNameInput: Encodable {
-    var userName: String
+public enum GGCycle: Int, Sendable, CaseIterable {
+    case minutes5 = 5
+    case minutes10 = 10
+    case minutes15 = 15
+    case minutes30 = 30
+    case hour1 = 60
 }

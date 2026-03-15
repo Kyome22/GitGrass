@@ -1,9 +1,9 @@
 /*
- ProcessInfo+Extension.swift
- DataLayer
+ UserNameInput.swift
+ DataSource
 
- Created by Takuto Nakamura on 2024/11/24.
- Copyright 2022 Takuto Nakamura (Kyome22)
+ Created by Takuto Nakamura on 2023/08/30.
+ Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,10 +18,6 @@
  limitations under the License.
 */
 
-import Foundation
-
-extension ProcessInfo {
-    static var needsResetUserDefaults: Bool {
-        Self.processInfo.arguments.contains("ResetUserDefaults")
-    }
+public struct UserNameInput: Encodable {
+    var userName: String
 }

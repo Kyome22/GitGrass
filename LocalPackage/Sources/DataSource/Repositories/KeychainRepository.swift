@@ -1,6 +1,6 @@
 /*
- LoggingSystemClient.swift
- DataLayer
+ KeychainRepository.swift
+ DataSource
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -18,16 +18,23 @@
  limitations under the License.
 */
 
-import Logging
+public struct KeychainRepository: Sendable {
+    private var keychainClient: KeychainClient
 
-public struct LoggingSystemClient: DependencyClient {
-    public var bootstrap: @Sendable (@escaping @Sendable (String) -> any LogHandler) -> Void
+    public var personalAccessToken: String? {
+        get {
+            try? keychainClient.getString(.personalAccessToken)
+        }
+        nonmutating set {
+            if let newValue {
+                try? keychainClient.set(newValue, .personalAccessToken)
+            } else {
+                try? keychainClient.remove(.personalAccessToken)
+            }
+        }
+    }
 
-    public static let liveValue = Self(
-        bootstrap: { LoggingSystem.bootstrap($0) }
-    )
-
-    public static let testValue = Self(
-        bootstrap: { _ in }
-    )
+    public init(_ keychainClient: KeychainClient) {
+        self.keychainClient = keychainClient
+    }
 }

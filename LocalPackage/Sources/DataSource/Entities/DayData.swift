@@ -1,6 +1,6 @@
 /*
  DayData.swift
- DataLayer
+ DataSource
 
  Created by Takuto Nakamura on 2022/10/11.
  Copyright 2022 Takuto Nakamura
@@ -21,10 +21,6 @@
 import Foundation
 
 public struct DayData: Sendable, Equatable, CustomStringConvertible {
-    private static let empty = DayData(level: .zero, count: .zero, date: "")
-    private static let week = [DayData](repeating: DayData.empty, count: 7)
-    public static let `default` = [[DayData]](repeating: DayData.week, count: 53)
-
     public var level: Int
     public var count: Int
     public var date: String
@@ -38,4 +34,8 @@ public struct DayData: Sendable, Equatable, CustomStringConvertible {
         self.count = count
         self.date = date
     }
+
+    private static let empty = DayData(level: .zero, count: .zero, date: "")
+    private static let week = [DayData](repeating: DayData.empty, count: 7)
+    public static let `default` = [[DayData]](repeating: DayData.week, count: 53)
 }

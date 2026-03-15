@@ -1,6 +1,6 @@
 /*
  GGPeriod.swift
- DataLayer
+ DataSource
 
  Created by Takuto Nakamura on 2023/01/25.
  Copyright 2023 Takuto Nakamura

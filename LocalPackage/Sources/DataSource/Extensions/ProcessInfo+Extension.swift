@@ -1,9 +1,9 @@
 /*
- GGColor.swift
- DataLayer
+ ProcessInfo+Extension.swift
+ DataSource
 
- Created by Takuto Nakamura on 2023/01/25.
- Copyright 2023 Takuto Nakamura
+ Created by Takuto Nakamura on 2024/11/24.
+ Copyright 2022 Takuto Nakamura (Kyome22)
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,8 +18,10 @@
  limitations under the License.
 */
 
-public enum GGColor: Int, Sendable, CaseIterable {
-    case monochrome
-    case greenGrass
-    case accentColor
+import Foundation
+
+extension ProcessInfo {
+    static var needsResetUserDefaults: Bool {
+        Self.processInfo.arguments.contains("ResetUserDefaults")
+    }
 }

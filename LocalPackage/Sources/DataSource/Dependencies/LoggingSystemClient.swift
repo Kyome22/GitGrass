@@ -1,8 +1,8 @@
 /*
- GraphQLBody.swift
- DataLayer
+ LoggingSystemClient.swift
+ DataSource
 
- Created by Takuto Nakamura on 2023/08/30.
+ Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,18 +18,16 @@
  limitations under the License.
 */
 
-struct GraphQLBody: Encodable {
-    var input: UserNameInput
-    var queryString: String
+import Logging
 
-    enum CodingKeys: String, CodingKey {
-        case variables
-        case query
-    }
+public struct LoggingSystemClient: DependencyClient {
+    public var bootstrap: @Sendable (@escaping @Sendable (String) -> any LogHandler) -> Void
 
-    func encode(to encoder: any Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(input, forKey: .variables)
-        try container.encode(queryString, forKey: .query)
-    }
+    public static let liveValue = Self(
+        bootstrap: { LoggingSystem.bootstrap($0) }
+    )
+
+    public static let testValue = Self(
+        bootstrap: { _ in }
+    )
 }

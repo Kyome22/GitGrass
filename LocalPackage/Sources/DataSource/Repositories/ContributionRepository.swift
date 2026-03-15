@@ -1,6 +1,6 @@
 /*
  ContributionRepository.swift
- DataLayer
+ DataSource
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -31,23 +31,23 @@ public struct ContributionRepository: Sendable {
         let body = GraphQLBody(
             input: UserNameInput(userName: username),
             queryString: """
-            query($userName: String!) {
-                user(login: $userName){
-                    contributionsCollection {
-                        contributionCalendar {
-                            totalContributions
-                            weeks {
-                                contributionDays {
-                                    contributionLevel
-                                    contributionCount
-                                    date
+                query($userName: String!) {
+                    user(login: $userName) {
+                        contributionsCollection {
+                            contributionCalendar {
+                                totalContributions
+                                weeks {
+                                    contributionDays {
+                                        contributionLevel
+                                        contributionCount
+                                        date
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-            """
+                """
         )
         let url = URL(string: "https://api.github.com/graphql")!
         var request = URLRequest(url: url)

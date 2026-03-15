@@ -1,6 +1,6 @@
 /*
- KeychainRepository.swift
- DataLayer
+ String+Extension.swift
+ DataSource
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -18,21 +18,11 @@
  limitations under the License.
 */
 
-public struct KeychainRepository: Sendable {
-    private var keychainClient: KeychainClient
-
-    public var personalAccessToken: String? {
-        get { try? keychainClient.getString(.personalAccessToken) }
-        nonmutating set {
-            if let newValue {
-                try? keychainClient.set(newValue, .personalAccessToken)
-            } else {
-                try? keychainClient.remove(.personalAccessToken)
-            }
-        }
-    }
-
-    public init(_ keychainClient: KeychainClient) {
-        self.keychainClient = keychainClient
-    }
+extension String {
+    static let username = "username"
+    static let cycle = "cycle"
+    static let color = "color"
+    static let style = "style"
+    static let period = "period"
+    static let personalAccessToken = "personalAccessToken"
 }

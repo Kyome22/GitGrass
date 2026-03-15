@@ -1,8 +1,8 @@
 /*
- GraphQLError.swift
- DataLayer
+ DayData.swift
+ DataSource
 
- Created by Takuto Nakamura on 2024/12/08.
+ Created by Takuto Nakamura on 2026/03/15.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,6 @@
  limitations under the License.
 */
 
-public struct GraphQLError: Decodable {
-    public var type: String
-    public var message: String
+public struct AppState: Sendable {
+    public var hasAlreadyBootstrap = false
 }

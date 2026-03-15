@@ -1,9 +1,9 @@
 /*
- GGCycle.swift
- DataLayer
+ GraphQLError.swift
+ DataSource
 
- Created by Takuto Nakamura on 2023/01/25.
- Copyright 2023 Takuto Nakamura
+ Created by Takuto Nakamura on 2024/12/08.
+ Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,10 +18,7 @@
  limitations under the License.
 */
 
-public enum GGCycle: Int, Sendable, CaseIterable {
-    case minutes5 = 5
-    case minutes10 = 10
-    case minutes15 = 15
-    case minutes30 = 30
-    case hour1 = 60
+public struct GraphQLError: Decodable {
+    public var type: String
+    public var message: String
 }

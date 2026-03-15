@@ -1,8 +1,8 @@
 /*
- GraphQLResult.swift
- DataLayer
+ GGColor.swift
+ DataSource
 
- Created by Takuto Nakamura on 2023/08/30.
+ Created by Takuto Nakamura on 2023/01/25.
  Copyright 2023 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,18 +18,8 @@
  limitations under the License.
 */
 
-struct GraphQLResult: Decodable {
-    var user: GitHubUser?
-    var errors: [GraphQLError]?
-
-    enum CodingKeys: String, CodingKey {
-        case data
-        case errors
-    }
-
-    init(from decoder: any Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        user = try container.decodeIfPresent(ContributionsData.self, forKey: .data)?.user
-        errors = try container.decodeIfPresent([GraphQLError].self, forKey: .errors)
-    }
+public enum GGColor: Int, Sendable, CaseIterable {
+    case monochrome
+    case greenGrass
+    case accentColor
 }
