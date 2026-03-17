@@ -1,6 +1,6 @@
 /*
  StatusIcon.swift
- Presentation
+ UserInterface
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -23,33 +23,25 @@ import Model
 import SwiftUI
 
 struct StatusIcon: View {
-    @State private var viewModel: StatusIconModel
-
-    init(
-        userDefaultsClient: UserDefaultsClient,
-        contributionService: ContributionService,
-        logService: LogService
-    ) {
-        viewModel = .init(userDefaultsClient, contributionService, logService)
-    }
+    @StateObject var store: StatusIconStore
 
     var body: some View {
         Group {
-            switch viewModel.imageProperties.period {
+            switch store.imageProperties.period {
             case .lastYear:
-                twoDimentionalImage(viewModel.lastYearData)
+                twoDimentionalImage(store.lastYearData)
             case .lastMonth:
-                twoDimentionalImage(viewModel.lastMonthData)
+                twoDimentionalImage(store.lastMonthData)
             case .lastWeek:
-                oneDimentionalImage(viewModel.lastWeekData)
+                oneDimentionalImage(store.lastWeekData)
             }
         }
-        .onAppear {
-            viewModel.onAppear(screenName: String(describing: Self.self))
+        .task {
+            await store.send(.task(String(describing: Self.self)))
         }
-        .onChange(of: viewModel.gitHubAccountNotFound) { _, newValue in
-            if newValue {
-                showAlert()
+        .onChange(of: store.gitHubAccountNotFound) { _, newValue in
+            Task {
+                await store.send(.gitHubAccountNotFoundChanged(newValue, NSError.accountNotFound))
             }
         }
     }
@@ -61,8 +53,8 @@ struct StatusIcon: View {
                 dayData[i].indices.forEach { j in
                     let level = dayData[i][j].level
                     let rect = CGRect(x: 2.5 * CGFloat(i), y: 0.5 + 2.5 * CGFloat(j), width: 2, height: 2)
-                    viewModel.imageProperties.fillColor(level: level).setFill()
-                    switch viewModel.imageProperties.style {
+                    store.imageProperties.fillColor(level: level).setFill()
+                    switch store.imageProperties.style {
                     case .block:
                         NSBezierPath(rect: rect).fill()
                     case .dot:
@@ -72,7 +64,7 @@ struct StatusIcon: View {
             }
             return true
         }
-        nsImage.isTemplate = viewModel.imageProperties.isTemplate
+        nsImage.isTemplate = store.imageProperties.isTemplate
         return Image(nsImage: nsImage)
     }
 
@@ -82,8 +74,8 @@ struct StatusIcon: View {
                 let level = dayData[i].level
                 let power = 0.2 * CGFloat(level + 1)
                 let rect = CGRect(x: 4 * CGFloat(i), y: 8 * (1 - power), width: 2, height: 16 * power)
-                viewModel.imageProperties.fillColor(level: level).setFill()
-                switch viewModel.imageProperties.style {
+                store.imageProperties.fillColor(level: level).setFill()
+                switch store.imageProperties.style {
                 case .block:
                     NSBezierPath(rect: rect).fill()
                 case .dot:
@@ -92,30 +84,9 @@ struct StatusIcon: View {
             }
             return true
         }
-        nsImage.isTemplate = viewModel.imageProperties.isTemplate
+        nsImage.isTemplate = store.imageProperties.isTemplate
         return Image(nsImage: nsImage)
     }
-
-    private func showAlert() {
-        let nsError = NSError(
-            domain: Bundle.main.bundleIdentifier!,
-            code: 1,
-            userInfo: [
-                NSLocalizedDescriptionKey: String(localized: "accountNotFound", bundle: .module),
-                NSLocalizedRecoverySuggestionErrorKey: String(localized: "checkAccountName", bundle: .module)
-            ]
-        )
-        let result = NSAlert(error: nsError).runModal()
-        if result == .alertFirstButtonReturn {
-            viewModel.onCloseAlert()
-        }
-    }
 }
 
-#Preview {
-    StatusIcon(
-        userDefaultsClient: .testValue,
-        contributionService: .init(.testValue, .testValue, .testValue),
-        logService: .init(.testValue)
-    )
-}
+extension StatusIconStore: ObservableObject {}

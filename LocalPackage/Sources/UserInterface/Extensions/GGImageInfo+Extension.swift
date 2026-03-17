@@ -1,6 +1,6 @@
 /*
- String+Extension.swift
- Presentation
+ ImageProperties+Extension.swift
+ UserInterface
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -18,14 +18,24 @@
  limitations under the License.
 */
 
-import Foundation
+import AppKit
+import DataSource
 
-extension String {
-    var secured: String {
-        let n = max(0, count - 6)
-        return replacingOccurrences(
-            of: self.prefix(n).description,
-            with: String(repeating: "*", count: n)
-        )
+extension ImageProperties {
+    var isTemplate: Bool {
+        switch color {
+        case .monochrome: true
+        case .greenGrass: false
+        case .accentColor: false
+        }
+    }
+
+    func fillColor(level: Int) -> NSColor {
+        let nsColor = switch color {
+        case .monochrome: NSColor.black
+        case .greenGrass: NSColor(resource: .grass)
+        case .accentColor: NSColor.controlAccentColor
+        }
+        return nsColor.withAlphaComponent(0.2 * CGFloat(level + 1))
     }
 }

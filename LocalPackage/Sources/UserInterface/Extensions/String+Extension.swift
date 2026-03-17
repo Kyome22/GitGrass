@@ -1,6 +1,6 @@
 /*
- ErrorEvent.swift
- DataSource
+ String+Extension.swift
+ UserInterface
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -18,11 +18,14 @@
  limitations under the License.
 */
 
-import Logging
+import Foundation
 
-public enum ErrorEvent {
-    case none
-
-    public var message: Logger.Message { "" }
-    public var metadata: Logger.Metadata? { nil }
+extension String {
+    var secured: String {
+        let n = max(0, count - 6)
+        return replacingOccurrences(
+            of: self.prefix(n).description,
+            with: String(repeating: "*", count: n)
+        )
+    }
 }

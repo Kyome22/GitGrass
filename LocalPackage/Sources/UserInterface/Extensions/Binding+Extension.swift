@@ -1,8 +1,8 @@
 /*
- Notification.Name+Extension.swift
- Domain
+ Binding+Extension.swift
+ UserInterface
 
- Created by Takuto Nakamura on 2024/12/08.
+ Created by Takuto Nakamura on 2026/03/18.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,8 +18,13 @@
  limitations under the License.
 */
 
-import Foundation
+import SwiftUI
 
-extension Notification.Name {
-    static let NSAppleColorPreferencesChanged = Notification.Name("AppleColorPreferencesChangedNotification")
+extension Binding where Value : Sendable {
+    @preconcurrency init(
+        @_inheritActorContext get: @escaping @isolated(any) @Sendable () -> Value,
+        @_inheritActorContext asyncSet: @escaping @isolated(any) @Sendable (Value) async -> Void
+    ) {
+        self.init(get: get, set: { newValue in Task { await asyncSet(newValue) } })
+    }
 }

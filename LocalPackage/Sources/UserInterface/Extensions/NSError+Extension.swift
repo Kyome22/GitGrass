@@ -1,8 +1,8 @@
 /*
  GGColor.swift
- Presentation
+ UserInterface
 
- Created by Takuto Nakamura on 2024/11/24.
+ Created by Takuto Nakamura on 2026/03/18.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,15 @@
  limitations under the License.
 */
 
-import DataSource
+import AppKit
 
-extension GGColor: Localizable {
-    var label: String {
-        switch self {
-        case .monochrome:
-            String(localized: "monochrome", bundle: .module)
-        case .greenGrass:
-            String(localized: "greenGrass", bundle: .module)
-        case .accentColor:
-            String(localized: "accentColor", bundle: .module)
-        }
-    }
+extension NSError {
+    static let accountNotFound = NSError(
+        domain: Bundle.main.bundleIdentifier!,
+        code: 1,
+        userInfo: [
+            NSLocalizedDescriptionKey : String(localized: "accountNotFound", bundle: .module),
+            NSLocalizedRecoverySuggestionErrorKey : String(localized: "checkAccountName", bundle: .module),
+        ]
+    )
 }

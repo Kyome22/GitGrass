@@ -1,6 +1,6 @@
 /*
  SettingsView.swift
- Presentation
+ UserInterface
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -24,31 +24,23 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.appDependencies) private var appDependencies
-    @Environment(\.appServices) private var appServices
 
     var body: some View {
         TabView {
-            GeneralSettingsView(
-                keychainClient: appDependencies.keychainClient,
-                smAppServiceClient: appDependencies.smAppServiceClient,
-                userDefaultsClient: appDependencies.userDefaultsClient,
-                contributionService: appServices.contributionService,
-                logService: appServices.logService
-            )
-            .tabItem {
-                Label {
-                    Text("general", bundle: .module)
-                } icon: {
-                    Image(systemName: "gear")
+            GeneralSettingsView(store: .init(appDependencies))
+                .tabItem {
+                    Label {
+                        Text("general", bundle: .module)
+                    } icon: {
+                        Image(systemName: "gear")
+                    }
                 }
-            }
         }
-        .padding(.horizontal, 40)
-        .padding(.vertical, 20)
         .accessibilityIdentifier("settings")
     }
 }
 
 #Preview {
     SettingsView()
+        .environment(\.appDependencies, .testDependencies())
 }

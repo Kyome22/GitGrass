@@ -1,6 +1,6 @@
 /*
  GeneralSettingsView.swift
- Presentation
+ UserInterface
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -23,42 +23,26 @@ import Model
 import SwiftUI
 
 struct GeneralSettingsView: View {
-    @State private var viewModel: GeneralSettingsViewModel
-
-    init(
-        keychainClient: KeychainClient,
-        smAppServiceClient: SMAppServiceClient,
-        userDefaultsClient: UserDefaultsClient,
-        contributionService: ContributionService,
-        logService: LogService
-    ) {
-        viewModel = .init(
-            keychainClient,
-            smAppServiceClient,
-            userDefaultsClient,
-            contributionService,
-            logService
-        )
-    }
+    @StateObject var store: GeneralSettingsStore
 
     var body: some View {
         Form {
             personalAccessTokenField
             LabeledContent {
                 HStack(spacing: 8) {
-                    TextField(text: $viewModel.username) {
+                    TextField(text: $store.username) {
                         EmptyView()
                     }
                     .labelsHidden()
                     .onSubmit {
                         Task {
-                            await viewModel.updateUsername()
+                            await store.send(.usernameSubmitted)
                         }
                     }
                     .frame(width: 120)
                     Button {
                         Task {
-                            await viewModel.updateUsername()
+                            await store.send(.updateButtonTapped)
                         }
                     } label: {
                         Image(systemName: "arrow.counterclockwise")
@@ -72,44 +56,36 @@ struct GeneralSettingsView: View {
             pickerItem(
                 labelKey: "updateCycle",
                 selection: Binding<GGCycle>(
-                    get: { viewModel.cycle },
-                    set: { newValue in
-                        Task { await viewModel.updateCycle(newValue) }
-                    }
+                    get: { store.cycle },
+                    asyncSet: { await store.send(.cyclePickerSelected($0)) }
                 )
             )
             pickerItem(
                 labelKey: "color",
                 selection: Binding<GGColor>(
-                    get: { viewModel.color },
-                    set: { newValue in
-                        Task { await viewModel.updateImageProperties(color: newValue) }
-                    }
+                    get: { store.color },
+                    asyncSet: { await store.send(.colorPickerSelected($0)) }
                 )
             )
             pickerItem(
                 labelKey: "style",
                 selection: Binding<GGStyle>(
-                    get: { viewModel.style },
-                    set: { newValue in
-                        Task { await viewModel.updateImageProperties(style: newValue) }
-                    }
+                    get: { store.style },
+                    asyncSet: { await store.send(.stylePickerSelected($0)) }
                 )
             )
             pickerItem(
                 labelKey: "period",
                 selection: Binding<GGPeriod>(
-                    get: { viewModel.period },
-                    set: { newValue in
-                        Task { await viewModel.updateImageProperties(period: newValue) }
-                    }
+                    get: { store.period },
+                    asyncSet: { await store.send(.periodPickerSelected($0)) }
                 )
             )
             Divider()
             LabeledContent {
                 Toggle(isOn: Binding<Bool>(
-                    get: { viewModel.launchAtLoginIsEnabled },
-                    set: { viewModel.launchAtLoginSwitched($0) }
+                    get: { store.launchAtLoginIsEnabled },
+                    asyncSet: { await store.send(.launchAtLoginToggleSwitched($0)) }
                 )) {
                     Text("AutomaticallyLaunchAtLogin", bundle: .module)
                 }
@@ -123,9 +99,9 @@ struct GeneralSettingsView: View {
 
     private var personalAccessTokenField: some View {
         Group {
-            if viewModel.tokenIsAlreadyStored {
+            if store.tokenIsAlreadyStored {
                 LabeledContent {
-                    Text(verbatim: viewModel.personalAccessToken.secured)
+                    Text(verbatim: store.personalAccessToken.secured)
                         .fontDesign(.monospaced)
                         .foregroundColor(.secondary)
                         .padding(2)
@@ -134,7 +110,7 @@ struct GeneralSettingsView: View {
                     Text("personalAccessToken", bundle: .module)
                 }
             } else {
-                TextField(text: $viewModel.personalAccessToken) {
+                TextField(text: $store.personalAccessToken) {
                     Text("personalAccessToken", bundle: .module)
                 }
                 .disableAutocorrection(true)
@@ -143,10 +119,10 @@ struct GeneralSettingsView: View {
                 Text("scope", bundle: .module)
                     .lineLimit(1)
                     .foregroundColor(.secondary)
-                if viewModel.tokenIsAlreadyStored {
+                if store.tokenIsAlreadyStored {
                     Button {
                         Task {
-                            await viewModel.resetToken()
+                            await store.send(.resetButtonTapped)
                         }
                     } label: {
                         Text("reset", bundle: .module)
@@ -154,12 +130,12 @@ struct GeneralSettingsView: View {
                 } else {
                     Button {
                         Task {
-                            await viewModel.saveToken()
+                            await store.send(.saveButtonTapped)
                         }
                     } label: {
                         Text("save", bundle: .module)
                     }
-                    .disabled(viewModel.personalAccessToken.isEmpty)
+                    .disabled(store.personalAccessToken.isEmpty)
                 }
             }
             .fixedSize()
@@ -182,12 +158,8 @@ struct GeneralSettingsView: View {
     }
 }
 
+extension GeneralSettingsStore: ObservableObject {}
+
 #Preview {
-    GeneralSettingsView(
-        keychainClient: .testValue,
-        smAppServiceClient: .testValue,
-        userDefaultsClient: .testValue,
-        contributionService: .init(.testValue, .testValue, .testValue),
-        logService: .init(.testValue)
-    )
+    GeneralSettingsView(store: .init(.testDependencies()))
 }

@@ -1,6 +1,6 @@
 /*
  CriticalEvent.swift
- Domain
+ DataSource
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -21,18 +21,18 @@
 import Logging
 
 public enum CriticalEvent {
-    case failedToGetContribution(any Error)
+    case fetchContributionsFailed(any Error)
 
     public var message: Logger.Message {
         switch self {
-        case .failedToGetContribution:
-            "Failed to get contribution."
+        case .fetchContributionsFailed:
+            "Failed to fetch contributions."
         }
     }
 
     public var metadata: Logger.Metadata? {
         switch self {
-        case let .failedToGetContribution(error):
+        case let .fetchContributionsFailed(error):
             ["cause": "\(error.localizedDescription)"]
         }
     }

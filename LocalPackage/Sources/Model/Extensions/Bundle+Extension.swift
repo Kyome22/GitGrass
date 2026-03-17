@@ -1,8 +1,8 @@
 /*
- GGPeriod+Extension.swift
- Presentation
+ Bundle+Extension.swift
+ Model
 
- Created by Takuto Nakamura on 2024/11/24.
+ Created by Takuto Nakamura on 2026/03/15.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,16 @@
  limitations under the License.
 */
 
-import DataSource
+import Foundation
 
-extension GGPeriod: Localizable {
-    var label: String {
-        switch self {
-        case .lastYear:
-            String(localized: "lastYear", bundle: .module)
-        case .lastMonth:
-            String(localized: "lastMonth", bundle: .module)
-        case .lastWeek:
-            String(localized: "lastWeek", bundle: .module)
+extension Bundle {
+    private func bundleString(key: String) -> String {
+        guard let string = object(forInfoDictionaryKey: key) as? String else {
+            fatalError("\(key) is not found.")
         }
+        return string
     }
+
+    var bundleName: String { bundleString(key: "CFBundleName") }
+    var bundleVersion: String { bundleString(key: "CFBundleVersion") }
 }

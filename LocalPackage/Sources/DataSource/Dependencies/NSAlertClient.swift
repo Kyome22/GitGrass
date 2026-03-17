@@ -1,8 +1,8 @@
 /*
- ErrorEvent.swift
+ NSAlertClient.swift
  DataSource
 
- Created by Takuto Nakamura on 2024/11/24.
+ Created by Takuto Nakamura on 2026/03/18.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,13 +16,18 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
-*/
+ */
 
-import Logging
+import AppKit
 
-public enum ErrorEvent {
-    case none
+public struct NSAlertClient: DependencyClient {
+    public var runModal: @MainActor @Sendable (any Error) -> NSApplication.ModalResponse
 
-    public var message: Logger.Message { "" }
-    public var metadata: Logger.Metadata? { nil }
+    public static let liveValue = Self(
+        runModal: { NSAlert(error: $0).runModal() }
+    )
+
+    public static let testValue = Self(
+        runModal: { _ in .cancel }
+    )
 }

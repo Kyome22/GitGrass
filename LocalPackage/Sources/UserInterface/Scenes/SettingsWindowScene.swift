@@ -1,6 +1,6 @@
 /*
- ErrorEvent.swift
- DataSource
+ SettingsWindowScene.swift
+ UserInterface
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -18,11 +18,14 @@
  limitations under the License.
 */
 
-import Logging
+import SwiftUI
 
-public enum ErrorEvent {
-    case none
+public struct SettingsWindowScene: Scene {
+    public init () {}
 
-    public var message: Logger.Message { "" }
-    public var metadata: Logger.Metadata? { nil }
+    public var body: some Scene {
+        Settings {
+            SettingsView()
+        }
+    }
 }

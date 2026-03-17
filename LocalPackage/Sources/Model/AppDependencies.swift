@@ -1,6 +1,6 @@
 /*
  AppDependencies.swift
- Domain
+ Model
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -21,44 +21,49 @@
 import DataSource
 import SwiftUI
 
-public final class AppDependencies: Sendable {
-    public let dependencyListClient: DependencyListClient
-    public let keychainClient: KeychainClient
-    public let loggingSystemClient: LoggingSystemClient
-    public let nsAppClient: NSAppClient
-    public let nsStatusBarClient: NSStatusBarClient
-    public let smAppServiceClient: SMAppServiceClient
-    public let urlSessionClient: URLSessionClient
-    public let userDefaultsClient: UserDefaultsClient
+public struct AppDependencies: Sendable {
+    public var appStateClient = AppStateClient.liveValue
+    public var dependencyListClient = DependencyListClient.liveValue
+    public var keychainClient = KeychainClient.liveValue
+    public var loggingSystemClient = LoggingSystemClient.liveValue
+    public var nsAlertClient = NSAlertClient.liveValue
+    public var nsAppClient = NSAppClient.liveValue
+    public var nsStatusBarClient = NSStatusBarClient.liveValue
+    public var smAppServiceClient = SMAppServiceClient.liveValue
+    public var urlSessionClient = URLSessionClient.liveValue
+    public var userDefaultsClient = UserDefaultsClient.liveValue
 
-    public nonisolated init(
-        dependencyListClient: DependencyListClient = .liveValue,
-        keychainClient: KeychainClient = .liveValue,
-        loggingSystemClient: LoggingSystemClient = .liveValue,
-        nsAppClient: NSAppClient = .liveValue,
-        nsStatusBarClient: NSStatusBarClient = .liveValue,
-        smAppServiceClient: SMAppServiceClient = .liveValue,
-        urlSessionClient: URLSessionClient = .liveValue,
-        userDefaultsClient: UserDefaultsClient = .liveValue
-    ) {
-        self.dependencyListClient = dependencyListClient
-        self.keychainClient = keychainClient
-        self.loggingSystemClient = loggingSystemClient
-        self.nsAppClient = nsAppClient
-        self.nsStatusBarClient = nsStatusBarClient
-        self.smAppServiceClient = smAppServiceClient
-        self.urlSessionClient = urlSessionClient
-        self.userDefaultsClient = userDefaultsClient
-    }
+    static let shared = AppDependencies()
 }
 
-struct AppDependenciesKey: EnvironmentKey {
-    static let defaultValue = AppDependencies()
+extension EnvironmentValues {
+    @Entry public var appDependencies = AppDependencies.shared
 }
 
-public extension EnvironmentValues {
-    var appDependencies: AppDependencies {
-        get { self[AppDependenciesKey.self] }
-        set { self[AppDependenciesKey.self] = newValue }
+extension AppDependencies {
+    public static func testDependencies(
+        appStateClient: AppStateClient = .testValue,
+        dependencyListClient: DependencyListClient = .testValue,
+        keychainClient: KeychainClient = .testValue,
+        loggingSystemClient: LoggingSystemClient = .testValue,
+        nsAlertClient: NSAlertClient = .testValue,
+        nsAppClient: NSAppClient = .testValue,
+        nsStatusBarClient: NSStatusBarClient = .testValue,
+        smAppServiceClient: SMAppServiceClient = .testValue,
+        urlSessionClient: URLSessionClient = .testValue,
+        userDefaultsClient: UserDefaultsClient = .testValue
+    ) -> AppDependencies {
+        AppDependencies(
+            appStateClient: appStateClient,
+            dependencyListClient: dependencyListClient,
+            keychainClient: keychainClient,
+            loggingSystemClient: loggingSystemClient,
+            nsAlertClient: nsAlertClient,
+            nsAppClient: nsAppClient,
+            nsStatusBarClient: nsStatusBarClient,
+            smAppServiceClient: smAppServiceClient,
+            urlSessionClient: urlSessionClient,
+            userDefaultsClient:  userDefaultsClient
+        )
     }
 }

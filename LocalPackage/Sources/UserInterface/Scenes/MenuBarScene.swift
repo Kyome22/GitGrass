@@ -1,6 +1,6 @@
 /*
  MenuBarScene.swift
- Presentation
+ UserInterface
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -23,25 +23,14 @@ import SwiftUI
 
 public struct MenuBarScene: Scene {
     @Environment(\.appDependencies) private var appDependencies
-    @Environment(\.appServices) private var appServices
 
     public init() {}
 
     public var body: some Scene {
         MenuBarExtra {
-            MenuView(
-                dependencyListClient: appDependencies.dependencyListClient,
-                nsAppClient: appDependencies.nsAppClient,
-                logService: appServices.logService
-            )
-            .environment(\.displayScale, 2.0)
+            MenuView(store: .init(appDependencies))
         } label: {
-            StatusIcon(
-                userDefaultsClient: appDependencies.userDefaultsClient,
-                contributionService: appServices.contributionService,
-                logService: appServices.logService
-            )
-            .environment(\.displayScale, 2.0)
+            StatusIcon(store: .init(appDependencies))
         }
     }
 }

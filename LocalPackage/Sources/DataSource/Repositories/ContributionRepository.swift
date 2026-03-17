@@ -27,7 +27,7 @@ public struct ContributionRepository: Sendable {
         self.urlSessionClient = urlSessionClient
     }
 
-    public func getGrass(token: String, username: String) async throws -> GitHubUser {
+    public func fetchContributions(token: String, username: String) async throws -> GitHubUser {
         let body = GraphQLBody(
             input: UserNameInput(userName: username),
             queryString: """
@@ -68,7 +68,7 @@ public struct ContributionRepository: Sendable {
                     throw OperationError.uncategorizedErrorsOccurred(errors.map(\.message))
                 }
             } else {
-                throw OperationError.decodingFailed
+                throw OperationError.decodeFailed
             }
         }
         return user
@@ -78,6 +78,6 @@ public struct ContributionRepository: Sendable {
         case invalidResponse
         case gitHubAccountNotFound
         case uncategorizedErrorsOccurred([String])
-        case decodingFailed
+        case decodeFailed
     }
 }

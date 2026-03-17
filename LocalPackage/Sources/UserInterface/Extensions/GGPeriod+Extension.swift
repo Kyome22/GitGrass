@@ -1,6 +1,6 @@
 /*
- ErrorEvent.swift
- DataSource
+ GGPeriod+Extension.swift
+ UserInterface
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -18,11 +18,17 @@
  limitations under the License.
 */
 
-import Logging
+import DataSource
 
-public enum ErrorEvent {
-    case none
-
-    public var message: Logger.Message { "" }
-    public var metadata: Logger.Metadata? { nil }
+extension GGPeriod: Localizable {
+    var label: String {
+        switch self {
+        case .lastYear:
+            String(localized: "lastYear", bundle: .module)
+        case .lastMonth:
+            String(localized: "lastMonth", bundle: .module)
+        case .lastWeek:
+            String(localized: "lastWeek", bundle: .module)
+        }
+    }
 }

@@ -1,8 +1,8 @@
 /*
- ErrorEvent.swift
- DataSource
+ Notification.Name+Extension.swift
+ Model
 
- Created by Takuto Nakamura on 2024/11/24.
+ Created by Takuto Nakamura on 2024/12/08.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,11 +18,8 @@
  limitations under the License.
 */
 
-import Logging
+import Foundation
 
-public enum ErrorEvent {
-    case none
-
-    public var message: Logger.Message { "" }
-    public var metadata: Logger.Metadata? { nil }
+extension Notification.Name {
+    static let NSAppleColorPreferencesChanged = Notification.Name("AppleColorPreferencesChangedNotification")
 }

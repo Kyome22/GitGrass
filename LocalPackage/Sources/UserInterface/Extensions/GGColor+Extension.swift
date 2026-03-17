@@ -1,6 +1,6 @@
 /*
- GGCycle+Extension.swift
- Presentation
+ GGColor.swift
+ UserInterface
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -20,19 +20,15 @@
 
 import DataSource
 
-extension GGCycle: Localizable {
+extension GGColor: Localizable {
     var label: String {
         switch self {
-        case .minutes5:
-            String(localized: "minutes5", bundle: .module)
-        case .minutes10:
-            String(localized: "minutes10", bundle: .module)
-        case .minutes15:
-            String(localized: "minutes15", bundle: .module)
-        case .minutes30:
-            String(localized: "minutes30", bundle: .module)
-        case .hour1:
-            String(localized: "hour1", bundle: .module)
+        case .monochrome:
+            String(localized: "monochrome", bundle: .module)
+        case .greenGrass:
+            String(localized: "greenGrass", bundle: .module)
+        case .accentColor:
+            String(localized: "accentColor", bundle: .module)
         }
     }
 }

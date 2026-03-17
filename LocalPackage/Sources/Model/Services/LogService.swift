@@ -1,6 +1,6 @@
 /*
  LogService.swift
- Domain
+ Model
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -18,29 +18,32 @@
  limitations under the License.
 */
 
-import DataSource
 import Foundation
+import DataSource
 import Logging
 
-public actor LogService {
-    private var hasAlreadyBootstrap = false
+struct LogService {
+    private let appStateClient: AppStateClient
     private let loggingSystemClient: LoggingSystemClient
 
-    public init(_ loggingSystemClient: LoggingSystemClient) {
-        self.loggingSystemClient = loggingSystemClient
+    init(_ appDependencies: AppDependencies) {
+        self.appStateClient = appDependencies.appStateClient
+        self.loggingSystemClient = appDependencies.loggingSystemClient
     }
 
-    public func bootstrap() {
-        guard !hasAlreadyBootstrap else { return }
+    func bootstrap() {
+        guard !appStateClient.withLock(\.hasAlreadyBootstrap) else {
+            return
+        }
 #if DEBUG
         loggingSystemClient.bootstrap { label in
             StreamLogHandler.standardOutput(label: label)
         }
 #endif
-        hasAlreadyBootstrap = true
+        appStateClient.withLock { $0.hasAlreadyBootstrap = true }
     }
 
-    public nonisolated func notice(
+    nonisolated func notice(
         _ event: NoticeEvent,
         source: @autoclosure () -> String? = nil,
         file: String = #fileID,
@@ -57,7 +60,7 @@ public actor LogService {
         )
     }
 
-    public nonisolated func error(
+    nonisolated func error(
         _ event: ErrorEvent,
         source: @autoclosure () -> String? = nil,
         file: String = #fileID,
@@ -74,7 +77,7 @@ public actor LogService {
         )
     }
 
-    public nonisolated func critical(
+    nonisolated func critical(
         _ event: CriticalEvent,
         source: @autoclosure () -> String? = nil,
         file: String = #fileID,

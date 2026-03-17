@@ -1,5 +1,5 @@
 /*
- DayData.swift
+ AppState.swift
  DataSource
 
  Created by Takuto Nakamura on 2026/03/15.
@@ -18,6 +18,27 @@
  limitations under the License.
 */
 
+import Combine
+
 public struct AppState: Sendable {
+    public var name: String
+    public var version: String
     public var hasAlreadyBootstrap = false
+    public let errorSubject = PassthroughSubject<GGError, Never>()
+    public let cycleSubject = PassthroughSubject<Void, Never>()
+    public let imagePropertiesSubject = CurrentValueSubject<ImageProperties, Never>(.default)
+
+    init(
+        name: String = "",
+        version: String = "",
+        hasAlreadyBootstrap: Bool = false
+    ) {
+        self.name = name
+        self.version = version
+        self.hasAlreadyBootstrap = hasAlreadyBootstrap
+    }
 }
+
+extension AsyncPublisher: @retroactive @unchecked Sendable {}
+extension CurrentValueSubject: @retroactive @unchecked Sendable where Failure == Never, Output : Sendable {}
+extension PassthroughSubject: @retroactive @unchecked Sendable where Failure == Never, Output : Sendable {}

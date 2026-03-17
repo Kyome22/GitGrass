@@ -1,6 +1,6 @@
 /*
  AppDelegate.swift
- Domain
+ Model
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -19,20 +19,30 @@
 */
 
 import AppKit
+import DataSource
 
 public final class AppDelegate: NSObject, NSApplicationDelegate {
-    public let appDependencies = AppDependenciesKey.defaultValue
-    public let appServices = AppServicesKey.defaultValue
+    public let appDependencies = AppDependencies.shared
 
     public func applicationDidFinishLaunching(_ notification: Notification) {
-        Task {
-            await appServices.logService.bootstrap()
-            appServices.logService.notice(.launchApp)
+        appDependencies.appStateClient.withLock {
+            $0.name = Bundle.main.bundleName
+            $0.version = Bundle.main.bundleVersion
         }
+        let logService = LogService(appDependencies)
+        logService.bootstrap()
+        let contributionService = ContributionService(appDependencies)
         Task {
-            for await error in await appServices.contributionService.errorStream() {
-                appServices.logService.critical(.failedToGetContribution(error))
+            let values = appDependencies.appStateClient.withLock(\.errorSubject.values)
+            for await value in values {
+                let event = switch value {
+                case let .fetchContributionsFailed(error):
+                    CriticalEvent.fetchContributionsFailed(error)
+                }
+                logService.critical(event)
             }
         }
+        logService.notice(.launchApp)
+        contributionService.initializeSubject()
     }
 }

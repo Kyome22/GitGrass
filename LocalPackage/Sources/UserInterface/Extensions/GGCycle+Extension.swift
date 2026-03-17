@@ -1,6 +1,6 @@
 /*
- ErrorEvent.swift
- DataSource
+ GGCycle+Extension.swift
+ UserInterface
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -18,11 +18,21 @@
  limitations under the License.
 */
 
-import Logging
+import DataSource
 
-public enum ErrorEvent {
-    case none
-
-    public var message: Logger.Message { "" }
-    public var metadata: Logger.Metadata? { nil }
+extension GGCycle: Localizable {
+    var label: String {
+        switch self {
+        case .minutes5:
+            String(localized: "minutes5", bundle: .module)
+        case .minutes10:
+            String(localized: "minutes10", bundle: .module)
+        case .minutes15:
+            String(localized: "minutes15", bundle: .module)
+        case .minutes30:
+            String(localized: "minutes30", bundle: .module)
+        case .hour1:
+            String(localized: "hour1", bundle: .module)
+        }
+    }
 }

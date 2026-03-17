@@ -1,6 +1,6 @@
 /*
  PreActionButtonStyle.swift
- Presentation
+ UserInterface
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -21,16 +21,18 @@
 import SwiftUI
 
 struct PreActionButtonStyle: PrimitiveButtonStyle {
-    let preAction: () -> Void
+    let preAction: () async -> Void
 
-    init(preAction: @escaping () -> Void) {
+    init(preAction: @escaping () async -> Void) {
         self.preAction = preAction
     }
 
     func makeBody(configuration: Configuration) -> some View {
         Button(role: configuration.role) {
-            preAction()
-            configuration.trigger()
+            Task {
+                await preAction()
+                configuration.trigger()
+            }
         } label: {
             configuration.label
         }
@@ -38,9 +40,9 @@ struct PreActionButtonStyle: PrimitiveButtonStyle {
 }
 
 struct PreActionButtonStyleModifier: ViewModifier {
-    let preAction: () -> Void
+    let preAction: () async -> Void
 
-    init(preAction: @escaping () -> Void) {
+    init(preAction: @escaping () async -> Void) {
         self.preAction = preAction
     }
 
@@ -50,7 +52,7 @@ struct PreActionButtonStyleModifier: ViewModifier {
 }
 
 extension View {
-    func preActionButtonStyle(preAction: @escaping () -> Void) -> some View {
+    func preActionButtonStyle(preAction: @escaping () async -> Void) -> some View {
         modifier(PreActionButtonStyleModifier(preAction: preAction))
     }
 }

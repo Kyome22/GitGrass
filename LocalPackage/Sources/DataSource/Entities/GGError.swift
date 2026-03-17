@@ -1,9 +1,9 @@
 /*
- ErrorEvent.swift
+ GGError.swift
  DataSource
 
- Created by Takuto Nakamura on 2024/11/24.
- Copyright 2022 Takuto Nakamura
+ Created by Takuto Nakamura on 2026/03/15.
+ Copyright 2023 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,11 +18,15 @@
  limitations under the License.
 */
 
-import Logging
+import Foundation
 
-public enum ErrorEvent {
-    case none
+public enum GGError: Error, Equatable {
+    case fetchContributionsFailed(any Error)
 
-    public var message: Logger.Message { "" }
-    public var metadata: Logger.Metadata? { nil }
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        switch (lhs, rhs) {
+        case (.fetchContributionsFailed, .fetchContributionsFailed):
+            true
+        }
+    }
 }

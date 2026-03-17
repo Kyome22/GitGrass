@@ -1,6 +1,6 @@
 /*
  ContributionService.swift
- Domain
+ Model
 
  Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
@@ -22,74 +22,40 @@ import Combine
 import DataSource
 import Foundation
 
-public actor ContributionService {
-    private let cycleSubject = PassthroughSubject<Void, Never>()
-    private let imagePropertiesSubject: CurrentValueSubject<ImageProperties, Never>
-    private let errorSubject = PassthroughSubject<any Error, Never>()
+struct ContributionService {
+    private let appStateClient: AppStateClient
     private let contributionRepository: ContributionRepository
     private let keychainRepository: KeychainRepository
     private let userDefaultsRepository: UserDefaultsRepository
 
-    public init(
-        _ keychainClient: KeychainClient,
-        _ urlSessionClient: URLSessionClient,
-        _ userDefaultsClient: UserDefaultsClient
-    ) {
-        self.contributionRepository = .init(urlSessionClient)
-        self.keychainRepository = .init(keychainClient)
-        self.userDefaultsRepository = .init(userDefaultsClient)
-        imagePropertiesSubject = .init(.init(
+    init(_ appDependencies: AppDependencies) {
+        appStateClient = appDependencies.appStateClient
+        contributionRepository = .init(appDependencies.urlSessionClient)
+        keychainRepository = .init(appDependencies.keychainClient)
+        userDefaultsRepository = .init(appDependencies.userDefaultsClient)
+    }
+
+    func initializeSubject() {
+        let imageProperties = ImageProperties(
             dayData: DayData.default,
             color: userDefaultsRepository.color,
             style: userDefaultsRepository.style,
             period: userDefaultsRepository.period
-        ))
+        )
+        appStateClient.send(\.imagePropertiesSubject, input: imageProperties)
     }
 
-    public func cycleStream() -> AsyncStream<Void> {
-        AsyncStream { continuation in
-            let cancellable = cycleSubject.sink { value in
-                continuation.yield(value)
-            }
-            continuation.onTermination = { _ in
-                cancellable.cancel()
-            }
-        }
+    func updateCycle() {
+        appStateClient.send(\.cycleSubject, input: ())
     }
 
-    public func imagePropertiesStream() -> AsyncStream<ImageProperties> {
-        AsyncStream { continuation in
-            let cancellable = imagePropertiesSubject.sink { value in
-                continuation.yield(value)
-            }
-            continuation.onTermination = { _ in
-                cancellable.cancel()
-            }
-        }
-    }
-
-    public func errorStream() -> AsyncStream<any Error> {
-        AsyncStream { continuation in
-            let cancellable = errorSubject.sink { value in
-                continuation.yield(value)
-            }
-            continuation.onTermination = { _ in
-                cancellable.cancel()
-            }
-        }
-    }
-
-    public func updateCycle() {
-        cycleSubject.send()
-    }
-
-    public func updateImageInfo(with dayData: [[DayData]]?) {
+    func updateImageInfo(with dayData: [[DayData]]?) {
         let _dayData = if let dayData {
             dayData
         } else {
-            imagePropertiesSubject.value.dayData
+            appStateClient.withLock(\.imagePropertiesSubject).value.dayData
         }
-        imagePropertiesSubject.send(.init(
+        appStateClient.send(\.imagePropertiesSubject, input: .init(
             dayData: _dayData,
             color: userDefaultsRepository.color,
             style: userDefaultsRepository.style,
@@ -110,20 +76,18 @@ public actor ContributionService {
         }
     }
 
-    public func fetchGrass() async {
+    func fetchContributions() async {
         let username = userDefaultsRepository.username
         guard !username.isEmpty, let token = keychainRepository.personalAccessToken else {
             updateImageInfo(with: DayData.default)
             return
         }
         do {
-            let user = try await contributionRepository.getGrass(token: token, username: username)
+            let user = try await contributionRepository.fetchContributions(token: token, username: username)
             updateImageInfo(with: convert(user: user))
         } catch {
-            errorSubject.send(error)
+            appStateClient.send(\.errorSubject, input: .fetchContributionsFailed(error))
             updateImageInfo(with: DayData.default)
         }
     }
 }
-
-extension AnyCancellable: @retroactive @unchecked Sendable {}
