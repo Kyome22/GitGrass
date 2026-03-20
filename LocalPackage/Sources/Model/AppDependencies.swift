@@ -24,11 +24,12 @@ import SwiftUI
 public struct AppDependencies: Sendable {
     public var appStateClient = AppStateClient.liveValue
     public var dependencyListClient = DependencyListClient.liveValue
+    public var distributedNotificationClient = DistributedNotificationClient.liveValue
     public var keychainClient = KeychainClient.liveValue
     public var loggingSystemClient = LoggingSystemClient.liveValue
-    public var nsAlertClient = NSAlertClient.liveValue
     public var nsAppClient = NSAppClient.liveValue
     public var nsStatusBarClient = NSStatusBarClient.liveValue
+    public var nsWorkspaceClient = NSWorkspaceClient.liveValue
     public var smAppServiceClient = SMAppServiceClient.liveValue
     public var urlSessionClient = URLSessionClient.liveValue
     public var userDefaultsClient = UserDefaultsClient.liveValue
@@ -44,11 +45,12 @@ extension AppDependencies {
     public static func testDependencies(
         appStateClient: AppStateClient = .testValue,
         dependencyListClient: DependencyListClient = .testValue,
+        distributedNotificationClient: DistributedNotificationClient = .testValue,
         keychainClient: KeychainClient = .testValue,
         loggingSystemClient: LoggingSystemClient = .testValue,
-        nsAlertClient: NSAlertClient = .testValue,
         nsAppClient: NSAppClient = .testValue,
         nsStatusBarClient: NSStatusBarClient = .testValue,
+        nsWorkspaceClient: NSWorkspaceClient = .testValue,
         smAppServiceClient: SMAppServiceClient = .testValue,
         urlSessionClient: URLSessionClient = .testValue,
         userDefaultsClient: UserDefaultsClient = .testValue
@@ -56,11 +58,12 @@ extension AppDependencies {
         AppDependencies(
             appStateClient: appStateClient,
             dependencyListClient: dependencyListClient,
+            distributedNotificationClient: distributedNotificationClient,
             keychainClient: keychainClient,
             loggingSystemClient: loggingSystemClient,
-            nsAlertClient: nsAlertClient,
             nsAppClient: nsAppClient,
             nsStatusBarClient: nsStatusBarClient,
+            nsWorkspaceClient: nsWorkspaceClient,
             smAppServiceClient: smAppServiceClient,
             urlSessionClient: urlSessionClient,
             userDefaultsClient:  userDefaultsClient

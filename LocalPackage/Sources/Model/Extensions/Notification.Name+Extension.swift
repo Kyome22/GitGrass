@@ -21,5 +21,5 @@
 import Foundation
 
 extension Notification.Name {
-    static let NSAppleColorPreferencesChanged = Notification.Name("AppleColorPreferencesChangedNotification")
+    static let appleColorPreferencesChanged = Notification.Name("AppleColorPreferencesChangedNotification")
 }

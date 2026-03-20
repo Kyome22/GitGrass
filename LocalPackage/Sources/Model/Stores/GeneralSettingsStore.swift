@@ -23,15 +23,11 @@ import Observation
 
 @MainActor @Observable
 public final class GeneralSettingsStore: Composable {
-    private let keychainRepository: KeychainRepository
     private let launchAtLoginRepository: LaunchAtLoginRepository
     private let userDefaultsRepository: UserDefaultsRepository
     private let contributionService: ContributionService
     private let logService: LogService
 
-    public var personalAccessToken: String
-    public var tokenIsAlreadyStored: Bool
-    public var username: String
     public var cycle: GGCycle
     public var color: GGColor
     public var style: GGStyle
@@ -41,9 +37,6 @@ public final class GeneralSettingsStore: Composable {
 
     public init(
         _ appDependencies: AppDependencies,
-        personalAccessToken: String = "",
-        tokenIsAlreadyStored: Bool = false,
-        username: String? = nil,
         cycle: GGCycle? = nil,
         color: GGColor? = nil,
         style: GGStyle? = nil,
@@ -51,14 +44,10 @@ public final class GeneralSettingsStore: Composable {
         launchAtLoginIsEnabled: Bool? = nil,
         action: @escaping (Action) async -> Void = { _ in }
     ) {
-        self.keychainRepository = .init(appDependencies.keychainClient)
         self.launchAtLoginRepository = .init(appDependencies.smAppServiceClient)
         self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
         self.contributionService = .init(appDependencies)
         self.logService = .init(appDependencies)
-        self.personalAccessToken = personalAccessToken
-        self.tokenIsAlreadyStored = tokenIsAlreadyStored
-        self.username = username ?? userDefaultsRepository.username
         self.cycle = cycle ?? userDefaultsRepository.cycle
         self.color = color ?? userDefaultsRepository.color
         self.style = style ?? userDefaultsRepository.style
@@ -71,30 +60,6 @@ public final class GeneralSettingsStore: Composable {
         switch action {
         case let .task(screenName):
             logService.notice(.screenView(name: screenName))
-            setToken()
-
-        case .usernameSubmitted:
-            userDefaultsRepository.username = username
-            await Task.detached(priority: .background) { [contributionService] in
-                await contributionService.fetchContributions()
-            }.value
-
-        case .updateButtonTapped:
-            await Task.detached(priority: .background) { [contributionService] in
-                await contributionService.fetchContributions()
-            }.value
-
-        case .resetButtonTapped:
-            await Task.detached(priority: .background) { [keychainRepository] in
-                keychainRepository.personalAccessToken = nil
-            }.value
-            setToken()
-
-        case .saveButtonTapped:
-            await Task.detached(priority: .background) { [keychainRepository, token = personalAccessToken] in
-                keychainRepository.personalAccessToken = token
-            }.value
-            setToken()
 
         case let .cyclePickerSelected(cycle):
             self.cycle = cycle
@@ -126,18 +91,8 @@ public final class GeneralSettingsStore: Composable {
         }
     }
 
-    private func setToken() {
-        let token = keychainRepository.personalAccessToken ?? ""
-        personalAccessToken = token
-        tokenIsAlreadyStored = !token.isEmpty
-    }
-
     public enum Action: Sendable {
         case task(String)
-        case usernameSubmitted
-        case updateButtonTapped
-        case resetButtonTapped
-        case saveButtonTapped
         case cyclePickerSelected(GGCycle)
         case colorPickerSelected(GGColor)
         case stylePickerSelected(GGStyle)

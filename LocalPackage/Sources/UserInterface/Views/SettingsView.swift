@@ -35,6 +35,14 @@ struct SettingsView: View {
                         Image(systemName: "gear")
                     }
                 }
+            AccountSettingsView(store: .init(appDependencies))
+                .tabItem {
+                    Label {
+                        Text("account", bundle: .module)
+                    } icon: {
+                        Image(systemName: "person")
+                    }
+                }
         }
         .accessibilityIdentifier("settings")
     }

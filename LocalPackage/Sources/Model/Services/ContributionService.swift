@@ -18,7 +18,6 @@
  limitations under the License.
 */
 
-import Combine
 import DataSource
 import Foundation
 
@@ -36,6 +35,7 @@ struct ContributionService {
     }
 
     func initializeSubject() {
+        appStateClient.send(\.cycleSubject, input: userDefaultsRepository.cycle)
         let imageProperties = ImageProperties(
             dayData: DayData.default,
             color: userDefaultsRepository.color,
@@ -45,8 +45,29 @@ struct ContributionService {
         appStateClient.send(\.imagePropertiesSubject, input: imageProperties)
     }
 
+    func stopPolling() {
+        appStateClient.withLock {
+            $0.pollingTask?.cancel()
+            $0.pollingTask = nil
+        }
+    }
+
+    func startPolling() {
+        stopPolling()
+        let interval = 60 * Double(userDefaultsRepository.cycle.rawValue)
+        let timer = AsyncStream {
+            try? await Task.sleep(for: .seconds(interval))
+        }
+        let task = Task {
+            for await _ in timer {
+                await fetchContributions()
+            }
+        }
+        appStateClient.withLock { $0.pollingTask = task }
+    }
+
     func updateCycle() {
-        appStateClient.send(\.cycleSubject, input: ())
+        appStateClient.send(\.cycleSubject, input: userDefaultsRepository.cycle)
     }
 
     func updateImageInfo(with dayData: [[DayData]]?) {

@@ -23,9 +23,10 @@ import Combine
 public struct AppState: Sendable {
     public var name: String
     public var version: String
-    public var hasAlreadyBootstrap = false
+    public var hasAlreadyBootstrap: Bool
+    public var pollingTask: Task<Void, Never>?
     public let errorSubject = PassthroughSubject<GGError, Never>()
-    public let cycleSubject = PassthroughSubject<Void, Never>()
+    public let cycleSubject = CurrentValueSubject<GGCycle, Never>(.minutes5)
     public let imagePropertiesSubject = CurrentValueSubject<ImageProperties, Never>(.default)
 
     init(

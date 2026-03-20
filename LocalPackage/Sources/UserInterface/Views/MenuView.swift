@@ -55,6 +55,23 @@ struct MenuView: View {
             } label: {
                 Text("quitApp", bundle: .module)
             }
+#if DEBUG
+            Divider()
+            Button {
+                Task {
+                    await store.send(.debugSleepButtonTapped)
+                }
+            } label: {
+                Text("debugSleep", bundle: .module)
+            }
+            Button {
+                Task {
+                    await store.send(.debugWakeUpButtonTapped)
+                }
+            } label: {
+                Text("debugWakeUp", bundle: .module)
+            }
+#endif
         }
         .task {
             await store.send(.task(String(describing: Self.self)))

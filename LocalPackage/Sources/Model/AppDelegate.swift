@@ -25,24 +25,49 @@ public final class AppDelegate: NSObject, NSApplicationDelegate {
     public let appDependencies = AppDependencies.shared
 
     public func applicationDidFinishLaunching(_ notification: Notification) {
-        appDependencies.appStateClient.withLock {
+        let appStateClient = appDependencies.appStateClient
+        appStateClient.withLock {
             $0.name = Bundle.main.bundleName
             $0.version = Bundle.main.bundleVersion
         }
+        let nsWorkspaceClient = appDependencies.nsWorkspaceClient
+        let contributionService = ContributionService(appDependencies)
         let logService = LogService(appDependencies)
         logService.bootstrap()
-        let contributionService = ContributionService(appDependencies)
         Task {
-            let values = appDependencies.appStateClient.withLock(\.errorSubject.values)
-            for await value in values {
-                let event = switch value {
-                case let .fetchContributionsFailed(error):
-                    CriticalEvent.fetchContributionsFailed(error)
+            await withTaskGroup { group in
+                group.addTask {
+                    let publisher = nsWorkspaceClient.publisher(NSWorkspace.willSleepNotification)
+                    for await _ in publisher.values {
+                        contributionService.stopPolling()
+                    }
                 }
-                logService.critical(event)
+                group.addTask {
+                    let publisher = nsWorkspaceClient.publisher(NSWorkspace.didWakeNotification)
+                    for await _ in publisher.values {
+                        contributionService.startPolling()
+                    }
+                }
+                group.addTask { @MainActor @Sendable in
+                    let values = appStateClient.withLock(\.cycleSubject.values)
+                    for await _ in values {
+                        contributionService.startPolling()
+                    }
+                }
+                group.addTask {
+                    let values = appStateClient.withLock(\.errorSubject.values)
+                    for await value in values {
+                        let event = switch value {
+                        case let .fetchContributionsFailed(error):
+                            CriticalEvent.fetchContributionsFailed(error)
+                        }
+                        logService.critical(event)
+                    }
+                }
             }
         }
         logService.notice(.launchApp)
         contributionService.initializeSubject()
+        contributionService.startPolling()
     }
 }

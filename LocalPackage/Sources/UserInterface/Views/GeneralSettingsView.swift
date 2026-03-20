@@ -27,118 +27,57 @@ struct GeneralSettingsView: View {
 
     var body: some View {
         Form {
-            personalAccessTokenField
-            LabeledContent {
-                HStack(spacing: 8) {
-                    TextField(text: $store.username) {
+            Section {
+                pickerItem(
+                    labelKey: "updateCycle",
+                    selection: Binding<GGCycle>(
+                        get: { store.cycle },
+                        asyncSet: { await store.send(.cyclePickerSelected($0)) }
+                    )
+                )
+            }
+            Section {
+                pickerItem(
+                    labelKey: "color",
+                    selection: Binding<GGColor>(
+                        get: { store.color },
+                        asyncSet: { await store.send(.colorPickerSelected($0)) }
+                    )
+                )
+                pickerItem(
+                    labelKey: "style",
+                    selection: Binding<GGStyle>(
+                        get: { store.style },
+                        asyncSet: { await store.send(.stylePickerSelected($0)) }
+                    )
+                )
+                pickerItem(
+                    labelKey: "period",
+                    selection: Binding<GGPeriod>(
+                        get: { store.period },
+                        asyncSet: { await store.send(.periodPickerSelected($0)) }
+                    )
+                )
+            }
+            Section {
+                LabeledContent {
+                    Toggle(isOn: Binding<Bool>(
+                        get: { store.launchAtLoginIsEnabled },
+                        asyncSet: { await store.send(.launchAtLoginToggleSwitched($0)) }
+                    )) {
                         EmptyView()
                     }
-                    .labelsHidden()
-                    .onSubmit {
-                        Task {
-                            await store.send(.usernameSubmitted)
-                        }
-                    }
-                    .frame(width: 120)
-                    Button {
-                        Task {
-                            await store.send(.updateButtonTapped)
-                        }
-                    } label: {
-                        Image(systemName: "arrow.counterclockwise")
-                    }
-                    .buttonStyle(.borderless)
-                }
-            } label: {
-                Text("accountName", bundle: .module)
-            }
-            Divider()
-            pickerItem(
-                labelKey: "updateCycle",
-                selection: Binding<GGCycle>(
-                    get: { store.cycle },
-                    asyncSet: { await store.send(.cyclePickerSelected($0)) }
-                )
-            )
-            pickerItem(
-                labelKey: "color",
-                selection: Binding<GGColor>(
-                    get: { store.color },
-                    asyncSet: { await store.send(.colorPickerSelected($0)) }
-                )
-            )
-            pickerItem(
-                labelKey: "style",
-                selection: Binding<GGStyle>(
-                    get: { store.style },
-                    asyncSet: { await store.send(.stylePickerSelected($0)) }
-                )
-            )
-            pickerItem(
-                labelKey: "period",
-                selection: Binding<GGPeriod>(
-                    get: { store.period },
-                    asyncSet: { await store.send(.periodPickerSelected($0)) }
-                )
-            )
-            Divider()
-            LabeledContent {
-                Toggle(isOn: Binding<Bool>(
-                    get: { store.launchAtLoginIsEnabled },
-                    asyncSet: { await store.send(.launchAtLoginToggleSwitched($0)) }
-                )) {
+                    .toggleStyle(.switch)
+                } label: {
+                    Text("launch", bundle: .module)
                     Text("AutomaticallyLaunchAtLogin", bundle: .module)
                 }
-            } label: {
-                Text("launch", bundle: .module)
             }
         }
-        .formStyle(.columns)
+        .formStyle(.grouped)
         .fixedSize()
-    }
-
-    private var personalAccessTokenField: some View {
-        Group {
-            if store.tokenIsAlreadyStored {
-                LabeledContent {
-                    Text(verbatim: store.personalAccessToken.secured)
-                        .fontDesign(.monospaced)
-                        .foregroundColor(.secondary)
-                        .padding(2)
-                        .border(Color.secondary.opacity(0.5))
-                } label: {
-                    Text("personalAccessToken", bundle: .module)
-                }
-            } else {
-                TextField(text: $store.personalAccessToken) {
-                    Text("personalAccessToken", bundle: .module)
-                }
-                .disableAutocorrection(true)
-            }
-            HStack {
-                Text("scope", bundle: .module)
-                    .lineLimit(1)
-                    .foregroundColor(.secondary)
-                if store.tokenIsAlreadyStored {
-                    Button {
-                        Task {
-                            await store.send(.resetButtonTapped)
-                        }
-                    } label: {
-                        Text("reset", bundle: .module)
-                    }
-                } else {
-                    Button {
-                        Task {
-                            await store.send(.saveButtonTapped)
-                        }
-                    } label: {
-                        Text("save", bundle: .module)
-                    }
-                    .disabled(store.personalAccessToken.isEmpty)
-                }
-            }
-            .fixedSize()
+        .task {
+            await store.send(.task(String(describing: Self.self)))
         }
     }
 

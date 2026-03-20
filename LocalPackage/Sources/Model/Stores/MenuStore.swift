@@ -26,6 +26,7 @@ import Observation
 public final class MenuStore: NSObject, Composable {
     private let dependencyListClient: DependencyListClient
     private let nsAppClient: NSAppClient
+    private let nsWorkspaceClient: NSWorkspaceClient
     private let logService: LogService
     private var licensesWindow: NSWindow?
 
@@ -38,6 +39,7 @@ public final class MenuStore: NSObject, Composable {
     ) {
         self.dependencyListClient = appDependencies.dependencyListClient
         self.nsAppClient = appDependencies.nsAppClient
+        self.nsWorkspaceClient = appDependencies.nsWorkspaceClient
         self.logService = .init(appDependencies)
         self.licensesWindow = licensesWindow
         self.action = action
@@ -74,10 +76,10 @@ public final class MenuStore: NSObject, Composable {
             nsAppClient.terminate(nil)
 
         case .debugSleepButtonTapped:
-            return
+            nsWorkspaceClient.post(NSWorkspace.willSleepNotification, nil)
 
         case .debugWakeUpButtonTapped:
-            return
+            nsWorkspaceClient.post(NSWorkspace.didWakeNotification, nil)
         }
     }
 

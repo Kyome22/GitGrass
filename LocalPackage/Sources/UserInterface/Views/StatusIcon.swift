@@ -39,11 +39,6 @@ struct StatusIcon: View {
         .task {
             await store.send(.task(String(describing: Self.self)))
         }
-        .onChange(of: store.gitHubAccountNotFound) { _, newValue in
-            Task {
-                await store.send(.gitHubAccountNotFoundChanged(newValue, NSError.accountNotFound))
-            }
-        }
     }
 
     private func twoDimentionalImage(_ dayData: [[DayData]]) -> Image {

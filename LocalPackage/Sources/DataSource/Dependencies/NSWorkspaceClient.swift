@@ -1,5 +1,5 @@
 /*
- NSAlertClient.swift
+ NSWorkspaceClient.swift
  DataSource
 
  Created by Takuto Nakamura on 2026/03/18.
@@ -16,18 +16,22 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
- */
+*/
 
 import AppKit
+import Combine
 
-public struct NSAlertClient: DependencyClient {
-    public var runModal: @MainActor @Sendable (any Error) -> NSApplication.ModalResponse
+public struct NSWorkspaceClient: DependencyClient {
+    public var post: @Sendable (Notification.Name, Any?) -> Void
+    public var publisher: @Sendable (Notification.Name) -> AnyPublisher<Notification, Never>
 
     public static let liveValue = Self(
-        runModal: { NSAlert(error: $0).runModal() }
+        post: { NSWorkspace.shared.notificationCenter.post(name: $0, object: $1) },
+        publisher: { NSWorkspace.shared.notificationCenter.publisher(for: $0).eraseToAnyPublisher() }
     )
 
     public static let testValue = Self(
-        runModal: { _ in .cancel }
+        post: { _, _ in },
+        publisher: { _ in Empty<Notification, Never>().eraseToAnyPublisher() }
     )
 }
