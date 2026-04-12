@@ -18,33 +18,33 @@
  limitations under the License.
 */
 
-struct ContributionsData: Decodable, Sendable {
+struct ContributionsData: Sendable, Codable {
     var user: GitHubUser?
 }
 
-public struct GitHubUser: Decodable, Sendable {
+public struct GitHubUser: Sendable, Equatable, Codable {
     public var contributionsCollection: ContributionsCollection
 
-    public struct ContributionsCollection: Decodable, Sendable {
+    public struct ContributionsCollection: Sendable, Equatable, Codable {
         public var contributionCalendar: ContributionCalendar
     }
 
-    public struct ContributionCalendar: Decodable, Sendable {
+    public struct ContributionCalendar: Sendable, Equatable, Codable {
         public var totalContributions: Int
         public var weeks: [Week]
     }
 
-    public struct Week: Decodable, Sendable {
+    public struct Week: Sendable, Equatable, Codable {
         public var contributionDays: [Day]
     }
 
-    public struct Day: Decodable, Sendable {
+    public struct Day: Sendable, Equatable, Codable {
         public var contributionLevel: ContributionLevel
         public var contributionCount: Int
         public var date: String
     }
 
-    public enum ContributionLevel: String, Decodable, Sendable {
+    public enum ContributionLevel: String, Sendable {
         case firstQuartile = "FIRST_QUARTILE"
         case secondQuartile = "SECOND_QUARTILE"
         case thirdQuartile = "THIRD_QUARTILE"
@@ -60,11 +60,18 @@ public struct GitHubUser: Decodable, Sendable {
             case .none:           0
             }
         }
+    }
+}
 
-        public init(from decoder: any Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            let rawValue = try container.decode(RawValue.self)
-            self = type(of: self).init(rawValue: rawValue) ?? .none
-        }
+extension GitHubUser.ContributionLevel: Codable {
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawValue = try container.decode(RawValue.self)
+        self = Self.init(rawValue: rawValue) ?? .none
+    }
+
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.rawValue)
     }
 }

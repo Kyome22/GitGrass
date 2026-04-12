@@ -18,7 +18,7 @@
  limitations under the License.
 */
 
-public struct GraphQLError: Decodable {
+public struct GraphQLError: Sendable, Codable {
     public var type: String
     public var message: String
 }

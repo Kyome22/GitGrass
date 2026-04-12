@@ -33,7 +33,7 @@ public struct SMAppServiceClient: DependencyClient {
 
     public static let testValue = Self(
         status: { .notFound },
-        register: {},
-        unregister: {}
+        register: { throw NSError(domain: SMAppServiceErrorDomain, code: kSMErrorAuthorizationFailure) },
+        unregister: { throw NSError(domain: SMAppServiceErrorDomain, code: kSMErrorAuthorizationFailure) }
     )
 }

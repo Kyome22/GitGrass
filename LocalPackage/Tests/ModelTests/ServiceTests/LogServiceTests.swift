@@ -1,19 +1,23 @@
-import DataSource
 import os
-import XCTest
+import Testing
 
+@testable import DataSource
 @testable import Model
 
-final class LogServiceTests: XCTestCase {
-    func test_bootstrapは一度しか実行されない() async {
+struct LogServiceTests {
+    @Test
+    func bootstrap_executed_only_once() {
+        let appState = OSAllocatedUnfairLock<AppState>(initialState: .init())
         let count = OSAllocatedUnfairLock(initialState: 0)
-        let loggingSystemClient = testDependency(of: LoggingSystemClient.self) {
-            $0.bootstrap = { _ in count.withLock { $0 += 1  } }
-        }
-        let sut = LogService(loggingSystemClient)
-        await sut.bootstrap()
-        await sut.bootstrap()
+        let sut = LogService(.testDependencies(
+            appStateClient: .testDependency(appState),
+            loggingSystemClient: testDependency(of: LoggingSystemClient.self) {
+                $0.bootstrap = { _ in count.withLock { $0 += 1  } }
+            }
+        ))
+        sut.bootstrap()
+        sut.bootstrap()
         let actual = count.withLock(\.self)
-        XCTAssertEqual(actual, 1)
+        #expect(actual == 1)
     }
 }

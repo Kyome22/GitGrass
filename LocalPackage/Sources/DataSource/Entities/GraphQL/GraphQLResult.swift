@@ -18,10 +18,12 @@
  limitations under the License.
 */
 
-struct GraphQLResult: Decodable {
+struct GraphQLResult: Sendable {
     var user: GitHubUser?
     var errors: [GraphQLError]?
+}
 
+extension GraphQLResult: Codable {
     enum CodingKeys: String, CodingKey {
         case data
         case errors
@@ -31,5 +33,15 @@ struct GraphQLResult: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         user = try container.decodeIfPresent(ContributionsData.self, forKey: .data)?.user
         errors = try container.decodeIfPresent([GraphQLError].self, forKey: .errors)
+    }
+
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        if let user {
+            try container.encode(ContributionsData(user: user), forKey: .data)
+        }
+        if let errors {
+            try container.encode(errors, forKey: .errors)
+        }
     }
 }

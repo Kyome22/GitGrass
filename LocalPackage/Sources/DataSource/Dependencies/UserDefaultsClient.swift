@@ -25,7 +25,6 @@ public struct UserDefaultsClient: DependencyClient {
     var setInteger: @Sendable (Int, String) -> Void
     var string: @Sendable (String) -> String?
     var setString: @Sendable (String, String) -> Void
-    var register: @Sendable ([String : Any]) -> Void
     var removePersistentDomain: @Sendable (String) -> Void
     var persistentDomain: @Sendable (String) -> [String : Any]?
 
@@ -34,7 +33,6 @@ public struct UserDefaultsClient: DependencyClient {
         setInteger: { UserDefaults.standard.set($0, forKey: $1) },
         string: { UserDefaults.standard.string(forKey: $0) },
         setString: { UserDefaults.standard.set($0, forKey: $1) },
-        register: { UserDefaults.standard.register(defaults: $0) },
         removePersistentDomain: { UserDefaults.standard.removePersistentDomain(forName: $0) },
         persistentDomain: { UserDefaults.standard.persistentDomain(forName: $0) }
     )
@@ -44,7 +42,6 @@ public struct UserDefaultsClient: DependencyClient {
         setInteger: { _, _ in },
         string: { _ in nil },
         setString: { _, _ in },
-        register: { _ in },
         removePersistentDomain: { _ in },
         persistentDomain: { _ in nil }
     )

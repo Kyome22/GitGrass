@@ -52,7 +52,7 @@ public struct LaunchAtLoginRepository: Sendable {
         }
     }
 
-    public enum OperationError: Error {
+    public enum OperationError: Error, Equatable {
         case switchFailed(Bool)
     }
 }

@@ -37,7 +37,7 @@ struct ContributionService {
     func initializeSubject() {
         appStateClient.send(\.cycleSubject, input: userDefaultsRepository.cycle)
         let imageProperties = ImageProperties(
-            dayData: DayData.default,
+            dayData: DayData.emptyYear,
             color: userDefaultsRepository.color,
             style: userDefaultsRepository.style,
             period: userDefaultsRepository.period
@@ -100,7 +100,7 @@ struct ContributionService {
     func fetchContributions() async {
         let username = userDefaultsRepository.username
         guard !username.isEmpty, let token = keychainRepository.personalAccessToken else {
-            updateImageInfo(with: DayData.default)
+            updateImageInfo(with: DayData.emptyYear)
             return
         }
         do {
@@ -108,7 +108,7 @@ struct ContributionService {
             updateImageInfo(with: convert(user: user))
         } catch {
             appStateClient.send(\.errorSubject, input: .fetchContributionsFailed(error))
-            updateImageInfo(with: DayData.default)
+            updateImageInfo(with: DayData.emptyYear)
         }
     }
 }

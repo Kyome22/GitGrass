@@ -45,22 +45,26 @@ let package = Package(
             name: "Model",
             dependencies: [
                 "DataSource",
-                .product(name: "Logging", package: "swift-log"),
             ],
             swiftSettings: swiftSettings
         ),
         .target(
             name: "UserInterface",
             dependencies: [
-                "DataSource",
                 "Model",
+            ],
+            swiftSettings: swiftSettings
+        ),
+        .testTarget(
+            name: "DataSourceTests",
+            dependencies: [
+                "DataSource"
             ],
             swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "ModelTests",
             dependencies: [
-                "DataSource",
                 "Model",
             ],
             swiftSettings: swiftSettings

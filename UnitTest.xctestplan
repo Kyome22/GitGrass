@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "25AC5F13-45D9-4A13-9C75-EFA53C0BA53C",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:LocalPackage",
+        "identifier" : "DataSourceTests",
+        "name" : "DataSourceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:LocalPackage",
+        "identifier" : "ModelTests",
+        "name" : "ModelTests"
+      }
+    }
+  ],
+  "version" : 1
+}

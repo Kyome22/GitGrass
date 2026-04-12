@@ -35,7 +35,7 @@ public struct DayData: Sendable, Equatable, CustomStringConvertible {
         self.date = date
     }
 
-    private static let empty = DayData(level: .zero, count: .zero, date: "")
-    private static let week = [DayData](repeating: DayData.empty, count: 7)
-    public static let `default` = [[DayData]](repeating: DayData.week, count: 53)
+    private static let emptyDay = DayData(level: .zero, count: .zero, date: "")
+    private static let emptyWeek = [DayData](repeating: DayData.emptyDay, count: 7)
+    public static let emptyYear = [[DayData]](repeating: DayData.emptyWeek, count: 53)
 }

@@ -34,7 +34,7 @@ public struct ImageProperties: Sendable, Equatable {
     }
 
     public static let `default` = ImageProperties(
-        dayData: DayData.default,
+        dayData: DayData.emptyYear,
         color: .monochrome,
         style: .block,
         period: .lastYear

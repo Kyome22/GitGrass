@@ -114,6 +114,7 @@
       }
     },
     "debugSleep" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -130,6 +131,7 @@
       }
     },
     "debugWakeUp" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

@@ -24,27 +24,27 @@ public struct UserDefaultsRepository: Sendable {
     private var userDefaultsClient: UserDefaultsClient
 
     public var username: String {
-        get { userDefaultsClient.string(.username)! }
+        get { userDefaultsClient.string(.username) ?? "" }
         nonmutating set { userDefaultsClient.setString(newValue, .username) }
     }
 
     public var cycle: GGCycle {
-        get { GGCycle(rawValue: userDefaultsClient.integer(.cycle))! }
+        get { GGCycle(rawValue: userDefaultsClient.integer(.cycle)) ?? .minutes5 }
         nonmutating set { userDefaultsClient.setInteger(newValue.rawValue, .cycle) }
     }
 
     public var color: GGColor {
-        get { GGColor(rawValue: userDefaultsClient.integer(.color))! }
+        get { GGColor(rawValue: userDefaultsClient.integer(.color)) ?? .monochrome }
         nonmutating set { userDefaultsClient.setInteger(newValue.rawValue, .color) }
     }
 
     public var style: GGStyle {
-        get { GGStyle(rawValue: userDefaultsClient.integer(.style))! }
+        get { GGStyle(rawValue: userDefaultsClient.integer(.style)) ?? .block }
         nonmutating set { userDefaultsClient.setInteger(newValue.rawValue, .style) }
     }
 
     public var period: GGPeriod {
-        get { GGPeriod(rawValue: userDefaultsClient.integer(.period))! }
+        get { GGPeriod(rawValue: userDefaultsClient.integer(.period)) ?? .lastYear }
         nonmutating set { userDefaultsClient.setInteger(newValue.rawValue, .period) }
     }
 
@@ -55,17 +55,6 @@ public struct UserDefaultsRepository: Sendable {
         if ProcessInfo.needsResetUserDefaults {
             userDefaultsClient.removePersistentDomain(Bundle.main.bundleIdentifier!)
         }
-#endif
-
-        userDefaultsClient.register([
-            .username: "",
-            .cycle: GGCycle.minutes5.rawValue,
-            .color: GGColor.monochrome.rawValue,
-            .style: GGStyle.block.rawValue,
-            .period: GGPeriod.lastYear.rawValue
-        ])
-
-#if DEBUG
         showAllData()
 #endif
     }

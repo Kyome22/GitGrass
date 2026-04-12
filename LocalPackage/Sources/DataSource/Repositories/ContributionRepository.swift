@@ -74,7 +74,7 @@ public struct ContributionRepository: Sendable {
         return user
     }
 
-    public enum OperationError: Error {
+    public enum OperationError: Error, Equatable {
         case invalidResponse
         case gitHubAccountNotFound
         case uncategorizedErrorsOccurred([String])

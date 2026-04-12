@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C0C9B732F7D6E7F00A431BC /* UnitTest.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 1C0C9B722F7D6E7F00A431BC /* UnitTest.xctestplan */; };
 		1C47172F2F5F353900C567C8 /* Model in Frameworks */ = {isa = PBXBuildFile; productRef = 1C47172E2F5F353900C567C8 /* Model */; };
 		1C4717312F5F353900C567C8 /* UserInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 1C4717302F5F353900C567C8 /* UserInterface */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C0C9B722F7D6E7F00A431BC /* UnitTest.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UnitTest.xctestplan; sourceTree = "<group>"; };
 		1C71F45E2CF2535D00174BCA /* LocalPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LocalPackage; sourceTree = "<group>"; };
 		1CB3188D28F4845F00F6E9D2 /* GitGrass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitGrass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -53,6 +55,7 @@
 		1CB3188428F4845F00F6E9D2 = {
 			isa = PBXGroup;
 			children = (
+				1C0C9B722F7D6E7F00A431BC /* UnitTest.xctestplan */,
 				1C71F45E2CF2535D00174BCA /* LocalPackage */,
 				1CA9034B2F6DAB6D00AE141D /* GitGrass */,
 				1C71F45F2CF31E9B00174BCA /* Frameworks */,
@@ -136,6 +139,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C0C9B732F7D6E7F00A431BC /* UnitTest.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
