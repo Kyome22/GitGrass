@@ -1,9 +1,9 @@
 /*
- GitGrassApp.swift
- GitGrass
+ URLSessionClient.swift
+ DataSource
 
- Created by Takuto Nakamura on 2022/10/11.
- Copyright 2022 Takuto Nakamura
+ Created by Takuto Nakamura on 2024/11/24.
+ Copyright 2022 Takuto Nakamura (Kyome22)
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,17 +18,16 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
+import Foundation
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+public struct URLSessionClient: DependencyClient {
+    var data: @Sendable (URLRequest) async throws -> (Data, URLResponse)
 
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
-    }
+    public static let liveValue = Self(
+        data: { try await URLSession.shared.data(for: $0) }
+    )
+
+    public static let testValue = Self(
+        data: { _ in (Data(), URLResponse()) }
+    )
 }

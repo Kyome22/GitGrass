@@ -1,9 +1,9 @@
 /*
- GitGrassApp.swift
- GitGrass
+ ProcessInfo+Extension.swift
+ DataSource
 
- Created by Takuto Nakamura on 2022/10/11.
- Copyright 2022 Takuto Nakamura
+ Created by Takuto Nakamura on 2024/11/24.
+ Copyright 2022 Takuto Nakamura (Kyome22)
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,17 +18,10 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
+import Foundation
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
+extension ProcessInfo {
+    static var needsResetUserDefaults: Bool {
+        Self.processInfo.arguments.contains("ResetUserDefaults")
     }
 }

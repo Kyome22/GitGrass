@@ -1,8 +1,8 @@
 /*
- GitGrassApp.swift
- GitGrass
+ GGError+Extension.swift
+ UserInterface
 
- Created by Takuto Nakamura on 2022/10/11.
+ Created by Takuto Nakamura on 2026/03/20.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,13 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
+import DataSource
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
+extension GGError {
+    var message: String {
+        switch self {
+        case .fetchContributionsFailed:
+            String(localized: "fetchContributionsFailedMessage", bundle: .module)
+        }
     }
 }

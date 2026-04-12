@@ -1,8 +1,8 @@
 /*
- GitGrassApp.swift
- GitGrass
+ UserNameInput.swift
+ DataSource
 
- Created by Takuto Nakamura on 2022/10/11.
+ Created by Takuto Nakamura on 2023/08/30.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,6 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
-
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
-    }
+public struct UserNameInput: Encodable {
+    var userName: String
 }

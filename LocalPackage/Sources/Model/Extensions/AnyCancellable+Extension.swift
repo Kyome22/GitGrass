@@ -1,8 +1,8 @@
 /*
- GitGrassApp.swift
- GitGrass
+ AnyCancellable+Extension.swift
+ Model
 
- Created by Takuto Nakamura on 2022/10/11.
+ Created by Takuto Nakamura on 2026/03/15.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,19 +16,8 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
-*/
+ */
 
-import Model
-import UserInterface
-import SwiftUI
+import Combine
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
-    }
-}
+extension AnyCancellable: @retroactive @unchecked Sendable {}

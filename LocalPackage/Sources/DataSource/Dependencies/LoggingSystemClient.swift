@@ -1,8 +1,8 @@
 /*
- GitGrassApp.swift
- GitGrass
+ LoggingSystemClient.swift
+ DataSource
 
- Created by Takuto Nakamura on 2022/10/11.
+ Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,16 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
+import Logging
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+public struct LoggingSystemClient: DependencyClient {
+    public var bootstrap: @Sendable (@escaping @Sendable (String) -> any LogHandler) -> Void
 
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
-    }
+    public static let liveValue = Self(
+        bootstrap: { LoggingSystem.bootstrap($0) }
+    )
+
+    public static let testValue = Self(
+        bootstrap: { _ in }
+    )
 }

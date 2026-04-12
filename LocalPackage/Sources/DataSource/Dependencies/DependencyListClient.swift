@@ -1,8 +1,8 @@
 /*
- GitGrassApp.swift
- GitGrass
+ DependencyListClient.swift
+ DataSource
 
- Created by Takuto Nakamura on 2022/10/11.
+ Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,17 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
+import AppKit
+import DependencyList
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+public struct DependencyListClient: DependencyClient {
+    public var window: @MainActor @Sendable () -> NSWindow
 
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
-    }
+    public static let liveValue = Self(
+        window: { DependencyListWindow() }
+    )
+
+    public static let testValue = Self(
+        window: { NSWindow() }
+    )
 }

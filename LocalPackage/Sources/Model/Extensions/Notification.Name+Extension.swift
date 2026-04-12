@@ -1,8 +1,8 @@
 /*
- GitGrassApp.swift
- GitGrass
+ Notification.Name+Extension.swift
+ Model
 
- Created by Takuto Nakamura on 2022/10/11.
+ Created by Takuto Nakamura on 2024/12/08.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,8 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
+import Foundation
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
-    }
+extension Notification.Name {
+    static let appleColorPreferencesChanged = Notification.Name("AppleColorPreferencesChangedNotification")
 }

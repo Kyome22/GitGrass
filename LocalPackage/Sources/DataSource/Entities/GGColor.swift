@@ -1,9 +1,9 @@
 /*
- GitGrassApp.swift
- GitGrass
+ GGColor.swift
+ DataSource
 
- Created by Takuto Nakamura on 2022/10/11.
- Copyright 2022 Takuto Nakamura
+ Created by Takuto Nakamura on 2023/01/25.
+ Copyright 2023 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,17 +18,8 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
-
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
-    }
+public enum GGColor: Int, Sendable, CaseIterable {
+    case monochrome
+    case greenGrass
+    case accentColor
 }

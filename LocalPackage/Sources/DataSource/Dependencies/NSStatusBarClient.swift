@@ -1,8 +1,8 @@
 /*
- GitGrassApp.swift
- GitGrass
+ NSStatusBarClient.swift
+ DataSource
 
- Created by Takuto Nakamura on 2022/10/11.
+ Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,16 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
+import AppKit
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+public struct NSStatusBarClient: DependencyClient {
+    public var statusItem: @Sendable () -> NSStatusItem
 
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
-    }
+    public static let liveValue = Self(
+        statusItem: { NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength) }
+    )
+
+    public static let testValue = Self(
+        statusItem: { NSStatusItem() }
+    )
 }

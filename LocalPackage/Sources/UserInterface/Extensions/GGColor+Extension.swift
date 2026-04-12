@@ -1,8 +1,8 @@
 /*
- GitGrassApp.swift
- GitGrass
+ GGColor.swift
+ UserInterface
 
- Created by Takuto Nakamura on 2022/10/11.
+ Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,17 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
+import DataSource
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
+extension GGColor: Localizable {
+    var label: String {
+        switch self {
+        case .monochrome:
+            String(localized: "monochrome", bundle: .module)
+        case .greenGrass:
+            String(localized: "greenGrass", bundle: .module)
+        case .accentColor:
+            String(localized: "accentColor", bundle: .module)
+        }
     }
 }

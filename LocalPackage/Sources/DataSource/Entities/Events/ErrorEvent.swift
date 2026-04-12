@@ -1,8 +1,8 @@
 /*
- GitGrassApp.swift
- GitGrass
+ ErrorEvent.swift
+ DataSource
 
- Created by Takuto Nakamura on 2022/10/11.
+ Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,11 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
+import Logging
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+public enum ErrorEvent {
+    case none
 
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
-    }
+    public var message: Logger.Message { "" }
+    public var metadata: Logger.Metadata? { nil }
 }

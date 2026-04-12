@@ -7,10 +7,9 @@ xcuserdata/
 *.xccheckout
 
 # Swift Package Manager
-Packages.resolved
+Package.resolved
 .swiftpm/
 .build/
-ShiftWindowPackages/Package.resolved
 
 # Test
 TestResults/

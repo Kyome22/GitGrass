@@ -1,8 +1,8 @@
 /*
- GitGrassApp.swift
- GitGrass
+ String+Extension.swift
+ UserInterface
 
- Created by Takuto Nakamura on 2022/10/11.
+ Created by Takuto Nakamura on 2024/11/24.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,14 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
+import Foundation
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
+extension String {
+    var secured: String {
+        let n = max(0, count - 6)
+        return replacingOccurrences(
+            of: self.prefix(n).description,
+            with: String(repeating: "*", count: n)
+        )
     }
 }

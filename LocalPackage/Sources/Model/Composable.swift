@@ -1,8 +1,8 @@
 /*
- GitGrassApp.swift
- GitGrass
+ AppDelegate.swift
+ Model
 
- Created by Takuto Nakamura on 2022/10/11.
+ Created by Takuto Nakamura on 2026/03/16.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,22 @@
  limitations under the License.
 */
 
-import Model
-import UserInterface
-import SwiftUI
+import Observation
 
-@main
-struct GitGrassApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+@MainActor
+public protocol Composable: AnyObject {
+    associatedtype Action: Sendable
 
-    var body: some Scene {
-        MenuBarScene()
-        SettingsWindowScene()
-        AppAlertScene()
+    var action: (Action) async -> Void { get }
+
+    func reduce(_ action: Action) async
+}
+
+public extension Composable {
+    func reduce(_ action: Action) async {}
+
+    func send(_ action: Action) async {
+        await reduce(action)
+        await self.action(action)
     }
 }
