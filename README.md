@@ -18,9 +18,17 @@ GitHub Contributions Checker on the macOS menubar.
 
 ## Demo
 
-<img src="./resources/this_year.png" height="350px" />
+<img src="./resources/general.png" width="575px" />
+
+<img src="./resources/account.png" width="575px" />
 
 Download GitGrass for macOS → [App Store](https://apps.apple.com/us/app/gitgrass/id1501139279)
+
+## Requirements
+
+- macOS 15+
+- Xcode 26.2+
+- Swift 6.2+
 
 ## Setup
 
