@@ -1,8 +1,8 @@
 /*
- DependencyListClient.swift
- DataSource
+ String+Extension.swift
+ Model
 
- Created by Takuto Nakamura on 2024/11/24.
+ Created by Takuto Nakamura on 2026/04/13.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,17 +18,6 @@
  limitations under the License.
 */
 
-import AppKit
-import DependencyList
-
-public struct DependencyListClient: DependencyClient {
-    public var window: @MainActor @Sendable () -> NSWindow
-
-    public static let liveValue = Self(
-        window: { DependencyListWindow() }
-    )
-
-    public static let testValue = Self(
-        window: { NSWindow() }
-    )
+public extension String {
+    static let license = "license"
 }

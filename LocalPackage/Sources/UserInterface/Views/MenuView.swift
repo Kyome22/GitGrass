@@ -19,11 +19,13 @@
 */
 
 import DataSource
+import LicenseList
 import Model
 import SwiftUI
 
 struct MenuView: View {
     @StateObject var store: MenuStore
+    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         VStack {
@@ -43,7 +45,9 @@ struct MenuView: View {
             }
             Button {
                 Task {
-                    await store.send(.licensesButtonTapped)
+                    await store.send(.licensesButtonTapped(.init(action: {
+                        openWindow(id: $0, value: $1)
+                    })))
                 }
             } label: {
                 Text("licenses", bundle: .module)

@@ -1,15 +1,6 @@
 {
-  "originHash" : "14af30701c33f0e7cd616893fe31cba9f3b83f0daaf5dce6e842dfd2b2b742ff",
+  "originHash" : "60ac0b83c137ce17d23895d796f2550831a02566e83b7937f00071a40b6fb7fb",
   "pins" : [
-    {
-      "identity" : "dependencylist",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Kyome22/DependencyList.git",
-      "state" : {
-        "revision" : "a288ac2f0f0252ed7a9013f34a00121a3867170e",
-        "version" : "1.1.0"
-      }
-    },
     {
       "identity" : "keychainaccess",
       "kind" : "remoteSourceControl",
@@ -20,12 +11,12 @@
       }
     },
     {
-      "identity" : "swift-argument-parser",
+      "identity" : "licenselist",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "location" : "https://github.com/cybozu/LicenseList.git",
       "state" : {
-        "revision" : "c5d11a805e765f52ba34ec7284bd4fcd6ba68615",
-        "version" : "1.7.0"
+        "revision" : "6740b7c6372d26c89bae227b5e9ee9793064e816",
+        "version" : "2.3.0"
       }
     },
     {

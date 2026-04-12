@@ -28,14 +28,13 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-log.git", exact: "1.10.1"),
-        .package(url: "https://github.com/Kyome22/DependencyList.git", exact: "1.1.0"),
+        .package(url: "https://github.com/cybozu/LicenseList.git", exact: "2.3.0"),
         .package(url: "https://github.com/kishikawakatsumi/KeychainAccess.git", exact: "4.2.2"),
     ],
     targets: [
         .target(
             name: "DataSource",
             dependencies: [
-                .product(name: "DependencyList", package: "DependencyList"),
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "KeychainAccess", package: "KeychainAccess"),
             ],
@@ -52,6 +51,7 @@ let package = Package(
             name: "UserInterface",
             dependencies: [
                 "Model",
+                .product(name: "LicenseList", package: "LicenseList"),
             ],
             swiftSettings: swiftSettings
         ),

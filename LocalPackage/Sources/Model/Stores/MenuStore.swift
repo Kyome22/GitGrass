@@ -23,25 +23,20 @@ import DataSource
 import Observation
 
 @MainActor @Observable
-public final class MenuStore: NSObject, Composable {
-    private let dependencyListClient: DependencyListClient
+public final class MenuStore: Composable {
     private let nsAppClient: NSAppClient
     private let nsWorkspaceClient: NSWorkspaceClient
     private let logService: LogService
-    private var licensesWindow: NSWindow?
 
     public let action: (Action) async -> Void
 
     public init(
         _ appDependencies: AppDependencies,
-        licensesWindow: NSWindow? = nil,
         action: @escaping (Action) async -> Void =  { _ in }
     ) {
-        self.dependencyListClient = appDependencies.dependencyListClient
         self.nsAppClient = appDependencies.nsAppClient
         self.nsWorkspaceClient = appDependencies.nsWorkspaceClient
         self.logService = .init(appDependencies)
-        self.licensesWindow = licensesWindow
         self.action = action
     }
 
@@ -59,18 +54,9 @@ public final class MenuStore: NSObject, Composable {
                 NSApplication.AboutPanelOptionKey.credits : NSAttributedString(body)
             ])
 
-        case .licensesButtonTapped:
-            if licensesWindow == nil {
-                nsAppClient.activate(true)
-                licensesWindow = dependencyListClient.window()
-                licensesWindow?.isReleasedWhenClosed = false
-                licensesWindow?.delegate = self
-                licensesWindow?.center()
-                licensesWindow?.orderFrontRegardless()
-            } else {
-                nsAppClient.activate(true)
-                licensesWindow?.orderFrontRegardless()
-            }
+        case let .licensesButtonTapped(openWindow):
+            nsAppClient.activate(true)
+            openWindow(id: .license, value: Int.zero)
 
         case .quitButtonTapped:
             nsAppClient.terminate(nil)
@@ -87,17 +73,9 @@ public final class MenuStore: NSObject, Composable {
         case task(String)
         case settingsLinkTapped
         case aboutButtonTapped(AttributedString)
-        case licensesButtonTapped
+        case licensesButtonTapped(OpenWindowActionWrapper)
         case quitButtonTapped
         case debugSleepButtonTapped
         case debugWakeUpButtonTapped
-    }
-}
-
-extension MenuStore: NSWindowDelegate {
-    public func windowWillClose(_ notification: Notification) {
-        if let window = notification.object as? NSWindow, window === licensesWindow {
-            licensesWindow = nil
-        }
     }
 }

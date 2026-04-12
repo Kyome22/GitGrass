@@ -1,8 +1,8 @@
 /*
- Composable.swift
- Model
+ LicenseView.swift
+ UserInterface
 
- Created by Takuto Nakamura on 2026/03/16.
+ Created by Takuto Nakamura on 2026/04/13.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,22 +18,15 @@
  limitations under the License.
 */
 
-import Observation
+import LicenseList
+import SwiftUI
 
-@MainActor
-public protocol Composable: AnyObject {
-    associatedtype Action: Sendable
-
-    var action: (Action) async -> Void { get }
-
-    func reduce(_ action: Action) async
-}
-
-public extension Composable {
-    func reduce(_ action: Action) async {}
-
-    func send(_ action: Action) async {
-        await reduce(action)
-        await self.action(action)
+struct LicenseView: View {
+    var body: some View {
+        NavigationStack {
+            LicenseListView()
+                .navigationTitle(Text("licenses", bundle: .module))
+        }
+        .frame(minWidth: 600, minHeight: 300)
     }
 }

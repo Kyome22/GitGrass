@@ -29,6 +29,7 @@ struct GitGrassApp: App {
     var body: some Scene {
         MenuBarScene()
         SettingsWindowScene()
+        LicenseWindowScene()
         AppAlertScene()
     }
 }

@@ -23,7 +23,6 @@ import SwiftUI
 
 public struct AppDependencies: Sendable {
     public var appStateClient = AppStateClient.liveValue
-    public var dependencyListClient = DependencyListClient.liveValue
     public var distributedNotificationClient = DistributedNotificationClient.liveValue
     public var keychainClient = KeychainClient.liveValue
     public var loggingSystemClient = LoggingSystemClient.liveValue
@@ -44,7 +43,6 @@ extension EnvironmentValues {
 extension AppDependencies {
     public static func testDependencies(
         appStateClient: AppStateClient = .testValue,
-        dependencyListClient: DependencyListClient = .testValue,
         distributedNotificationClient: DistributedNotificationClient = .testValue,
         keychainClient: KeychainClient = .testValue,
         loggingSystemClient: LoggingSystemClient = .testValue,
@@ -57,7 +55,6 @@ extension AppDependencies {
     ) -> AppDependencies {
         AppDependencies(
             appStateClient: appStateClient,
-            dependencyListClient: dependencyListClient,
             distributedNotificationClient: distributedNotificationClient,
             keychainClient: keychainClient,
             loggingSystemClient: loggingSystemClient,

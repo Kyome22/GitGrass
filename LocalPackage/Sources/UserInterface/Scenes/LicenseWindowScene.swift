@@ -1,8 +1,8 @@
 /*
- Composable.swift
- Model
+ LicenseWindowScene.swift
+ UserInterface
 
- Created by Takuto Nakamura on 2026/03/16.
+ Created by Takuto Nakamura on 2026/04/12.
  Copyright 2022 Takuto Nakamura
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,22 +18,19 @@
  limitations under the License.
 */
 
-import Observation
+import Model
+import SwiftUI
 
-@MainActor
-public protocol Composable: AnyObject {
-    associatedtype Action: Sendable
+public struct LicenseWindowScene: Scene {
+    public init() {}
 
-    var action: (Action) async -> Void { get }
-
-    func reduce(_ action: Action) async
-}
-
-public extension Composable {
-    func reduce(_ action: Action) async {}
-
-    func send(_ action: Action) async {
-        await reduce(action)
-        await self.action(action)
+    public var body: some Scene {
+        WindowGroup(id: .license, for: Int.self) { _ in
+            LicenseView()
+        } defaultValue: {
+            .zero
+        }
+        .windowResizability(.contentSize)
+        .defaultLaunchBehavior(.suppressed)
     }
 }
