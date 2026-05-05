@@ -74,7 +74,7 @@ struct LaunchAtLoginRepositoryTests {
             }
         }
         let sut = LaunchAtLoginRepository(smAppServiceClient)
-        #expect(throws: LaunchAtLoginRepository.OperationError.switchFailed(false)) {
+        #expect(throws: LaunchAtLoginRepository.OperationError.switchFailed(true)) {
             try sut.switchStatus(false).get()
         }
     }

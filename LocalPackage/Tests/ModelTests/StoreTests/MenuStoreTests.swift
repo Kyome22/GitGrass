@@ -41,51 +41,21 @@ struct MenuStoreTests {
     }
 
     @MainActor @Test
-    func licensesButtonTapped_when_licensesWindow_is_nil() async {
+    func licensesButtonTapped() async {
         let callStack = OSAllocatedUnfairLock(initialState: [String]())
         let sut = MenuStore(.testDependencies(
-            dependencyListClient: testDependency(of: DependencyListClient.self) {
-                $0.window = {
-                    NSWindowMock(call: { value in
-                        callStack.withLock { $0.append(value) }
-                    })
-                }
-            },
             nsAppClient: testDependency(of: NSAppClient.self) {
                 $0.activate = { value in
                     callStack.withLock { $0.append("activate: \(value)") }
                 }
             }
         ))
-        await sut.send(.licensesButtonTapped)
+        await sut.send(.licensesButtonTapped(.init(action: { id, value in
+            callStack.withLock { $0.append("openWindow: \(id), \(value)") }
+        })))
         #expect(callStack.withLock(\.self) == [
             "activate: true",
-            "isReleasedWhenClosed false",
-            "delegate",
-            "center",
-            "orderFrontRegardless",
-        ])
-    }
-
-    @MainActor @Test
-    func licensesButtonTapped_when_licensesWindow_is_not_nil() async {
-        let callStack = OSAllocatedUnfairLock(initialState: [String]())
-        let sut = MenuStore(
-            .testDependencies(
-                nsAppClient: testDependency(of: NSAppClient.self) {
-                    $0.activate = { value in
-                        callStack.withLock { $0.append("activate: \(value)") }
-                    }
-                }
-            ),
-            licensesWindow: NSWindowMock(call: { value in
-                callStack.withLock { $0.append(value) }
-            })
-        )
-        await sut.send(.licensesButtonTapped)
-        #expect(callStack.withLock(\.self) == [
-            "activate: true",
-            "orderFrontRegardless",
+            "openWindow: license, 0"
         ])
     }
 
